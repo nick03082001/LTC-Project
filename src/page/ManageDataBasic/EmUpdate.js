@@ -38,6 +38,11 @@ export default function EmUpdate({closeModalUp}) {
   
     const handleSubmitUpdate = event => {
         event.preventDefault();
+        var myHeaders = new Headers();
+    myHeaders.append(
+      "x-api-key",
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIxMzliMzI4NS0xYWZlLTQ3MTktOTRmYy00NDEyZjg0NzIwMTgifQ.FYd9JfvermHpzkq1fn7c0Z4gXVKqVwvAdFrHBGnOPwc"
+    );
         var formdata = new FormData();
         formdata.append("emp_ID", emp_ID);
         formdata.append("emp_name", emp_name);
@@ -201,6 +206,7 @@ export default function EmUpdate({closeModalUp}) {
                             >
                                 <option selected disabled>ກະລຸນາເລືອກ*</option>
                                 <option value="1">1</option>
+                                <option value="1">2</option>
                         </select>
                     </p>
                     <p className='pppp-up-em'>
