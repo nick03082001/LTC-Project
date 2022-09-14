@@ -5,73 +5,74 @@ import { RiCloseLine } from "react-icons/ri";
 
 export default function CreateEmployee({ closeModal }) {
 
-  const [emp_ID, setEID] = useState('')
-  const [profilepic, setProfilepic] = useState('')
-  const [gender, setGender] = useState('')
-  const [emp_name, setEname] = useState('')
-  const [emp_surname, setESurname] = useState('')
-  const [emp_tel, setETel] = useState('')
-  const [pos_ID, setPosition] = useState('')
-  const [dep_ID, setDepartment] = useState('')
-  const [village, setVillage] = useState('')
-  const [district, setDistrict] = useState('')
-  const [province, setProvince] = useState('')
+  const [emp_ID, setEID] = useState("");
+  const [profilepic, setProfilepic] = useState("");
+  const [gender, setGender] = useState("");
+  const [emp_name, setEname] = useState("");
+  const [emp_surname, setESurname] = useState("");
+  const [emp_tel, setETel] = useState("");
+  const [pos_name, setPosition] = useState("");
+  const [dep_name, setDepartment] = useState("");
+  const [village, setVillage] = useState("");
+  const [district, setDistrict] = useState("");
+  const [province, setProvince] = useState("");
+  const [session, setSession] = useState("");
   const [imageURLs, setImageURLs] = useState([]);
 
-  
+  const handleSubmit = async (e) => {
+    var myHeaders = new Headers();
+    myHeaders.append("x-api-key", sessionStorage.getItem("token"));
 
- const handleSubmit = async (e) => {
-    console.log("emp_ID : ", emp_ID)
+    console.log("emp_ID : ", emp_ID);
 
     var formdata = new FormData();
     formdata.append("emp_ID", emp_ID);
     formdata.append("emp_name", emp_name);
     formdata.append("emp_surname", emp_surname);
     formdata.append("emp_tel", emp_tel);
-    formdata.append("dep_ID", dep_ID);
+    formdata.append("dep_name", dep_name);
     formdata.append("district", district);
     formdata.append("village", village);
-    formdata.append("pos_ID", pos_ID);
+    formdata.append("pos_name", pos_name);
     formdata.append("gender", gender);
-    formdata.append("prov_ID", province);
-    formdata.append("file",profilepic[0] , profilepic[0].name);
+    formdata.append("province", province);
+    formdata.append("session_name", session);
+    formdata.append("file", profilepic[0], profilepic[0].name);
 
     var requestOptions = {
-      method: 'POST',
+      method: "POST",
       body: formdata,
-      redirect: 'follow'
+      headers: myHeaders,
+      redirect: "follow",
     };
 
     fetch("http://47.250.49.41/myproject1/create_employee", requestOptions)
-          .then((response) => response.json())
-          .then((result) => {
-            alert(result["message"]);
-            if (result["status"] === "ok") {
-              window.location.href = "/employee";
-            }
-          })
-          .catch((error) => console.log("error", error));
-  }
-
- 
+      .then((response) => response.json())
+      .then((result) => {
+        alert(result["message"]);
+        if (result["status"] === "ok") {
+          window.location.href = "/employee";
+        }
+      })
+      .catch((error) => console.log("error", error));
+  };
 
   useEffect(() => {
     if (profilepic.length < 1) return;
     const newImageUrls = [];
-    profilepic.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
+    profilepic.forEach((image) =>
+      newImageUrls.push(URL.createObjectURL(image))
+    );
     setImageURLs(newImageUrls);
   }, [profilepic]);
 
-
   function onImageChange(e) {
-    console.log("target : ",URL.createObjectURL(e.target.files[0]) )
+    console.log("target : ", URL.createObjectURL(e.target.files[0]));
     setProfilepic([e.target.files[0]]);
   }
 
   console.log("profilepic : ", profilepic);
   console.log("imageURLs : ", imageURLs);
-
- 
 
   return (
     <div className="myModal-cre-em">
@@ -94,40 +95,39 @@ export default function CreateEmployee({ closeModal }) {
               />
             </label>
           </p>
-          <p className='p-con-picture-cre-em'>
-                    <input className="inp-img-none" id='id-img-click-cre-em' type="file" multiple accept="image/*" onChange={onImageChange} />
-                    {imageURLs.map((imageSrc, idx) => (
-                        <img className='img-cre-em' key={idx} src={imageSrc} alt="" />
-                    ))}
-                </p>
+          <p className="p-con-picture-cre-em">
+            <input
+              className="inp-img-none"
+              id="id-img-click-cre-em"
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={onImageChange}
+            />
+            {imageURLs.map((imageSrc, idx) => (
+              <img className="img-cre-em" key={idx} src={imageSrc} alt="" />
+            ))}
+          </p>
         </div>
         <div className="box-con-box-inp-cre-em">
           <div className="box-input-cre-em">
             <p className="p-inp-id-cre-em">
-              <label    
-                className="lbl-head-cre-em"
-              >
-                ລະຫັດພະນັກງານ:
-              </label>
-              <input           
-              onChange={(e) => setEID(e.target.value)}
+              <label className="lbl-head-cre-em">ລະຫັດພະນັກງານ:</label>
+              <input
+                onChange={(e) => setEID(e.target.value)}
                 className="inp-cre-em"
                 type="text"
                 placeholder="ປ້ອນລະຫັດພະນັກງານ*"
               ></input>
             </p>
             <p className="p-gender-cre-em">
-              <label
-                className="lbl-head-cre-em"
-              >
-                ເພດ:
-              </label>
+              <label className="lbl-head-cre-em">ເພດ:</label>
               <p className="p-phed-cre-em">
                 <p className="p-soud-cre-em">
                   <label className="lbl-nnnn-cre-em">
                     <input
                       className="inp-radio"
-                      id="male"                   
+                      id="male"
                       onChange={(e) => setGender(e.target.value)}
                       type="radio"
                       value="ຍິງ"
@@ -142,6 +142,7 @@ export default function CreateEmployee({ closeModal }) {
                       className="inp-radio"
                       type="radio"
                       id="female"
+                      onChange={(e) => setGender(e.target.value)}
                       value="ຊາຍ"
                       name="g"
                     />
@@ -153,39 +154,27 @@ export default function CreateEmployee({ closeModal }) {
               </p>
             </p>
             <p className="pppp-cre-em">
-              <label                           
-                className="lbl-head-cre-em"
-              >
-                ຊື່:
-              </label>
+              <label className="lbl-head-cre-em">ຊື່:</label>
               <input
-              onChange={(e) => setEname(e.target.value)}
+                onChange={(e) => setEname(e.target.value)}
                 className="inp-cre-em"
                 type="text"
                 placeholder="ປ້ອນຊື່*"
               ></input>
             </p>
             <p className="pppp-cre-em">
-              <label                            
-                className="lbl-head-cre-em"
-              >
-                ນາມສະກຸນ:
-              </label>
+              <label className="lbl-head-cre-em">ນາມສະກຸນ:</label>
               <input
-              onChange={(e) => setESurname(e.target.value)}
+                onChange={(e) => setESurname(e.target.value)}
                 className="inp-cre-em"
                 type="text"
                 placeholder="ປ້ອນນາມສະກຸນ*"
               ></input>
             </p>
             <p className="pppp-cre-em">
-              <label                            
-                className="lbl-head-cre-em"
-              >
-                ເບີໂທ:
-              </label>
+              <label className="lbl-head-cre-em">ເບີໂທ:</label>
               <input
-              onChange={(e) => setETel(e.target.value)}
+                onChange={(e) => setETel(e.target.value)}
                 className="inp-cre-em"
                 type="tel"
                 pattern="[0-9]*{8}"
@@ -193,39 +182,54 @@ export default function CreateEmployee({ closeModal }) {
               ></input>
             </p>
             <p className="pppp-cre-em">
-              <label
-                id="position"
-                
-                className="lbl-head-cre-em"
+              <label id="position" className="lbl-head-cre-em">
+                ພາກສ່ວນ:
+              </label>
+              <select
+                className="sel-cre-em"
+                onChange={(e) => setSession(e.target.value)}
               >
+                <option selected disabled>
+                  ກະລຸນາເລືອກ*
+                </option>
+                <option value="ຂໍ້ມູນ">ຂໍ້ມູນ</option>
+                {/* <option value="session_name"> Information Analysis</option>
+                <option value="session_name">Data Collection</option> */}
+              </select>
+            </p>
+            <p className="pppp-cre-em">
+              <label id="position" className="lbl-head-cre-em">
                 ຕໍາແໜ່ງ:
               </label>
-              <select className="sel-cre-em" onChange={(e) => setPosition(e.target.value)}>
+              <select
+                className="sel-cre-em"
+                onChange={(e) => setPosition(e.target.value)}
+              >
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
                 </option>
-                <option value="1">1</option>
+                <option value="ຫົວໜ້າພະແນກ">ຫົວໜ້າພະແນກ</option>
+                {/* <option value="pos_name">ຮອງພາກສ່ວນ</option>
+                <option value="pos_name">ໜ່ວຍງານ</option>
+                <option value="pos_name">ສາຍວິຊາການ</option>
+                <option value="pos_name">ສະມະຊີກ</option> */}
               </select>
             </p>
             <p className="pppp-cre-em">
-              <label                            
-                className="lbl-head-cre-em"
+              <label className="lbl-head-cre-em">ພະແນກ:</label>
+              <select
+                className="sel-cre-em"
+                onChange={(e) => setDepartment(e.target.value)}
               >
-                ພະແນກ:
-              </label>
-              <select className="sel-cre-em"  onChange={(e) => setDepartment(e.target.value)}>
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
                 </option>
-                <option value="1">1</option>
+                <option value="ວິເຄາະ">ວິເຄາະ</option>
+                {/* <option value="dep_name">ການເງິນ</option> */}
               </select>
             </p>
             <p className="pppp-cre-em">
-              <label                        
-                className="lbl-head-cre-em"
-              >
-                ບ້ານຢູ່ປັດຈຸບັນ:
-              </label>
+              <label className="lbl-head-cre-em">ບ້ານຢູ່ປັດຈຸບັນ:</label>
               <input
                 onChange={(e) => setVillage(e.target.value)}
                 className="inp-cre-em"
@@ -234,29 +238,25 @@ export default function CreateEmployee({ closeModal }) {
               ></input>
             </p>
             <p className="pppp-cre-em">
-              <label                          
-                className="lbl-head-cre-em"
-              >
-                ເມືອງຢູ່ປັດຈຸບັນ:
-              </label>
+              <label className="lbl-head-cre-em">ເມືອງຢູ່ປັດຈຸບັນ:</label>
               <input
-               onChange={(e) => setDistrict(e.target.value)}
+                onChange={(e) => setDistrict(e.target.value)}
                 className="inp-cre-em"
                 type="text"
                 placeholder="ປ້ອນເມືອງຢູ່ປັດຈຸບັນ*"
               ></input>
             </p>
             <p className="pppp-cre-em">
-              <label                           
-                className="lbl-head-cre-em"
+              <label className="lbl-head-cre-em">ແຂວງຢູ່ປັດຈຸບັນ:</label>
+              <select
+                className="sel-cre-em"
+                onChange={(e) => setProvince(e.target.value)}
               >
-                ແຂວງຢູ່ປັດຈຸບັນ:
-              </label>
-              <select className="sel-cre-em"  onChange={(e) => setProvince(e.target.value)}>
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
                 </option>
-                <option value="1">1</option>
+                <option value="ນະຄອນຫຼວງວຽງຈັນ">ນະຄອນຫຼວງວຽງຈັນ</option>
+                <option value="ສາລະວັນ">ສາລະວັນ</option>
                 {/* <option value="saab">Saab</option>
                 <option value="opel">Opel</option>
                 <option value="audi">Audi</option> */}
@@ -270,10 +270,7 @@ export default function CreateEmployee({ closeModal }) {
               >
                 ຍົກເລີກ
               </button>
-              <button              
-                onClick={handleSubmit}
-                className="btn-save-cre-em"
-              >
+              <button onClick={handleSubmit} className="btn-save-cre-em">
                 ບັນທຶກ
               </button>
             </p>

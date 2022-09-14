@@ -9,11 +9,6 @@ import { Avatar } from "@mui/material";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-
-
-
-
-
 function Employee() {
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
@@ -82,6 +77,7 @@ function Employee() {
 
   const [openModal, setOpenModal] = useState(false);
   const [openModalUp, setOpenModalUp] = useState(false);
+  const [selectData, setSelectData] = useState('');
   const MySwal = withReactContent(Swal);
   
     
@@ -136,6 +132,7 @@ function Employee() {
                   <th>ຊື່</th>
                   <th>ນາມສະກຸນ</th>
                   <th>ເບີໂທ</th>
+                  <th>ພາກສ່ວນ</th>
                   <th>ຕໍາແໜ່ງ</th>
                   <th>ພະແນກ</th>
                   <th>ແກ້ໄຂ</th>
@@ -163,6 +160,9 @@ function Employee() {
                         val.emp_tel
                           .toLowerCase()
                           .includes(searchTerm.toLowerCase()) ||
+                          val.session_name
+                          .toLowerCase()
+                          .includes(searchTerm.toLowerCase()) ||
                         val.pos_name
                           .toLowerCase()
                           .includes(searchTerm.toLowerCase()) ||
@@ -188,18 +188,22 @@ function Employee() {
                     <td>{formData.emp_name}</td>
                     <td>{formData.emp_surname}</td>
                     <td>{formData.emp_tel}</td>
+                    <td>{formData.session_name}</td>
                     <td>{formData.pos_name}</td>
                     <td>{formData.dep_name}</td>
                           <td>
                         <button
-                          onClick={()=>{setOpenModalUp(true);}}
+                          onClick={()=>{
+                            setOpenModalUp(true)
+                            setSelectData(formData)
+                          }}
                           className="btnnn"
                         >
                           <label>
                             <FaPencilAlt className="up-em" />
                           </label>
                         </button>
-                        {openModalUp && <EmUpdate closeModalUp={setOpenModalUp} />}
+                        {openModalUp && <EmUpdate closeModalUp={setOpenModalUp} data={selectData} />}
                         </td>
                         <td>
                         <button
