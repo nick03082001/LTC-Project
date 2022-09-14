@@ -59,11 +59,11 @@ function Mybar() {
                             </label>
                         </button>
                         <div className="dropdown-content">
-                        <a href="/assessment/record">ເລືອກຕອບແບບປະເມີນ</a>
+                        <a href="/assessment/manage">ຈັດການແບບປະເມີນ</a>
                         <hr className='menu-hr'/>
                         <a href="/assessment/create">ສ້າງແບບປະເມີນ</a>
                         <hr className='menu-hr'/>
-                        <a href="/assessment/history">ປະຫວັດການເຄື່ອນໄຫວ</a>
+                        <a href="/assessment/record">ເລືອກຕອບແບບປະເມີນ</a>
                         </div>
                     </div>
     

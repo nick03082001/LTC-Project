@@ -7,7 +7,9 @@ import './App.css'
 import Position from "./page/ManageDataBasic/Position.js";
 import User from "./page/ManageDataBasic/User.js";
 import OrgMovPos from "./page/stucture_org/Change_position.js";
-import EmUpdate from "./page/ManageDataBasic/EmUpdate";
+import HistoryChangePos from "./page/stucture_org/History_change_pos.js";
+import ManageAssessment from "./page/ManageAssessment/ManageAssessment.js";
+import CreateAssessment from "./page/ManageAssessment/CreateAssessment.js";
 
 function App() {
   return (
@@ -17,11 +19,13 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/employee" element={<Employee />} />
-        <Route exact path="/employeeUpdate/:emp_ID" element={<EmUpdate />} />
         <Route exact path="/department" element={<Department />} />
         <Route exact path="/position" element={<Position />} />
         <Route exact path="/user" element={<User />} />
         <Route exact path="/organization/moving/position_department" element={<OrgMovPos />} />
+        <Route exact path="/organization/moving/position_department/history" element={<HistoryChangePos />} />
+        <Route exact path="/assessment/manage" element={<ManageAssessment />} />
+        <Route exact path="/assessment/create" element={<CreateAssessment />} />
         <Route exact path="/home" element={<Home/>} />
 
       </Routes>
