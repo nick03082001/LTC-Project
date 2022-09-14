@@ -18,7 +18,7 @@ function Employee() {
     var myHeaders = new Headers();
     myHeaders.append(
       "x-api-key",
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIxMzliMzI4NS0xYWZlLTQ3MTktOTRmYy00NDEyZjg0NzIwMTgifQ.FYd9JfvermHpzkq1fn7c0Z4gXVKqVwvAdFrHBGnOPwc"
+      sessionStorage.getItem('token')
     );
 
     var requestOptions = {
@@ -44,6 +44,10 @@ function Employee() {
   const DelEmployee = (id) => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append(
+      "x-api-key",
+      sessionStorage.getItem('token')
+    );
 
     var raw = JSON.stringify({
       "emp_ID": id,

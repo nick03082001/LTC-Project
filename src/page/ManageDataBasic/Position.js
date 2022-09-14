@@ -17,8 +17,10 @@ function Position() {
 
   const UserGet = () => {
     var myHeaders = new Headers();
-    myHeaders.append("x-api-key", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIxMzliMzI4NS0xYWZlLTQ3MTktOTRmYy00NDEyZjg0NzIwMTgifQ.FYd9JfvermHpzkq1fn7c0Z4gXVKqVwvAdFrHBGnOPwc");
-
+    myHeaders.append(
+      "x-api-key",
+      sessionStorage.getItem('token')
+    );
     var requestOptions = {
       method: 'GET',
       headers: myHeaders,
@@ -39,7 +41,11 @@ function Position() {
   // }
 
   const DelDepartment = id => {
-    // var myHeaders = new Headers();
+    var myHeaders = new Headers();
+    myHeaders.append(
+      "x-api-key",
+      sessionStorage.getItem('token')
+    );
     // myHeaders.append("Content-Type", "application/json");
     // myHeaders.append("x-api-key", "")
 
@@ -49,9 +55,7 @@ function Position() {
 
     var requestOptions = {
       method: 'DELETE',
-      headers: {
-        "x-api-key": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIxMzliMzI4NS0xYWZlLTQ3MTktOTRmYy00NDEyZjg0NzIwMTgifQ.FYd9JfvermHpzkq1fn7c0Z4gXVKqVwvAdFrHBGnOPwc"
-      },
+      headers: myHeaders,
       body: raw,
       redirect: 'follow'
     };

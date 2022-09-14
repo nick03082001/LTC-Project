@@ -43,7 +43,7 @@ function Login(){
                     html: <i>{result.message}</i>,
                     icon: 'success'
                 }).then((value) => {
-                    localStorage.setItem('token', result.accessToken)
+                    sessionStorage.setItem('token', result.token)
                     navigate('/home')
                 })
             }

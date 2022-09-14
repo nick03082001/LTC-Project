@@ -20,7 +20,7 @@ function Department() {
     var myHeaders = new Headers();
     myHeaders.append(
       "x-api-key",
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIxMzliMzI4NS0xYWZlLTQ3MTktOTRmYy00NDEyZjg0NzIwMTgifQ.FYd9JfvermHpzkq1fn7c0Z4gXVKqVwvAdFrHBGnOPwc"
+      sessionStorage.getItem('token')
     );
 
     var requestOptions = {
@@ -56,7 +56,7 @@ function Department() {
       var myHeaders = new Headers();
       myHeaders.append(
         "x-api-key",
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIxMzliMzI4NS0xYWZlLTQ3MTktOTRmYy00NDEyZjg0NzIwMTgifQ.FYd9JfvermHpzkq1fn7c0Z4gXVKqVwvAdFrHBGnOPwc"
+        sessionStorage.getItem('token')
       );
       myHeaders.append("Content-Type", "application/json");
 
@@ -85,10 +85,10 @@ function Department() {
 
   const UpdateDepartment = (id) => {
     var myHeaders = new Headers();
-      myHeaders.append(
-        "x-api-key",
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIxMzliMzI4NS0xYWZlLTQ3MTktOTRmYy00NDEyZjg0NzIwMTgifQ.FYd9JfvermHpzkq1fn7c0Z4gXVKqVwvAdFrHBGnOPwc"
-      );
+    myHeaders.append(
+      "x-api-key",
+      sessionStorage.getItem('token')
+    );
       myHeaders.append("Content-Type", "application/json");
     
     var raw = JSON.stringify({
@@ -117,7 +117,7 @@ function Department() {
     var myHeaders = new Headers();
     myHeaders.append(
       "x-api-key",
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIxMzliMzI4NS0xYWZlLTQ3MTktOTRmYy00NDEyZjg0NzIwMTgifQ.FYd9JfvermHpzkq1fn7c0Z4gXVKqVwvAdFrHBGnOPwc"
+      sessionStorage.getItem('token')
     );
     myHeaders.append("Content-Type", "application/json");
 

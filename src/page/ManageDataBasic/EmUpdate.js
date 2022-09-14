@@ -2,19 +2,22 @@ import { FaUserCircle } from "react-icons/fa";
 import React, { useState, useEffect } from 'react';
 import "../css/EmUpdate.css";
 import { RiCloseLine } from "react-icons/ri";
-import { useParams } from 'react-router-dom';
 
 export default function EmUpdate({closeModalUp}) {
 
-    const {id} = useParams();
-
+    var myHeaders = new Headers();
+    myHeaders.append(
+        "x-api-key",
+        sessionStorage.getItem('token')
+      );
     useEffect(() => {
   var requestOptions = {
     method: 'GET',
+    headers: myHeaders,
     redirect: 'follow'
   };
   
-  fetch("http://192.168.1.191:1000/employees/"+id, requestOptions)
+  fetch("http://192.168.1.191:1000/employees/", requestOptions)
     .then(response => response.json())
     .then(result => {
       if(result['status'] === 'ok') {
@@ -34,15 +37,15 @@ export default function EmUpdate({closeModalUp}) {
   
     })
     .catch(error => console.log('error', error));
-    }, [id])
+    })
   
     const handleSubmitUpdate = event => {
         event.preventDefault();
         var myHeaders = new Headers();
-    myHeaders.append(
-      "x-api-key",
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIxMzliMzI4NS0xYWZlLTQ3MTktOTRmYy00NDEyZjg0NzIwMTgifQ.FYd9JfvermHpzkq1fn7c0Z4gXVKqVwvAdFrHBGnOPwc"
-    );
+        myHeaders.append(
+            "x-api-key",
+            sessionStorage.getItem('token')
+          );
         var formdata = new FormData();
         formdata.append("emp_ID", emp_ID);
         formdata.append("emp_name", emp_name);
@@ -119,7 +122,7 @@ export default function EmUpdate({closeModalUp}) {
                   </label>
               </p>
               <p className='p-con-picture-up-em'>
-                  <input  className="inp-img-none" id='id-img-click-up-em' type="file" multiple accept="image/*" onChange={onImageChangeUp} />
+                  <input className="inp-img-none" id='id-img-click-up-em' type="file" multiple accept="image/*" onChange={onImageChangeUp} />
                   {imageURLsUp.map((imageSrcUp, idxx) => (
                       <img className='img-up-em' key={idxx} src={imageSrcUp} alt="" />
                   ))}
