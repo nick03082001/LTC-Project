@@ -4,6 +4,8 @@ import "../css/CreateAssessment.css";
 import { FaPlusCircle } from "react-icons/fa";
 import { IoDocumentText } from "react-icons/io5";
 import { IoIosSave } from "react-icons/io";
+import { RiDeleteBin6Line } from "react-icons/ri";
+
 
 function CreateAssessment() {
 
@@ -13,9 +15,24 @@ function CreateAssessment() {
     setVal(addInput)
   }
 
-  const btnHandleChange=()=>{
-
+  const btnHandleChange=(onChangeValueTitleOne,i)=>{
+    const inputDataTitleOne=[...val]
+    inputDataTitleOne[i]=onChangeValueTitleOne.target.value;
+    setVal(inputDataTitleOne)
   }
+
+
+
+
+  const handleDeleteInp=(i)=>{
+    const deleteInput=[...val]
+    deleteInput.splice(i,1)
+    setVal(deleteInput)
+  }
+
+
+  // ເບີີ່ງຂໍ້ມູນໃນ console
+  console.log(val,"data-")
 
   return (
     <div className="box-modal-create-ass">
@@ -58,6 +75,25 @@ function CreateAssessment() {
                           </input>
                         </div>
                         <div className='title-1_1-create-ass'>
+                        {val.map((data,i)=>{
+                          return(
+                            <div className="box-inp-title-1_1-create-ass" key={i}>
+                              <input className='inp-title-1_1-create-ass'
+                                type="text"
+                                value={data}
+                                placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
+                                onChange={e=>btnHandleChange(e,i) }
+                              >
+                              </input>
+                              <button className='btn-delete-title-1_1-create-ass'
+                              onClick={()=>handleDeleteInp(i)}
+                              >
+                                <RiDeleteBin6Line className='icon-delete-title-1_1-create-ass'/>
+                              </button>
+                            </div>
+                            )
+                        })}
+                        <div className='box-btn-plus-title-create-ass'>
                           <button
                             className="btn-plus-title-create-ass"
                             onClick={() => handleAddInp()}
@@ -66,17 +102,9 @@ function CreateAssessment() {
                                 <FaPlusCircle />
                             </label>
                             ເພີ່ມຫົວຂໍ້ຍ່ອຍ
-                        </button>
-                        {val.map((data,i)=>{
-                          return(
-                            <input className='inp-title-1_1-create-ass'
-                              type="text"
-                              placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
-                              onClick={e=>btnHandleChange(e,i) }
-                            >
-                            </input>
-                            )
-                        })}
+                          </button>
+                        </div>
+                        
                         </div>
                       </div>
 

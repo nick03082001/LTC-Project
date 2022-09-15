@@ -154,14 +154,50 @@
     justify-content: left;
 }
 
-.inp-title-1-create-ass{
-    background-color: #EBEBEB;
-    font-size: clamp(16px, 2.5vw, 20px);
-    padding-left: 10px;
-    width: 95%;
-    border: none;
+.lbl-big-title{
+    padding: 5px 0px 0px 5px;
 }
 
 .inp-title-1-create-ass{
+    background-color: #EBEBEB;
+    font-size: clamp(16px, 2.5vw, 20px);
+    padding: 5px 10px 0px 5px;
+    width: 95%;
+    border: none;
     outline: none;
+}
+
+
+
+
+
+
+
+
+.box-inp-title-1_1-create-ass{
+    padding-top: 10px;
+}
+
+.inp-title-1_1-create-ass{
+    font-size: clamp(14px, 2.5vw, 18px);
+    padding: 5px 10px 0px 5px;
+    width: 85%;
+    /* border: none; */
+    outline: none;
+}
+
+.btn-delete-title-1_1-create-ass{
+    margin-left: 10px;
+    position: relative;
+    bottom: 2px;
+    font-size: clamp(14px, 2.5vw, 20px);
+}
+
+.icon-delete-title-1_1-create-ass{
+    position: relative;
+    top: 2px;
+}
+
+.box-btn-plus-title-create-ass{
+    padding-top: 10px;
 }
