@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Menubar from "../components/Menubar.js";
 import "../css/CreateAssessment.css";
 import { FaPlusCircle } from "react-icons/fa";
@@ -6,6 +6,17 @@ import { IoDocumentText } from "react-icons/io5";
 import { IoIosSave } from "react-icons/io";
 
 function CreateAssessment() {
+
+  const [val,setVal]=useState([]);
+  const handleAddInp=()=>{
+    const addInput=[...val,[]]
+    setVal(addInput)
+  }
+
+  const btnHandleChange=()=>{
+
+  }
+
   return (
     <div className="box-modal-create-ass">
         <div className="box-create-ass">
@@ -29,7 +40,7 @@ function CreateAssessment() {
                       <div className="box-btn-save-create-ass">
                         <button
                             className="btn-save-create-ass"
-                            // onClick={() => SwalAddDepart()}
+                            
                             >
                             <label className="lbl-ic-p-create-ass">
                                 <IoIosSave className='btn-save-title'/>
@@ -47,20 +58,25 @@ function CreateAssessment() {
                           </input>
                         </div>
                         <div className='title-1_1-create-ass'>
-                          <input className='inp-title-1_1-create-ass'
-                            type="text"
-                            placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
-                          >
-                          </input>
                           <button
                             className="btn-plus-title-create-ass"
-                            // onClick={() => SwalAddDepart()}
+                            onClick={() => handleAddInp()}
                             >
                             <label className="lbl-ic-plt-create-ass">
                                 <FaPlusCircle />
                             </label>
-                            ບັນທຶກແບບປະເມີນ
+                            ເພີ່ມຫົວຂໍ້ຍ່ອຍ
                         </button>
+                        {val.map((data,i)=>{
+                          return(
+                            <input className='inp-title-1_1-create-ass'
+                              type="text"
+                              placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
+                              onClick={e=>btnHandleChange(e,i) }
+                            >
+                            </input>
+                            )
+                        })}
                         </div>
                       </div>
 
