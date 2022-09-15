@@ -3,40 +3,43 @@ import React, { useState, useEffect } from "react";
 import "../css/EmCreate.css";
 import { RiCloseLine } from "react-icons/ri";
 
-export default function CreateEmployee({ closeModal }) {
+import axios from 'axios'
 
+export default function CreateEmployee({ closeModal }) {
   const [emp_ID, setEID] = useState("");
   const [profilepic, setProfilepic] = useState("");
   const [gender, setGender] = useState("");
   const [emp_name, setEname] = useState("");
   const [emp_surname, setESurname] = useState("");
   const [emp_tel, setETel] = useState("");
-  const [pos_name, setPosition] = useState("");
-  const [dep_name, setDepartment] = useState("");
+  const [pos_name, setPosition] = useState([]);
+  const [dep_name, setDepartment] = useState();
   const [village, setVillage] = useState("");
   const [district, setDistrict] = useState("");
-  const [province, setProvince] = useState("");
-  const [session, setSession] = useState("");
+  const [province, setProvince] = useState([]);
+  const [session_name, setSession] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
+
+  const [token,setToken] = useState(sessionStorage.getItem("token"))
 
   const handleSubmit = async (e) => {
     var myHeaders = new Headers();
     myHeaders.append("x-api-key", sessionStorage.getItem("token"));
 
-    console.log("emp_ID : ", emp_ID);
+    console.log("emp_ID : ", token);
 
     var formdata = new FormData();
     formdata.append("emp_ID", emp_ID);
     formdata.append("emp_name", emp_name);
     formdata.append("emp_surname", emp_surname);
     formdata.append("emp_tel", emp_tel);
-    formdata.append("dep_name", dep_name);
+    formdata.append("dep_name", dep_name ?? "");
     formdata.append("district", district);
     formdata.append("village", village);
-    formdata.append("pos_name", pos_name);
+    formdata.append("pos_name", pos_name ?? "");
     formdata.append("gender", gender);
     formdata.append("province", province);
-    formdata.append("session_name", session);
+    formdata.append("session_name", session_name);
     formdata.append("file", profilepic[0], profilepic[0].name);
 
     var requestOptions = {
@@ -46,7 +49,7 @@ export default function CreateEmployee({ closeModal }) {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/myproject1/create_employee", requestOptions)
+    fetch("http://47.250.49.41/test/myproject1/create_employee", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         alert(result["message"]);
@@ -56,6 +59,94 @@ export default function CreateEmployee({ closeModal }) {
       })
       .catch((error) => console.log("error", error));
   };
+
+  useEffect(()=>{
+    setToken(sessionStorage.getItem("token"))
+  },[token])
+
+  useEffect(function () {
+    var myHeaders = new Headers();
+    myHeaders.append("x-api-key", token);
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+    fetch("http://47.250.49.41/test/myproject1/positions", requestOptions)
+      .then((res) => res.json())
+      .then((result) => {
+        setPosition(result);
+      });
+  }, []);
+
+  useEffect(function () {
+
+axios.get('http://192.168.0.155:1000/test/myproject1/province',{
+  headers: {
+    'x-api-key':token
+  }
+}).then((res)=>{
+  console.log({res})
+  setProvince(res.data);
+}).catch(e=>{
+  console.log({"province ERROE : ":e.message})
+})
+
+    // var myHeaders = new Headers();
+    // myHeaders.append("x-api-key", token);
+    // var requestOptions = {
+    //   method: "GET",
+    //   headers: myHeaders
+    // };
+    // fetch("http://192.168.0.155:1000/test/myproject1/province", requestOptions)
+    //   .then((res) => res.json())
+    //   .then((result) => {
+    //     setProvince(result);
+    //   });
+  }, []);
+
+  useEffect(function () {
+    axios.get('http://192.168.0.155:1000/test/myproject1/sessions',{
+      headers: {
+        'x-api-key':token
+      }
+    }).then((res)=>{
+      console.log({res})
+      setSession(res.data);
+    })
+    
+
+
+    // var myHeaders = new Headers();
+    // myHeaders.append("x-api-key", token);
+    // var requestOptions = {
+    //   method: "GET",
+    //   headers: myHeaders,
+    //   redirect: "follow",
+    // };
+    // fetch("http://192.168.0.155:1000/test/myproject1/sessions", requestOptions)
+    //   .then((res) => res.json())
+    //   .then((result) => {
+    //     console.log({result})
+    //     setSession(result);
+    //   });
+  }, []);
+
+  // useEffect(function () {
+  //   var myHeaders = new Headers();
+  //   myHeaders.append("x-api-key", token);
+  //   var requestOptions = {
+  //     method: "GET",
+  //     headers: myHeaders,
+  //     redirect: "follow",
+  //   };
+  //   fetch("http://47.250.49.41/test/myproject1/departments", requestOptions)
+  //     .then((res) => res.json())
+  //     .then((result) => {
+  //       setDepartment(result);
+  //       console.log("Department : ", result);
+  //     });
+  // }, []);
 
   useEffect(() => {
     if (profilepic.length < 1) return;
@@ -67,12 +158,8 @@ export default function CreateEmployee({ closeModal }) {
   }, [profilepic]);
 
   function onImageChange(e) {
-    console.log("target : ", URL.createObjectURL(e.target.files[0]));
     setProfilepic([e.target.files[0]]);
   }
-
-  console.log("profilepic : ", profilepic);
-  console.log("imageURLs : ", imageURLs);
 
   return (
     <div className="myModal-cre-em">
@@ -104,9 +191,9 @@ export default function CreateEmployee({ closeModal }) {
               accept="image/*"
               onChange={onImageChange}
             />
-            {imageURLs.map((imageSrc, idx) => (
+            {imageURLs != null? imageURLs?.map((imageSrc, idx) => (
               <img className="img-cre-em" key={idx} src={imageSrc} alt="" />
-            ))}
+            )):""}
           </p>
         </div>
         <div className="box-con-box-inp-cre-em">
@@ -185,47 +272,43 @@ export default function CreateEmployee({ closeModal }) {
               <label id="position" className="lbl-head-cre-em">
                 ພາກສ່ວນ:
               </label>
-              <select
-                className="sel-cre-em"
-                onChange={(e) => setSession(e.target.value)}
-              >
+              <select className="sel-cre-em">
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
                 </option>
-                <option value="ຂໍ້ມູນ">ຂໍ້ມູນ</option>
-                {/* <option value="session_name"> Information Analysis</option>
-                <option value="session_name">Data Collection</option> */}
+                {session_name != null? session_name?.map((val) => (
+                  <option key={val.session_name} value={val.session_name}>
+                    {val.session_name}
+                  </option>
+                )):""}
               </select>
             </p>
             <p className="pppp-cre-em">
               <label id="position" className="lbl-head-cre-em">
                 ຕໍາແໜ່ງ:
               </label>
-              <select
-                className="sel-cre-em"
-                onChange={(e) => setPosition(e.target.value)}
-              >
+              <select className="sel-cre-em">
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
                 </option>
-                <option value="ຫົວໜ້າພະແນກ">ຫົວໜ້າພະແນກ</option>
-                {/* <option value="pos_name">ຮອງພາກສ່ວນ</option>
-                <option value="pos_name">ໜ່ວຍງານ</option>
-                <option value="pos_name">ສາຍວິຊາການ</option>
-                <option value="pos_name">ສະມະຊີກ</option> */}
+                {pos_name != null? pos_name?.map((val) => (
+                  <option key={val.pos_name} value={val.pos_name}>
+                    {val.pos_name}
+                  </option>
+                )):""}
               </select>
             </p>
             <p className="pppp-cre-em">
               <label className="lbl-head-cre-em">ພະແນກ:</label>
-              <select
-                className="sel-cre-em"
-                onChange={(e) => setDepartment(e.target.value)}
-              >
+              <select className="sel-cre-em">
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
                 </option>
-                <option value="ວິເຄາະ">ວິເຄາະ</option>
-                {/* <option value="dep_name">ການເງິນ</option> */}
+                {dep_name != null ? dep_name?.map((val) => (
+                  <option key={val?.dep_name} value={val?.dep_name}>
+                    {val?.dep_name}
+                  </option>
+                )):""}
               </select>
             </p>
             <p className="pppp-cre-em">
@@ -248,18 +331,15 @@ export default function CreateEmployee({ closeModal }) {
             </p>
             <p className="pppp-cre-em">
               <label className="lbl-head-cre-em">ແຂວງຢູ່ປັດຈຸບັນ:</label>
-              <select
-                className="sel-cre-em"
-                onChange={(e) => setProvince(e.target.value)}
-              >
+              <select className="sel-cre-em">
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
-                </option>
-                <option value="ນະຄອນຫຼວງວຽງຈັນ">ນະຄອນຫຼວງວຽງຈັນ</option>
-                <option value="ສາລະວັນ">ສາລະວັນ</option>
-                {/* <option value="saab">Saab</option>
-                <option value="opel">Opel</option>
-                <option value="audi">Audi</option> */}
+                  </option>
+                {province != null? province?.map((val) => (
+                  <option key={val.province} value={val.province}>
+                    {val.province}
+                  </option>
+                )):""}
               </select>
             </p>
 
