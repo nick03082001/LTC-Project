@@ -91,6 +91,7 @@ function CreateAssessment() {
                                 <RiDeleteBin6Line className='icon-delete-title-1_1-create-ass'/>
                               </button>
                             </div>
+                            
                             )
                         })}
                         <div className='box-btn-plus-title-create-ass'>
