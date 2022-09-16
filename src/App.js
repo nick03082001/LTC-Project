@@ -11,6 +11,7 @@ import HistoryChangePos from "./page/stucture_org/History_change_pos.js";
 import ManageAssessment from "./page/ManageAssessment/ManageAssessment.js";
 import CreateAssessment from "./page/ManageAssessment/CreateAssessment.js";
 import PrivateRoute from "./utils/PrivateRoute";
+import Error from './page/error404.js'
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
 
         <Route exact path="/" element={<Login />} />
         <Route exact path="/login" element={<Login />} />
+        <Route path="*" element={<Error />} />
       </Routes>
 
     </div>
