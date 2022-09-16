@@ -1,10 +1,9 @@
 import "../css/Change_position.css";
 import Menubar from "../components/Menubar.js";
-import { FaSearch, FaPencilAlt, FaPlusCircle, FaExchangeAlt } from "react-icons/fa";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import React, { useState, useEffect } from "react";
+import { FaSearch, FaExchangeAlt, FaHistory } from "react-icons/fa";
+import React from "react";
 import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
+// import withReactContent from 'sweetalert2-react-content';
 
 function Change_Pos() {
 
@@ -16,11 +15,12 @@ function Change_Pos() {
 
         const { value: formValues } = await Swal.fire({
             title: 'ຈັດການຍ້າຍຕຳແໜ່ງ',
+            // inputLabel: 'yai',
             html:
                 '<input id="swal-input1" class="swal2-input" placeholder="ລະຫັດພະນັກງານ">' +
                 '<input id="swal-input2" class="swal2-input" placeholder="ຊື່">' +
                 '<input id="swal-input3" class="swal2-input" placeholder="ນາມສະກຸນ">'+
-                `<select swal2-select
+                `<select 
                 >
                     <option selected disabled>ເລືອກຕຳແໜ່ງ...</option>
                 <option value="volvo">Volvo</option>
@@ -28,7 +28,7 @@ function Change_Pos() {
                 <option value="opel">Opel</option>
                 <option value="audi">Audi</option>
                 </select>`+
-            `<select swal2-select
+            `<select
                 >
                     <option selected disabled>ເລືອກພະແນກ...</option>
                 <option value="volvo">Volvo</option>
@@ -89,7 +89,7 @@ function Change_Pos() {
   }
 
 
-  const MySwalDeleteDepart = withReactContent(Swal);
+//   const MySwalDeleteDepart = withReactContent(Swal);
 
     return (
         <div className="box-modal-change-pos">
@@ -115,6 +115,19 @@ function Change_Pos() {
                 <div className="con-tbl-change-pos">
                 <p className="p-man-change-pos">
                     ຈັດການຂໍ້ມູນການຍ້າຍຕຳແໜ່ງ
+                </p>
+                <p className="p-history-change-pos">
+                    <a href='/organization/moving/position_department/history'>
+                    <button
+                        className="btn-pherm-change-pos"
+                        // onClick={() => SwalAddDepart()}
+                        >
+                        <label className="lbl-ic-p-change-pos">
+                            <FaHistory />
+                        </label>
+                        ເບີ່ງປະຫວັດການຍ້າຍ
+                    </button>
+                    </a>
                 </p>
                 <div className='box-tbl-change-pos'>
                     <table className="tbl-change-pos">

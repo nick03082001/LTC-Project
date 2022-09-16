@@ -9,11 +9,13 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 
 function CreateAssessment() {
 
+
   // const [num, setNum]=useState([1]);
   // const plusNum=()=>{
   //   const numTitle=[...num,[]]
   //   setNum(numTitle+1)
   // }
+
 
   const [val,setVal]=useState([]);
   const handleAddInp=()=>{

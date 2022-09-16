@@ -4,6 +4,10 @@
     font-family: 'Noto Serif Lao', serif;
 }
 
+.dd{
+    color: #ce452a;
+}
+
 .box-change-pos{
     margin: 0;
     padding-top: 0;
@@ -140,9 +144,36 @@
     padding-top: 40px;
 }
 
+.p-history-change-pos{
+    text-align: right;
+    box-sizing: border-box;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
 
+.btn-pherm-change-pos{
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 7px 20px;
+    border-radius:45px 45px 45px 46px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    font-size: clamp(14px, 2.5vw, 20px);
+    font-weight: 500;
+    color: blue;
+    margin-left: 3%;
+}
 
+.btn-pherm-change-pos:hover{
+    background-color: #fadbdb;
+}
 
+.lbl-ic-p-change-pos{
+    color: rgb(26, 24, 24);
+    /* background-color: #ce452a; */
+    position: relative;
+    top: 2px;
+    left: -7px;
+}
 
 
 
