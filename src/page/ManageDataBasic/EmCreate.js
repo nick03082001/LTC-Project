@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import "../css/EmCreate.css";
 import { RiCloseLine } from "react-icons/ri";
 
-import axios from 'axios'
+import axios from "axios";
 
 export default function CreateEmployee({ closeModal }) {
   const [emp_ID, setEID] = useState("");
@@ -20,13 +20,9 @@ export default function CreateEmployee({ closeModal }) {
   const [session_name, setSession] = useState([]);
   const [imageURLs, setImageURLs] = useState([]);
 
-  const [token,setToken] = useState(sessionStorage.getItem("token"))
-
   const handleSubmit = async (e) => {
     var myHeaders = new Headers();
     myHeaders.append("x-api-key", sessionStorage.getItem("token"));
-
-    console.log("emp_ID : ", token);
 
     var formdata = new FormData();
     formdata.append("emp_ID", emp_ID);
@@ -60,102 +56,51 @@ export default function CreateEmployee({ closeModal }) {
       .catch((error) => console.log("error", error));
   };
 
-  useEffect(()=>{
-    setToken(sessionStorage.getItem("token"))
-  },[token])
-
-  useEffect(function () {
-    var myHeaders = new Headers();
-    myHeaders.append("x-api-key", token);
-    var requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow",
-    };
-    fetch("http://47.250.49.41/test/myproject1/positions", requestOptions)
-      .then((res) => res.json())
-      .then((result) => {
-        setPosition(result);
-      });
-  }, []);
-
-  useEffect(function () {
-
-axios.get('http://192.168.0.155:1000/test/myproject1/province',{
-  headers: {
-    'x-api-key':token
-  }
-}).then((res)=>{
-  console.log({res})
-  setProvince(res.data);
-}).catch(e=>{
-  console.log({"province ERROE : ":e.message})
-})
-
-    // var myHeaders = new Headers();
-    // myHeaders.append("x-api-key", token);
-    // var requestOptions = {
-    //   method: "GET",
-    //   headers: myHeaders
-    // };
-    // fetch("http://192.168.0.155:1000/test/myproject1/province", requestOptions)
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     setProvince(result);
-    //   });
-  }, []);
-
-  useEffect(function () {
-    axios.get('http://192.168.0.155:1000/test/myproject1/sessions',{
-      headers: {
-        'x-api-key':token
+  useEffect(async () => {
+    const provinces = await axios.get(
+      "http://192.168.0.155:1000/test/myproject1/province",
+      {
+        headers: {
+          "x-api-key": sessionStorage.getItem("token"),
+        },
       }
-    }).then((res)=>{
-      console.log({res})
-      setSession(res.data);
-    })
-    
+    );
+    console.log({ provinces });
+    const sessions = await axios.get(
+      "http://192.168.0.155:1000/test/myproject1/session",
+      {
+        headers: {
+          "x-api-key": sessionStorage.getItem("token"),
+        },
+      }
+    );
+    console.log({ sessions });
+    const positions = await axios.get(
+      "http://192.168.0.155:1000/test/myproject1/positions",
+      {
+        headers: {
+          "x-api-key": sessionStorage.getItem("token"),
+        },
+      }
+    );
+    console.log({ positions });
+    const departments = await axios.get(
+      "http://192.168.0.155:1000/test/myproject1/departments",
+      {
+        headers: {
+          "x-api-key": sessionStorage.getItem("token"),
+        },
+      }
+    );
+    console.log({ departments });
 
-
-    // var myHeaders = new Headers();
-    // myHeaders.append("x-api-key", token);
-    // var requestOptions = {
-    //   method: "GET",
-    //   headers: myHeaders,
-    //   redirect: "follow",
-    // };
-    // fetch("http://192.168.0.155:1000/test/myproject1/sessions", requestOptions)
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     console.log({result})
-    //     setSession(result);
-    //   });
-  }, []);
-
-  // useEffect(function () {
-  //   var myHeaders = new Headers();
-  //   myHeaders.append("x-api-key", token);
-  //   var requestOptions = {
-  //     method: "GET",
-  //     headers: myHeaders,
-  //     redirect: "follow",
-  //   };
-  //   fetch("http://47.250.49.41/test/myproject1/departments", requestOptions)
-  //     .then((res) => res.json())
-  //     .then((result) => {
-  //       setDepartment(result);
-  //       console.log("Department : ", result);
-  //     });
-  // }, []);
-
-  useEffect(() => {
     if (profilepic.length < 1) return;
     const newImageUrls = [];
     profilepic.forEach((image) =>
       newImageUrls.push(URL.createObjectURL(image))
     );
     setImageURLs(newImageUrls);
-  }, [profilepic]);
+  }, [], [profilepic]);
 
   function onImageChange(e) {
     setProfilepic([e.target.files[0]]);
@@ -191,9 +136,11 @@ axios.get('http://192.168.0.155:1000/test/myproject1/province',{
               accept="image/*"
               onChange={onImageChange}
             />
-            {imageURLs != null? imageURLs?.map((imageSrc, idx) => (
-              <img className="img-cre-em" key={idx} src={imageSrc} alt="" />
-            )):""}
+            {imageURLs != null
+              ? imageURLs?.map((imageSrc, idx) => (
+                  <img className="img-cre-em" key={idx} src={imageSrc} alt="" />
+                ))
+              : ""}
           </p>
         </div>
         <div className="box-con-box-inp-cre-em">
@@ -276,11 +223,13 @@ axios.get('http://192.168.0.155:1000/test/myproject1/province',{
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
                 </option>
-                {session_name != null? session_name?.map((val) => (
-                  <option key={val.session_name} value={val.session_name}>
-                    {val.session_name}
-                  </option>
-                )):""}
+                {/* {session_name != null
+                  ? session_name?.map((val) => (
+                      <option key={val.session_name} value={val.session_name}>
+                        {val.session_name}
+                      </option>
+                    ))
+                  : ""} */}
               </select>
             </p>
             <p className="pppp-cre-em">
@@ -291,11 +240,13 @@ axios.get('http://192.168.0.155:1000/test/myproject1/province',{
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
                 </option>
-                {pos_name != null? pos_name?.map((val) => (
-                  <option key={val.pos_name} value={val.pos_name}>
-                    {val.pos_name}
-                  </option>
-                )):""}
+                {/* {pos_name != null
+                  ? pos_name?.map((val) => (
+                      <option key={val.pos_name} value={val.pos_name}>
+                        {val.pos_name}
+                      </option>
+                    ))
+                  : ""} */}
               </select>
             </p>
             <p className="pppp-cre-em">
@@ -304,11 +255,13 @@ axios.get('http://192.168.0.155:1000/test/myproject1/province',{
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
                 </option>
-                {dep_name != null ? dep_name?.map((val) => (
-                  <option key={val?.dep_name} value={val?.dep_name}>
-                    {val?.dep_name}
-                  </option>
-                )):""}
+                {/* {dep_name != null
+                  ? dep_name?.map((val) => (
+                      <option key={val?.dep_name} value={val?.dep_name}>
+                        {val?.dep_name}
+                      </option>
+                    ))
+                  : ""} */}
               </select>
             </p>
             <p className="pppp-cre-em">
@@ -334,12 +287,14 @@ axios.get('http://192.168.0.155:1000/test/myproject1/province',{
               <select className="sel-cre-em">
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
-                  </option>
-                {province != null? province?.map((val) => (
-                  <option key={val.province} value={val.province}>
-                    {val.province}
-                  </option>
-                )):""}
+                </option>
+                {/* {province != null
+                  ? province?.map((val) => (
+                      <option key={val.province} value={val.province}>
+                        {val.province}
+                      </option>
+                    ))
+                  : ""} */}
               </select>
             </p>
 
