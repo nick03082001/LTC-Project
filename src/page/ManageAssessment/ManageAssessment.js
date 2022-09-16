@@ -11,6 +11,7 @@ function ManageAssessment() {
   const MySwalDeletePosition = withReactContent(Swal);
     
     return (
+        
         <div className="box-modal-manage-ass">
         <div className="box-manage-ass">
             <Menubar />
