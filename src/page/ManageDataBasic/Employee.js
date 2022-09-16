@@ -24,7 +24,7 @@ function Employee() {
       headers: myHeaders,
       redirect: "follow",
     };
-    fetch("http://192.168.0.155:1000/test/myproject1/employees", requestOptions)
+    fetch("http://47.250.49.41/myproject1/employees", requestOptions)
       .then((res) => res.json())
       .then((result) => {
         setItems(result);
@@ -57,7 +57,7 @@ function Employee() {
       redirect: "follow",
     };
 
-    fetch("http://192.168.0.155:1000/test/myproject1/delete_employee", requestOptions)
+    fetch("http://47.250.49.41/myproject1/delete_employee", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result["status"] === "ok") {

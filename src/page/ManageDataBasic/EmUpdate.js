@@ -341,7 +341,7 @@ export default function EmUpdate({ closeModalUp, data }) {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/test/myproject1/update_employee", requestOptions)
+    fetch("http://47.250.49.41/myproject1/update_employee", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         alert(result["message"]);

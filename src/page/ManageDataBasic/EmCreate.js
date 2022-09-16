@@ -45,7 +45,7 @@ export default function CreateEmployee({ closeModal }) {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/test/myproject1/create_employee", requestOptions)
+    fetch("http://47.250.49.41/myproject1/create_employee", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         alert(result["message"]);
@@ -58,7 +58,7 @@ export default function CreateEmployee({ closeModal }) {
 
   useEffect(async () => {
     const provinces = await axios.get(
-      "http://192.168.0.155:1000/test/myproject1/province",
+      "http://47.250.49.41/myproject1/province",
       {
         headers: {
           "x-api-key": sessionStorage.getItem("token"),
@@ -67,7 +67,7 @@ export default function CreateEmployee({ closeModal }) {
     );
     console.log({ provinces });
     const sessions = await axios.get(
-      "http://192.168.0.155:1000/test/myproject1/session",
+      "http://47.250.49.41/myproject1/session",
       {
         headers: {
           "x-api-key": sessionStorage.getItem("token"),
@@ -76,7 +76,7 @@ export default function CreateEmployee({ closeModal }) {
     );
     console.log({ sessions });
     const positions = await axios.get(
-      "http://192.168.0.155:1000/test/myproject1/positions",
+      "http://47.250.49.41/myproject1/positions",
       {
         headers: {
           "x-api-key": sessionStorage.getItem("token"),
@@ -85,7 +85,7 @@ export default function CreateEmployee({ closeModal }) {
     );
     console.log({ positions });
     const departments = await axios.get(
-      "http://192.168.0.155:1000/test/myproject1/departments",
+      "http://47.250.49.41/myproject1/departments",
       {
         headers: {
           "x-api-key": sessionStorage.getItem("token"),

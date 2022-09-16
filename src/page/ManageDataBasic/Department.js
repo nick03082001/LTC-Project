@@ -166,17 +166,9 @@ function Department() {
 
       if (ipAddress) {
         Swal.fire(`ເພີ່ມພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`)
-        .then((result) => {
-          if (result.ipAddress) {
-            Swal.fire(
-              "ລົບຂໍ້ມູນສຳເລັດ!",
-              "ທ່ານໄດ້ລົບຂໍ້ມູນພະແນກສຳເລັດແລ້ວ.",
-              "success"
-            ).then(() => {
-              CreateDepartment(ipAddress.dep_name);
-            });
-          } 
-        })
+        .then(() => {
+          CreateDepartment(ipAddress.dep_name);
+        });
       }
     })();
   }
@@ -201,17 +193,9 @@ function Department() {
 
       if (ipAddress) {
         Swal.fire(`ແກ້ໄຂພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`)
-        .then((result) => {
-          if (result.ipAddress) {
-            Swal.fire(
-              "ລົບຂໍ້ມູນສຳເລັດ!",
-              "ທ່ານໄດ້ລົບຂໍ້ມູນພະແນກສຳເລັດແລ້ວ.",
-              "success"
-            ).then(() => {
-              UpdateDepartment(ipAddress.dep_name);
-            });
-          } 
-        })
+        .then(() => {
+          UpdateDepartment(ipAddress.dep_name);
+        });
       }
     })();
   }

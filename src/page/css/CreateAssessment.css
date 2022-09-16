@@ -174,7 +174,9 @@
 
 .box-inp-title-1_1-create-ass{
     padding-top: 12px;
+    padding-left: 40px;
     display: flex;
+    counter-reset: Serial;
 }
 
 .inp-title-1_1-create-ass{
@@ -211,8 +213,9 @@
 
 
 .box-btn-plus-title-create-ass{
-    padding-top: 10px;
+    padding-top: 12px;
     display: flex;
+    padding-left: 70px;
 }
 
 .btn-plus-title-create-ass{
