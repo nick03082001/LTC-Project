@@ -97,8 +97,7 @@
 .btn-save-create-ass{
     cursor: pointer;
     box-sizing: border-box;
-    height: 49px;
-    min-width: 159px;
+    min-width: max-content;
     padding: 7px 20px;
     border-radius:45px 45px 45px 46px;
     border: 1px solid rgba(0, 0, 0, 0.5);
@@ -149,27 +148,26 @@
 .title-1-create-ass{
     background-color: #EBEBEB;
     padding: 5px 25px 5px;
-    font-size: clamp(16px, 2.5vw, 20px);
     display: flex;
     justify-content: left;
 }
 
 .lbl-big-title{
     padding: 5px 0px 0px 5px;
+    font-size: clamp(16px, 2.5vw, 20px);
+    font-weight: 600;
 }
 
 .inp-title-1-create-ass{
     background-color: #EBEBEB;
     font-size: clamp(16px, 2.5vw, 20px);
+    font-weight: 600;
     padding: 5px 10px 0px 5px;
     width: 95%;
     border: none;
     outline: none;
+    
 }
-
-
-
-
 
 
 
@@ -181,6 +179,7 @@
 
 .inp-title-1_1-create-ass{
     font-size: clamp(14px, 2.5vw, 18px);
+    font-weight: 400;
     padding: 5px 10px 5px 5px;
     width: 85%;
     border-top: none;
@@ -213,6 +212,7 @@
 
 .box-btn-plus-title-create-ass{
     padding-top: 10px;
+    display: flex;
 }
 
 .btn-plus-title-create-ass{
@@ -223,10 +223,13 @@
     font-size: clamp(14px, 2.5vw, 20px);
     font-weight: 500;
     color: black;
+    min-width: max-content;
+
 }
 
 .lbl-ic-plt-create-ass{
     position: relative;
     top: 2px;
     left: -3px;
+    padding-right: 5px;
 }

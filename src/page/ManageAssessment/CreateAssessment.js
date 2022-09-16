@@ -9,10 +9,17 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 
 function CreateAssessment() {
 
+  // const [num, setNum]=useState([1]);
+  // const plusNum=()=>{
+  //   const numTitle=[...num,[]]
+  //   setNum(numTitle+1)
+  // }
+
   const [val,setVal]=useState([]);
   const handleAddInp=()=>{
     const addInput=[...val,[]]
     setVal(addInput)
+    
   }
 
   const btnHandleChange=(onChangeValueTitleOne,i)=>{
@@ -76,8 +83,10 @@ function CreateAssessment() {
                         </div>
                         <div className='title-1_1-create-ass'>
                         {val.map((data,i)=>{
+                          
                           return(
                             <div className="box-inp-title-1_1-create-ass" key={i}>
+                              <span className='num-title-1_1-create-ass'>1-1.</span>
                               <input className='inp-title-1_1-create-ass'
                                 type="text"
                                 value={data}
@@ -97,7 +106,7 @@ function CreateAssessment() {
                         <div className='box-btn-plus-title-create-ass'>
                           <button
                             className="btn-plus-title-create-ass"
-                            onClick={() => handleAddInp()}
+                            onClick={() => {handleAddInp()}}
                             >
                             <label className="lbl-ic-plt-create-ass">
                                 <FaPlusCircle />
