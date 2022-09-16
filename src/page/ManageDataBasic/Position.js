@@ -26,7 +26,7 @@ function Position() {
       headers: myHeaders,
       redirect: 'follow'
     };
-    fetch("http://47.250.49.41/myproject1/departments", requestOptions)
+    fetch("http://47.250.49.41/myproject1/positions", requestOptions)
       .then(res => res.json())
       .then(
         (result) => {
@@ -40,7 +40,7 @@ function Position() {
   //   window.location = '/department'
   // }
 
-  const DelDepartment = id => {
+  const DelPositon = id => {
     var myHeaders = new Headers();
     myHeaders.append(
       "x-api-key",
@@ -50,7 +50,7 @@ function Position() {
     // myHeaders.append("x-api-key", "")
 
     var raw = JSON.stringify({
-      "dep_name": id
+      "pos_name": id
     });
 
     var requestOptions = {
@@ -60,7 +60,7 @@ function Position() {
       redirect: 'follow'
     };
 
-    fetch("http://47.250.49.41/myproject1/delete_department", requestOptions)
+    fetch("http://47.250.49.41/myproject1/delete_position", requestOptions)
       .then(response => response.json())
       .then(result => {
         if (result['status'] === 'ok') {
@@ -221,7 +221,7 @@ function Position() {
                                     'ລົບຂໍ້ມູນສຳເລັດ!',
                                     'ທ່ານໄດ້ລົບຂໍ້ມູນຕຳແໜ່ງສຳເລັດແລ້ວ.',
                                     'success'
-                                  ).then(() => { DelDepartment(row.dep_name) })
+                                  ).then(() => { DelPositon(row.dep_name) })
                                 }
                                 else {
                                   Swal.fire(

@@ -113,34 +113,36 @@ function Department() {
       .catch(error => console.log('error', error));
   }
 
-  const DelDepartment = (id) => {
+  const DelDepartment = id => {
     var myHeaders = new Headers();
     myHeaders.append(
       "x-api-key",
       sessionStorage.getItem('token')
     );
-    myHeaders.append("Content-Type", "application/json");
+    // myHeaders.append("Content-Type", "application/json");
+    // myHeaders.append("x-api-key", "")
 
     var raw = JSON.stringify({
-      dep_name: id,
+      "dep_name": id
     });
 
     var requestOptions = {
-      method: "DELETE",
+      method: 'DELETE',
       headers: myHeaders,
       body: raw,
-      redirect: "follow",
+      redirect: 'follow'
     };
 
     fetch("http://47.250.49.41/myproject1/delete_department", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result["status"] === "ok") {
-          UserGet();
+      .then(response => response.json())
+      .then(result => {
+        if (result['status'] === 'ok') {
+          UserGet()
         }
       })
-      .catch((error) => console.log("error", error));
-  };
+      .catch(error => console.log('error', error));
+  }
+
 
   // ປູ່ມແກ້ໄຂ-ລົບໃຫ້ດືງ api ໃນຟັງຊັນລູ່ມນີ້
 
