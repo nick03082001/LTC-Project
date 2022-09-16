@@ -10,13 +10,14 @@ import OrgMovPos from "./page/stucture_org/Change_position.js";
 import HistoryChangePos from "./page/stucture_org/History_change_pos.js";
 import ManageAssessment from "./page/ManageAssessment/ManageAssessment.js";
 import CreateAssessment from "./page/ManageAssessment/CreateAssessment.js";
+import PrivateRoute from "./utils/PrivateRoute";
+
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<Login />} />
-        <Route exact path="/login" element={<Login />} />
+      <Route element = {< PrivateRoute/>}>
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/employee" element={<Employee />} />
         <Route exact path="/department" element={<Department />} />
@@ -27,7 +28,10 @@ function App() {
         <Route exact path="/assessment/manage" element={<ManageAssessment />} />
         <Route exact path="/assessment/create" element={<CreateAssessment />} />
         <Route exact path="/home" element={<Home/>} />
+        </Route>
 
+        <Route exact path="/" element={<Login />} />
+        <Route exact path="/login" element={<Login />} />
       </Routes>
 
     </div>
