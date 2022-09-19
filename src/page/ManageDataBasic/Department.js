@@ -10,18 +10,18 @@ function Department() {
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
   const [dep_name, setDname] = useState("");
+  const [dep_ID, setDID] = useState("");
+  const [dep_create_date, setDepDate] = useState("");
+  const [selectData, setSelectData] = useState("");
 
   useEffect(() => {
-    UserGet();
-    UpdateGet();
+    DepartmentGet();
+    DepartmentUpdate();
   }, []);
 
-  const UserGet = () => {
+  const DepartmentGet = () => {
     var myHeaders = new Headers();
-    myHeaders.append(
-      "x-api-key",
-      sessionStorage.getItem('token')
-    );
+    myHeaders.append("x-api-key", sessionStorage.getItem("token"));
 
     var requestOptions = {
       method: "GET",
@@ -35,65 +35,60 @@ function Department() {
       });
   };
 
-  const UpdateGet = () => {
+  const DepartmentUpdate = () => {
     var requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
+      method: "PUT",
+      redirect: "follow",
     };
-    
-    fetch("http://47.250.49.41/myproject1/departments", requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        if(result['status'] === 'ok') {
-          setDname(result['department']['dep_name'])
+
+    fetch("http://47.250.49.41/myproject1/update_department", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result["status"] === "ok") {
+          setDname(result["department"]["dep_name"]);
+          setDID(result["department"]["dep_ID"]);
         }
-    
       })
-      .catch(error => console.log('error', error));
-      }
+      .catch((error) => console.log("error", error));
+  };
 
   const CreateDepartment = (id) => {
-      var myHeaders = new Headers();
-      myHeaders.append(
-        "x-api-key",
-        sessionStorage.getItem('token')
-      );
-      myHeaders.append("Content-Type", "application/json");
+    var myHeaders = new Headers();
+    myHeaders.append("x-api-key", sessionStorage.getItem("token"));
 
-      var raw = JSON.stringify({
-        dep_name: id,
-      });
+    myHeaders.append("Content-Type", "application/json");
 
-      var requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
-      };
+    var raw = JSON.stringify({
+      dep_name: id,
+    });
 
-      fetch("http://47.250.49.41/myproject1/create_department", requestOptions)
-        .then((response) => response.json())
-        .then((result) => {
-          alert(result["message"]);
-          if (result["status"] === "ok") {
-            window.location.href = "/department";
-          }
-        })
-        .catch((error) => console.log("error", error));   
-      window.location = "/department";
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("http://47.250.49.41/myproject1/create_department", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result["status"] === "ok") {
+          window.location.href = "/department";
+        }
+      })
+      .catch((error) => console.log("error", error));
   };
 
   const UpdateDepartment = (id) => {
     var myHeaders = new Headers();
-    myHeaders.append(
-      "x-api-key",
-      sessionStorage.getItem('token')
-    );
-      myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("x-api-key", sessionStorage.getItem("token"));
+    myHeaders.append("Content-Type", "application/json");
     
     var raw = JSON.stringify({
-      "dep_name": id,
+      "dep_ID": 44,
+      "dep_name": id
     });
+    console.log(id);
     
     var requestOptions = {
       method: 'PUT',
@@ -103,46 +98,41 @@ function Department() {
     };
     
     fetch("http://47.250.49.41/myproject1/update_department", requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        alert(result['message'])
-        if(result['status']==='ok'){
-            window.location.href='/department'
-        }
-      })
-      .catch(error => console.log('error', error));
-  }
+    .then((response) => response.json())
+    .then((result) => {
+      alert(result["message"]);
+      if (result["status"] === "ok") {
+        window.location.href = "/department";
+      }
+    })
+    .catch((error) => console.log("error", error));
+  };
 
-  const DelDepartment = id => {
+  const DelDepartment = (id) => {
     var myHeaders = new Headers();
-    myHeaders.append(
-      "x-api-key",
-      sessionStorage.getItem('token')
-    );
-    // myHeaders.append("Content-Type", "application/json");
-    // myHeaders.append("x-api-key", "")
+    myHeaders.append("x-api-key", sessionStorage.getItem("token"));
+    myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      "dep_name": id
+      dep_name: id,
     });
 
     var requestOptions = {
-      method: 'DELETE',
+      method: "DELETE",
       headers: myHeaders,
       body: raw,
-      redirect: 'follow'
+      redirect: "follow",
     };
 
     fetch("http://47.250.49.41/myproject1/delete_department", requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        if (result['status'] === 'ok') {
-          UserGet()
+      .then((response) => response.json())
+      .then((result) => {
+        if (result["status"] === "ok") {
+          DepartmentGet();
         }
       })
-      .catch(error => console.log('error', error));
-  }
-
+      .catch((error) => console.log("error", error));
+  };
 
   // ປູ່ມແກ້ໄຂ-ລົບໃຫ້ດືງ api ໃນຟັງຊັນລູ່ມນີ້
 
@@ -165,39 +155,13 @@ function Department() {
       });
 
       if (ipAddress) {
-        Swal.fire(`ເພີ່ມພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`)
-        .then(() => {
-          CreateDepartment(ipAddress.dep_name);
-        });
+
       }
     })();
   }
 
   function SwalUpdateDepart() {
-    (async () => {
-      const { value: ipAddress } = await Swal.fire({
-        title: "ຊື່ພະແນກ",
-        input: "text",
-        inputPlaceholder: "ປ້ອນຊື່ພະແນກ",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "ຢືນຢັນ",
-        cancelButtonText: "ຍົກເລີກ",
-        inputValidator: (value) => {
-          if (!value) {
-            return "ກະລຸນາປ້ອນຂໍ້ມູນທີ່ທ່ານຕ້ອງການເພີ່ມ!";
-          }
-        },
-      });
 
-      if (ipAddress) {
-        Swal.fire(`ແກ້ໄຂພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`)
-        .then(() => {
-          UpdateDepartment(ipAddress.dep_name);
-        });
-      }
-    })();
   }
 
   const MySwalDeleteDepart = withReactContent(Swal);
@@ -230,7 +194,6 @@ function Department() {
                 <button
                   className="btn-pherm-depart"
                   onClick={() => SwalAddDepart()}
-                  onChange={(e) => setDname(e.target.value)}
                 >
                   <label className="lbl-ic-p-depart">
                     <FaPlusCircle />
@@ -245,77 +208,113 @@ function Department() {
                     <tr>
                       <th>ລໍາດັບ</th>
                       <th>ຊື່ພະແນກ</th>
+                      <th>ວັນເດືອນປີສ້າງພະແນກ</th>
                       <th>ແກ້ໄຂ</th>
                       <th>ລົບ</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {items
-                    .filter((val) => {
-                      if (searchTerm === "") {
-                        return val;
-                      } else if (            
-                        val.dep_name
-                          .toLowerCase()
-                          .includes(searchTerm.toLowerCase())
-                      ) {
-                        return val;
-                      }
-                    })
-                    .map((row) => (
-                      <tr key={row.name}>
-                        <td className="tbl-row-no-depart"></td>
-                        <td>{row.dep_name}</td>
-                        <td>
-                          <button
-                            onClick={() => SwalUpdateDepart()}
-                            className="btnnn-depart"
-                          >
-                            <label>
-                              <FaPencilAlt className="up-depart" />
-                            </label>
-                          </button>
-                        </td>
-                        <td>
-                          <button
-                            className="btnnn-depart"
-                            onClick={() =>
-                              MySwalDeleteDepart.fire({
-                                title: "ຢືນຢັນການລົບ",
-                                html: "ຂໍ້ມູນທີ່ທ່ານລົບຈະບໍ່ສາມາດກູ້ຄືນໄດ້.<br /> ທ່ານແນ່ໃຈທີ່ຈະລົບ ຫຼື ບໍ່?",
-                                icon: "warning",
-                                iconColor: "red",
-                                showCancelButton: true,
-                                confirmButtonColor: "#3085d6",
-                                cancelButtonColor: "#d33",
-                                confirmButtonText: "ຢືນຢັນ",
-                                cancelButtonText: "ຍົກເລີກ",
-                              }).then((result) => {
-                                if (result.isConfirmed) {
-                                  Swal.fire(
-                                    "ລົບຂໍ້ມູນສຳເລັດ!",
-                                    "ທ່ານໄດ້ລົບຂໍ້ມູນພະແນກສຳເລັດແລ້ວ.",
-                                    "success"
-                                  ).then(() => {
-                                    DelDepartment(row.dep_name);
-                                  });
-                                } else {
-                                  Swal.fire(
-                                    "ລົບຂໍ້ມູນບໍ່ສຳເລັດ!",
-                                    "ທ່ານໄດ້ລົບຂໍ້ມູນພະແນກບໍ່ສຳເລັດແລ້ວ.",
-                                    "error"
+                    {items
+                      .filter((val) => {
+                        if (searchTerm === "") {
+                          return val;
+                        } else if (
+                          val.dep_name
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase()) ||
+                          val.dep_create_date
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase())
+                        ) {
+                          return val;
+                        }
+                      })
+                      .map((row) => (
+                        <tr key={row.name}>
+                          <td className="tbl-row-no-depart"></td>
+                          <td>{row.dep_name}</td>
+                          <td>{row.dep_create_date}</td>
+                          <td>
+                            <button
+                             // onClick={() => SwalUpdateDepart()}
+                             onClick={() => {
+                              setSelectData(row);
+
+                              // console.log(formData.profilepic)
+                              (async () => {
+                                const { value: ipAddress } = await Swal.fire({
+                                  title: "ຊື່ພະແນກ",
+                                  input: "text",
+                                  inputPlaceholder: "ປ້ອນຊື່ພະແນກ",
+                                  showCancelButton: true,
+                                  confirmButtonColor: "#3085d6",
+                                  cancelButtonColor: "#d33",
+                                  confirmButtonText: "ຢືນຢັນ",
+                                  cancelButtonText: "ຍົກເລີກ",
+                                  
+                                  inputValidator: (value) => {
+                                    if (!value) {
+                                      return "ກະລຸນາປ້ອນຂໍ້ມູນທີ່ທ່ານຕ້ອງການເພີ່ມ!";
+                                    }
+                                  },
+                                });
+                          
+                                if (ipAddress) {
+                                  Swal.fire(`ແກ້ໄຂພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
+                                    () => {
+                                      UpdateDepartment(ipAddress);
+                                    }
                                   );
                                 }
-                              })
-                            }
-                          >
-                            <label>
-                              <RiDeleteBin6Line className="del-depart" />
-                            </label>
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
+                              })();
+                            }}
+                              className="btnnn-depart"
+                            >
+                              <label>
+                                <FaPencilAlt className="up-depart" />
+                              </label>
+                            </button>
+                          </td>
+                          <td>
+                            <button
+                              className="btnnn-depart"
+                              onClick={() =>
+                                MySwalDeleteDepart.fire({
+                                  title: "ຢືນຢັນການລົບ",
+                                  html: "ຂໍ້ມູນທີ່ທ່ານລົບຈະບໍ່ສາມາດກູ້ຄືນໄດ້.<br /> ທ່ານແນ່ໃຈທີ່ຈະລົບ ຫຼື ບໍ່?",
+                                  icon: "warning",
+                                  iconColor: "red",
+                                  showCancelButton: true,
+                                  confirmButtonColor: "#3085d6",
+                                  cancelButtonColor: "#d33",
+                                  confirmButtonText: "ຢືນຢັນ",
+                                  cancelButtonText: "ຍົກເລີກ",
+                                }).then((result) => {
+                                  if (result.isConfirmed) {
+                                    Swal.fire(
+                                      "ລົບຂໍ້ມູນສຳເລັດ!",
+                                      "ທ່ານໄດ້ລົບຂໍ້ມູນພະແນກສຳເລັດແລ້ວ.",
+                                      "success"
+                                    ).then(() => {
+                                      DelDepartment(row.dep_name);
+                                    });
+                                  } else {
+                                    Swal.fire(
+                                      "ລົບຂໍ້ມູນບໍ່ສຳເລັດ!",
+                                      "ທ່ານໄດ້ລົບຂໍ້ມູນພະແນກບໍ່ສຳເລັດແລ້ວ.",
+                                      "error"
+                                    );
+                                  }
+                                })
+                              }
+                            >
+                              <label>
+                                <RiDeleteBin6Line className="del-depart" />
+                              </label>
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
@@ -324,81 +323,6 @@ function Department() {
         </div>
       </div>
     </div>
-
-    // <div>
-    //   <Menubar />
-    //   <div className="bg-depart">
-    //     <div className="con-depart">
-    //       <div className="header-depart">
-    //         <label className="lbl-search">
-    //           <input
-    //             className="search-inp-depart"
-    //             type="text"
-    //             placeholder="ຄົ້ນຫາ..."
-    //           ></input>
-    //           <FaSearch className="filt-ic-depart" />
-    //         </label>
-    //         <a href="/home">
-    //           <button className="bnt-search-depart">
-
-    //             ຄົ້ນຫາ
-    //           </button>
-    //         </a>
-    //       </div>
-    //     </div>
-    //     <div className="tb-depart">
-    //       <p className="p-man-depart">
-    //         ຈັດການຂໍ້ມູນພະແນກ
-    //         <button className="btn-pherm">
-    //           <label>
-    //             <FaPlusCircle />
-    //           </label>
-    //           ເພີ່ມຂໍ້ມູນພະແນກ
-    //         </button>
-    //       </p>
-    //       <table className="tb-dep">
-    //         <tr>
-    //           <td>ລໍາດັບ</td>
-    //           <td>ຊື່ພະແນກ</td>
-    //           <td>ແກ້ໄຂ</td>
-    //           <td>ລົບ</td>
-    //         </tr>
-    //         <tbody>
-    //           {items.map((row) => (
-    //             <tr
-    //               key={row.name}
-    //             >
-    //               <td>
-    //                 {row.dep_level}
-    //               </td>
-    //               <td>{row.dep_name}</td>
-    //                     <td>
-    //                   <button
-    //                     onClick={() => UpdateDepartment(row.dep_name)}
-    //                     className="btnnn"
-    //                   >
-    //                     <label>
-    //                       <FaPencilAlt className="up-depart" />
-    //                     </label>
-    //                   </button>
-    //                   </td>
-    //                   <td>
-    //                   <button
-    //                     onClick={() => DelDepartment(row.dep_name)}
-    //                     className="btnnn"
-    //                   >
-    //                     <label>
-    //                       <RiDeleteBin6Line className="del-depart" />
-    //                     </label>
-    //                   </button>
-    //                   </td>
-    //             </tr>
-    //           ))}
-    //         </tbody>
-    //       </table>
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
 

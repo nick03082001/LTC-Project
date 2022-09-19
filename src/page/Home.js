@@ -1,6 +1,6 @@
 import React from 'react'
 import Menubar from './components/Menubar.js'
-import Footerpage from './components/Footerpage.js'
+// import Footerpage from './components/Footerpage.js'
 
 function Home() {
   return (
@@ -11,7 +11,7 @@ function Home() {
                 Welcome to website
             </h1>
         </div>
-        <Footerpage />
+        {/* <Footerpage /> */}
     </div>
 
   )

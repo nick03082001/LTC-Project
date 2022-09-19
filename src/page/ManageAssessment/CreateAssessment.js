@@ -9,7 +9,6 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 
 function CreateAssessment() {
 
-  // ສ້າງຫົວຂໍ້ໃຫຍ່ທີ 1
   const [val,setVal]=useState([]);
   const handleAddInp=()=>{
     const addInput=[...val,[]]
@@ -103,7 +102,6 @@ function CreateAssessment() {
                           
                           return(
                             <div className="box-inp-title-1_1-create-ass" key={i}>
-                              <span className='num-title-1_1-create-ass'>1.{i+1} </span>
                               <input className='inp-title-1_1-create-ass'
                                 type="text"
                                 value={data}

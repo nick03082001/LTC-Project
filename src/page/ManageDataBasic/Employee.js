@@ -37,10 +37,7 @@ function Employee() {
     UserGet();
   }, []);
 
-  // const UpdateEmployee = (emp_ID) => {
-  //   window.location = "/update/" + emp_ID;
-  // };
-
+  
   const DelEmployee = (id) => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -196,7 +193,6 @@ function Employee() {
                             <button
                               onClick={() => {
                                 setOpenModalUp(true);
-                                // console.log(formData.profilepic)
                                 setSelectData(formData);
                               }}
                               className="btnnn"

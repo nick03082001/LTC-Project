@@ -12,12 +12,15 @@ import ManageAssessment from "./page/ManageAssessment/ManageAssessment.js";
 import CreateAssessment from "./page/ManageAssessment/CreateAssessment.js";
 import AnswerAssessment from "./page/ManageAssessment/AnswerAssessment.js";
 
+import PrivateRoute from "./utils/PrivateRoute";
+import Error from './page/error404.js'
+
+
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<Login />} />
-        <Route exact path="/login" element={<Login />} />
+      <Route element = {< PrivateRoute/>}>
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/employee" element={<Employee />} />
         <Route exact path="/department" element={<Department />} />
@@ -29,7 +32,11 @@ function App() {
         <Route exact path="/assessment/create" element={<CreateAssessment />} />
         <Route exact path="/assessment/answer" element={<AnswerAssessment />} />
         <Route exact path="/home" element={<Home/>} />
+        </Route>
 
+        <Route exact path="/" element={<Login />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route path="*" element={<Error />} />
       </Routes>
 
     </div>

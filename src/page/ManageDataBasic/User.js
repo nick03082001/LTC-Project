@@ -26,7 +26,7 @@ function User() {
       headers: myHeaders,
       redirect: 'follow'
     };
-    fetch("http://47.250.49.41/myproject1/departments", requestOptions)
+    fetch("http://47.250.49.41/myproject1/users", requestOptions)
       .then(res => res.json())
       .then(
         (result) => {
@@ -46,8 +46,6 @@ function User() {
       "x-api-key",
       sessionStorage.getItem('token')
     );
-    // myHeaders.append("Content-Type", "application/json");
-    // myHeaders.append("x-api-key", "")
 
     var raw = JSON.stringify({
       "dep_name": id
@@ -178,10 +176,9 @@ function User() {
                 <table className="tbl-user">
                   <thead>
                     <tr>
-                      <th>ລຳດັບ</th>
                       <th>ຊື່ຜູ້ໃຊ້</th>
                       <th>ຊື່ພະນັກງານ</th>
-                      <th>ນາມສະກຸນ</th>
+                      <th>ຕໍາແໜ່ງ</th>
                       <th>ແກ້ໄຂ</th>
                       <th>ລົບ</th>
                     </tr>
@@ -191,10 +188,9 @@ function User() {
                       <tr
                         key={row.name}
                       >
-                        <td className="tbl-row-no-user"></td>
-                        <td></td>
-                        <td>{row.dep_name}</td>
-                        <td></td>
+                        <td>{row.username}</td>
+                        <td>{row.emp_name}</td>
+                        <td>{row.pos_name}</td>
                         <td >
                           <button
                             onClick={() => SwalUpdateUser()}
@@ -255,146 +251,3 @@ function User() {
 }
 
 export default User;
-
-
-
-
-
-
-
-
-
-// import "../css/Employee.css";
-// import Menubar from "../components/Menubar.js";
-// import { FaSearch, FaPencilAlt, FaPlusCircle } from "react-icons/fa";
-// import { RiDeleteBin6Line } from "react-icons/ri";
-// import React, { useState, useEffect } from "react";
-
-// function User() {
-//   const [items, setItems] = useState([]);
-
-//   useEffect(() => {
-//       UserGet()
-//     }, [])
-
-//     const UserGet = () => {
-//       fetch("http://47.250.49.41/myproject1/user")
-//         .then(res => res.json())
-//         .then(
-//           (result) => {
-//             setItems(result);
-//           },
-//         )
-
-//     }
-
-//     const UpdateUser = id => {
-//       window.location = '/user'
-//     }
-
-//     const DelUser = id => {
-//       var myHeaders = new Headers();
-// myHeaders.append("Content-Type", "application/json");
-
-// var raw = JSON.stringify({
-// "password": id
-// });
-
-// var requestOptions = {
-// method: 'DELETE',
-// headers: myHeaders,
-// body: raw,
-// redirect: 'follow'
-// };
-
-// fetch("http://47.250.49.41/myproject1/delete_user", requestOptions)
-// .then(response => response.json())
-// .then(result => {
-//   alert(result['message'])
-//   if(result['status'] === 'ok') {
-//     UserGet()
-//   }
-// })
-// .catch(error => console.log('error', error));
-//     }
-
-
-//   return (
-//     <div>
-//       <Menubar />
-//       <div className="bg-em">
-//         <div className="con-em">
-//           <div className="header-em">
-//             <label className="lbl-search">
-//               <input
-//                 className="search-inp-em"
-//                 type="text"
-//                 placeholder="ຄົ້ນຫາ..."
-//               ></input>
-//               <FaSearch className="filt-ic-em" />
-//             </label>
-//             <a href="/home">
-//               <button className="bnt-search-em">
-//                 {/* <label className='ic-search-em'><FaSearch /></label> */}
-//                 ຄົ້ນຫາ
-//               </button>
-//             </a>
-//           </div>
-//         </div>
-//         <div className="tb-em">
-//           <p className="p-man-em">
-//             ຈັດການຂໍ້ມູນພະແນກ
-//             <button className="btn-pherm">
-//               <label>
-//                 <FaPlusCircle />
-//               </label>
-//               ເພີ່ມຂໍ້ມູນພະແນກ
-//             </button>
-//           </p>
-//           <table className="tb-dep">
-//             <tr>
-//               <td>ລະຫັດ</td>
-//               <td>ຊື່</td>
-//               <td>ແກ້ໄຂ</td>
-//               <td>ລົບ</td>
-//             </tr>
-//             <tbody>
-//               {items.map((row) => (
-//                 <tr
-//                   key={row.name}
-//                 >
-//                   <td>
-//                     {row.password}
-//                   </td>
-//                   <td>{row.username}</td>
-//                         <td>
-//                       <button
-//                         onClick={() => UpdateUser(row.password)}
-//                         className="btnnn"
-//                       >
-//                         <label>
-//                           <FaPencilAlt className="up-em" />
-//                         </label>
-//                       </button>
-//                       </td>
-//                       <td>
-//                       <button
-//                         onClick={() => DelUser(row.password)}
-//                         className="btnnn"
-//                       >
-//                         <label>
-//                           <RiDeleteBin6Line className="del-em" />
-//                         </label>
-//                       </button>
-//                       </td>
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </table>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default User;
