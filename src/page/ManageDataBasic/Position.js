@@ -12,10 +12,10 @@ function Position() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    UserGet()
+    PositionGet()
   }, [])
 
-  const UserGet = () => {
+  const PositionGet = () => {
     var myHeaders = new Headers();
     myHeaders.append(
       "x-api-key",
@@ -36,39 +36,62 @@ function Position() {
 
   }
 
-  // const UpdateDepartment = id => {
-  //   window.location = '/department'
-  // }
 
-  const DelPositon = id => {
+  const CreatePosition = (id) => {
     var myHeaders = new Headers();
-    myHeaders.append(
-      "x-api-key",
-      sessionStorage.getItem('token')
-    );
-    // myHeaders.append("Content-Type", "application/json");
-    // myHeaders.append("x-api-key", "")
+    myHeaders.append("x-api-key", sessionStorage.getItem("token"));
+
+    myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  "pos_ID": 2,
+  "pos_name": "ຮອງພະແນກ"
+});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+fetch("http://47.250.49.41/myproject1/create_position", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result["status"] === "ok") {
+          window.location.href = "/position";
+        }
+      })
+      .catch((error) => console.log("error", error));
+  };
+
+
+
+  const DelPositon = (id) => {
+    var myHeaders = new Headers();
+    myHeaders.append("x-api-key", sessionStorage.getItem("token"));
+    myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      "pos_name": id
+      pos_name: id,
     });
 
     var requestOptions = {
-      method: 'DELETE',
+      method: "DELETE",
       headers: myHeaders,
       body: raw,
-      redirect: 'follow'
+      redirect: "follow",
     };
 
     fetch("http://47.250.49.41/myproject1/delete_position", requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        if (result['status'] === 'ok') {
-          UserGet()
+      .then((response) => response.json())
+      .then((result) => {
+        if (result["status"] === "ok") {
+          PositionGet();
         }
       })
-      .catch(error => console.log('error', error));
-  }
+      .catch((error) => console.log("error", error));
+  };
 
 
 
@@ -99,7 +122,11 @@ function Position() {
       })
 
       if (formValues) {
-        Swal.fire(JSON.stringify(formValues))
+        Swal.fire(JSON.stringify(formValues)).then(
+          () => {
+            CreatePosition(formValues);
+          }
+        );
       }
 
     })()
@@ -177,8 +204,7 @@ function Position() {
                   <thead>
                     <tr>
                       <th>ລໍາດັບ</th>
-                      <th>ລໍາດັບຊັ້ນ</th>
-                      <th>ຊື່ຕຳແໜ່ງ</th>
+                      <th>ຕຳແໜ່ງ</th>
                       <th>ແກ້ໄຂ</th>
                       <th>ລົບ</th>
                     </tr>
@@ -188,9 +214,9 @@ function Position() {
                       <tr
                         key={row.name}
                       >
-                        <td className="tbl-row-no-position"></td>
-                        <td></td>
-                        <td>{row.dep_name}</td>
+                        {/* <td className="tbl-row-no-position"></td> */}
+                        <td>{row.pos_ID}</td>
+                        <td>{row.pos_name}</td>
                         <td >
                           <button
                             onClick={() => SwalUpdatePosition()}
@@ -221,7 +247,7 @@ function Position() {
                                     'ລົບຂໍ້ມູນສຳເລັດ!',
                                     'ທ່ານໄດ້ລົບຂໍ້ມູນຕຳແໜ່ງສຳເລັດແລ້ວ.',
                                     'success'
-                                  ).then(() => { DelPositon(row.dep_name) })
+                                  ).then(() => { DelPositon(row.pos_name) })
                                 }
                                 else {
                                   Swal.fire(

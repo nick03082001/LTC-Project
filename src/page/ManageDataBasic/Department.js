@@ -10,6 +10,7 @@ function Department() {
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
   const [dep_name, setDname] = useState("");
+  const [dep_ID, setDID] = useState("");
   const [dep_create_date, setDepDate] = useState("");
   const [selectData, setSelectData] = useState("");
 
@@ -45,6 +46,7 @@ function Department() {
       .then((result) => {
         if (result["status"] === "ok") {
           setDname(result["department"]["dep_name"]);
+          setDID(result["department"]["dep_ID"]);
         }
       })
       .catch((error) => console.log("error", error));
@@ -83,7 +85,7 @@ function Department() {
     myHeaders.append("Content-Type", "application/json");
     
     var raw = JSON.stringify({
-      "dep_ID": "1",
+      "dep_ID": 44,
       "dep_name": id
     });
     console.log(id);
@@ -163,31 +165,7 @@ function Department() {
   }
 
   function SwalUpdateDepart() {
-    (async () => {
-      const { value: ipAddress } = await Swal.fire({
-        title: "ຊື່ພະແນກ",
-        input: "text",
-        inputPlaceholder: "ປ້ອນຊື່ພະແນກ",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "ຢືນຢັນ",
-        cancelButtonText: "ຍົກເລີກ",
-        inputValidator: (value) => {
-          if (!value) {
-            return "ກະລຸນາປ້ອນຂໍ້ມູນທີ່ທ່ານຕ້ອງການເພີ່ມ!";
-          }
-        },
-      });
-
-      if (ipAddress) {
-        Swal.fire(`ແກ້ໄຂພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
-          () => {
-            UpdateDepartment(ipAddress);
-          }
-        );
-      }
-    })();
+   
   }
 
   const MySwalDeleteDepart = withReactContent(Swal);
@@ -233,8 +211,8 @@ function Department() {
                   <thead>
                     <tr>
                       <th>ລໍາດັບ</th>
-                      <th>ວັນເດືອນປີສ້າງພະແນກ</th>
                       <th>ຊື່ພະແນກ</th>
+                      <th>ວັນເດືອນປີສ້າງພະແນກ</th>
                       <th>ແກ້ໄຂ</th>
                       <th>ລົບ</th>
                     </tr>
@@ -258,15 +236,41 @@ function Department() {
                       .map((row) => (
                         <tr key={row.name}>
                           <td className="tbl-row-no-depart"></td>
-                          <td>{row.dep_create_date}</td>
                           <td>{row.dep_name}</td>
+                          <td>{row.dep_create_date}</td>
                           <td>
                             <button
                              // onClick={() => SwalUpdateDepart()}
                              onClick={() => {
-                              SwalUpdateDepart();
-                              // console.log(formData.profilepic)
                               setSelectData(row);
+
+                              // console.log(formData.profilepic)
+                              (async () => {
+                                const { value: ipAddress } = await Swal.fire({
+                                  title: "ຊື່ພະແນກ",
+                                  input: "text",
+                                  inputPlaceholder: "ປ້ອນຊື່ພະແນກ",
+                                  showCancelButton: true,
+                                  confirmButtonColor: "#3085d6",
+                                  cancelButtonColor: "#d33",
+                                  confirmButtonText: "ຢືນຢັນ",
+                                  cancelButtonText: "ຍົກເລີກ",
+                                  
+                                  inputValidator: (value) => {
+                                    if (!value) {
+                                      return "ກະລຸນາປ້ອນຂໍ້ມູນທີ່ທ່ານຕ້ອງການເພີ່ມ!";
+                                    }
+                                  },
+                                });
+                          
+                                if (ipAddress) {
+                                  Swal.fire(`ແກ້ໄຂພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
+                                    () => {
+                                      UpdateDepartment(ipAddress);
+                                    }
+                                  );
+                                }
+                              })();
                             }}
                               className="btnnn-depart"
                             >

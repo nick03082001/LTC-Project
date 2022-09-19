@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import "../css/EmCreate.css";
 import { RiCloseLine } from "react-icons/ri";
 
-import axios from "axios";
+//import axios from "axios";
 
 export default function CreateEmployee({ closeModal }) {
   const [emp_ID, setEID] = useState("");
@@ -45,7 +45,7 @@ export default function CreateEmployee({ closeModal }) {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/test/myproject1/create_employee", requestOptions)
+    fetch("http://47.250.49.41/myproject1/create_employee", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         alert(result["message"]);
@@ -57,42 +57,43 @@ export default function CreateEmployee({ closeModal }) {
   };
 
   useEffect(async () => {
-    const provinces = await axios.get(
-      "http://192.168.0.155:1000/test/myproject1/province",
-      {
-        headers: {
-          "x-api-key": sessionStorage.getItem("token"),
-        },
-      }
-    );
-    console.log({ provinces });
-    const sessions = await axios.get(
-      "http://192.168.0.155:1000/test/myproject1/session",
-      {
-        headers: {
-          "x-api-key": sessionStorage.getItem("token"),
-        },
-      }
-    );
-    console.log({ sessions });
-    const positions = await axios.get(
-      "http://192.168.0.155:1000/test/myproject1/positions",
-      {
-        headers: {
-          "x-api-key": sessionStorage.getItem("token"),
-        },
-      }
-    );
-    console.log({ positions });
-    const departments = await axios.get(
-      "http://192.168.0.155:1000/test/myproject1/departments",
-      {
-        headers: {
-          "x-api-key": sessionStorage.getItem("token"),
-        },
-      }
-    );
-    console.log({ departments });
+    // const provinces = await axios.get(
+    //   "http://47.250.49.41/myproject1/province",
+    //   {
+    //     headers: {
+    //       "x-api-key": sessionStorage.getItem("token"),
+    //     },
+    //   }
+    // );
+    // // console.log({ provinces });
+
+    // const sessions = await axios.get(
+    //   "http://47.250.49.41/myproject1/session",
+    //   {
+    //     headers: {
+    //       "x-api-key": sessionStorage.getItem("token"),
+    //     },
+    //   }
+    // );
+    // console.log({ sessions });
+    // const positions = await axios.get(
+    //   "http://47.250.49.41/myproject1/positions",
+    //   {
+    //     headers: {
+    //       "x-api-key": sessionStorage.getItem("token"),
+    //     },
+    //   }
+    // );
+    // console.log({ positions });
+    // const departments = await axios.get(
+    //   "http://47.250.49.41/myproject1/departments",
+    //   {
+    //     headers: {
+    //       "x-api-key": sessionStorage.getItem("token"),
+    //     },
+    //   }
+    // );
+    // console.log({ departments });
 
     if (profilepic.length < 1) return;
     const newImageUrls = [];
@@ -219,10 +220,14 @@ export default function CreateEmployee({ closeModal }) {
               <label id="position" className="lbl-head-cre-em">
                 ພາກສ່ວນ:
               </label>
-              <select className="sel-cre-em">
+              <select 
+              value={session_name}
+                onChange={(e) => setSession(e.target.value)} 
+                className="sel-cre-em">
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
                 </option>
+                <option value="ຂໍ້ມູນ">ຂໍ້ມູນ</option>
                 {/* {session_name != null
                   ? session_name?.map((val) => (
                       <option key={val.session_name} value={val.session_name}>

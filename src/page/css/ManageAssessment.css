@@ -296,11 +296,11 @@
     }
 }
 
-@media all and (max-height: 700px){
+/* @media all and (max-height: 700px){
     .box-tbl-manage-ass{
         height: 350px;
     }
-}
+} */
 
 @media all and (max-height: 600px){
     .box-tbl-manage-ass{
@@ -308,8 +308,7 @@
     }
 }
 
-@media all and (max-height: 500px){
+/* @media all and (max-height: 500px){
     .box-tbl-manage-ass{
         height: 250px;
-    }
-
+    } */

@@ -17,10 +17,10 @@ function CreateAssessment() {
   // }
 
 
-<<<<<<< HEAD
+// <<<<<<< HEAD
   
-=======
->>>>>>> 969f3e734b27dfb690b8ef267e442e1e92e63699
+// =======
+// >>>>>>> 969f3e734b27dfb690b8ef267e442e1e92e63699
   const [val,setVal]=useState([]);
   const handleAddInp=()=>{
     const addInput=[...val,[]]
