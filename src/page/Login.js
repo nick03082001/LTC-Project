@@ -34,7 +34,6 @@ function Login(){
           redirect: 'follow'
         };
         
-        fetch("http://47.250.49.41/myproject1/login", requestOptions)
           .then(response => response.json())
           .then(result => {
             console.log(result)

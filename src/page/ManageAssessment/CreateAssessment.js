@@ -9,18 +9,6 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 
 function CreateAssessment() {
 
-
-  // const [num, setNum]=useState([1]);
-  // const plusNum=()=>{
-  //   const numTitle=[...num,[]]
-  //   setNum(numTitle+1)
-  // }
-
-
-// <<<<<<< HEAD
-  
-// =======
-// >>>>>>> 969f3e734b27dfb690b8ef267e442e1e92e63699
   const [val,setVal]=useState([]);
   const handleAddInp=()=>{
     const addInput=[...val,[]]
@@ -41,6 +29,28 @@ function CreateAssessment() {
     const deleteInput=[...val]
     deleteInput.splice(i,1)
     setVal(deleteInput)
+  }
+
+
+// ສ້າງຫົວຂໍ້ໃຫຍ່ທີ 2
+
+  const [val2,setVal2]=useState([]);
+  const handleAddInp2=()=>{
+    const addInput2=[...val2,[]]
+    setVal2(addInput2)
+    
+  }
+
+  const btnHandleChange2=(onChangeValueTitleTwo,j)=>{
+    const inputDataTitleTwo=[...val2]
+    inputDataTitleTwo[j]=onChangeValueTitleTwo.target.value;
+    setVal2(inputDataTitleTwo)
+  }
+
+  const handleDeleteInp2=(j)=>{
+    const deleteInput2=[...val2]
+    deleteInput2.splice(j,1)
+    setVal2(deleteInput2)
   }
 
 
@@ -92,7 +102,6 @@ function CreateAssessment() {
                           
                           return(
                             <div className="box-inp-title-1_1-create-ass" key={i}>
-                              <span className='num-title-1_1-create-ass'>1-1.{i+1} </span>
                               <input className='inp-title-1_1-create-ass'
                                 type="text"
                                 value={data}
@@ -123,7 +132,51 @@ function CreateAssessment() {
                         
                         </div>
                       </div>
-
+                      <div className="box-title-2-create-ass">
+                        <div className='title-2-create-ass'>
+                          <label className='lbl-big-title'>2.</label>
+                          <input className='inp-title-2-create-ass'
+                            type="text"
+                            placeholder="ປ້ອນຊື່ຫົວຂໍ້ໃຫຍ່ແບບປະເມີນ..."
+                          >
+                          </input>
+                        </div>
+                        <div className='title-2_1-create-ass'>
+                        {val2.map((data2,j)=>{
+                          
+                          return(
+                            <div className="box-inp-title-2_1-create-ass" key={j}>
+                              <span className='num-title-2_1-create-ass'>2.{j+1} </span>
+                              <input className='inp-title-2_1-create-ass'
+                                type="text"
+                                value={data2}
+                                placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
+                                onChange={s=>btnHandleChange2(s,j) }
+                              >
+                              </input>
+                              <button className='btn-delete-title-2_1-create-ass'
+                                onClick={()=>handleDeleteInp2(j)}
+                              >
+                                <RiDeleteBin6Line className='icon-delete-title-2_1-create-ass'/>
+                              </button>
+                            </div>
+                            
+                            )
+                        })}
+                        <div className='box-btn-plus-title-create-ass'>
+                          <button
+                            className="btn-plus-title-create-ass"
+                            onClick={() => {handleAddInp2()}}
+                            >
+                            <label className="lbl-ic-plt-create-ass">
+                                <FaPlusCircle />
+                            </label>
+                            ເພີ່ມຫົວຂໍ້ຍ່ອຍ
+                          </button>
+                        </div>
+                        
+                        </div>
+                      </div>
                   </div>
                 </div>
             </div>

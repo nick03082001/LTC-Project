@@ -155,17 +155,13 @@ function Department() {
       });
 
       if (ipAddress) {
-        Swal.fire(`ເພີ່ມພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
-          () => {
-            CreateDepartment(ipAddress);
-          }
-        );
+
       }
     })();
   }
 
   function SwalUpdateDepart() {
-   
+
   }
 
   const MySwalDeleteDepart = withReactContent(Swal);

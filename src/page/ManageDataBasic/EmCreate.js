@@ -57,43 +57,6 @@ export default function CreateEmployee({ closeModal }) {
   };
 
   useEffect(async () => {
-    // const provinces = await axios.get(
-    //   "http://47.250.49.41/myproject1/province",
-    //   {
-    //     headers: {
-    //       "x-api-key": sessionStorage.getItem("token"),
-    //     },
-    //   }
-    // );
-    // // console.log({ provinces });
-
-    // const sessions = await axios.get(
-    //   "http://47.250.49.41/myproject1/session",
-    //   {
-    //     headers: {
-    //       "x-api-key": sessionStorage.getItem("token"),
-    //     },
-    //   }
-    // );
-    // console.log({ sessions });
-    // const positions = await axios.get(
-    //   "http://47.250.49.41/myproject1/positions",
-    //   {
-    //     headers: {
-    //       "x-api-key": sessionStorage.getItem("token"),
-    //     },
-    //   }
-    // );
-    // console.log({ positions });
-    // const departments = await axios.get(
-    //   "http://47.250.49.41/myproject1/departments",
-    //   {
-    //     headers: {
-    //       "x-api-key": sessionStorage.getItem("token"),
-    //     },
-    //   }
-    // );
-    // console.log({ departments });
 
     if (profilepic.length < 1) return;
     const newImageUrls = [];

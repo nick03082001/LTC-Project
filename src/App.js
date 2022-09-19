@@ -10,6 +10,7 @@ import OrgMovPos from "./page/stucture_org/Change_position.js";
 import HistoryChangePos from "./page/stucture_org/History_change_pos.js";
 import ManageAssessment from "./page/ManageAssessment/ManageAssessment.js";
 import CreateAssessment from "./page/ManageAssessment/CreateAssessment.js";
+import AnswerAssessment from "./page/ManageAssessment/AnswerAssessment.js";
 
 import PrivateRoute from "./utils/PrivateRoute";
 import Error from './page/error404.js'
@@ -29,6 +30,7 @@ function App() {
         <Route exact path="/organization/moving/position_department/history" element={<HistoryChangePos />} />
         <Route exact path="/assessment/manage" element={<ManageAssessment />} />
         <Route exact path="/assessment/create" element={<CreateAssessment />} />
+        <Route exact path="/assessment/answer" element={<AnswerAssessment />} />
         <Route exact path="/home" element={<Home/>} />
         </Route>
 
