@@ -88,7 +88,7 @@ function CreateAssessment() {
                           
                           return(
                             <div className="box-inp-title-1_1-create-ass" key={i}>
-                              <span className='num-title-1_1-create-ass'>1-1.{i+1} </span>
+                              <span className='num-title-1_1-create-ass'>1.{i+1} </span>
                               <input className='inp-title-1_1-create-ass'
                                 type="text"
                                 value={data}
