@@ -266,7 +266,7 @@
 
 .lbl-big-title{
     padding: 5px 0px 0px 5px;
-    font-size: clamp(16px, 2.5vw, 20px);
+    font-size: clamp(18px, 2.5vw, 24px);
     font-weight: 600;
 }
 

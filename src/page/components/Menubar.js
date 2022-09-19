@@ -63,7 +63,7 @@ function Mybar() {
                         <hr className='menu-hr'/>
                         <a href="/assessment/create">ສ້າງແບບປະເມີນ</a>
                         <hr className='menu-hr'/>
-                        <a href="/assessment/record">ເລືອກຕອບແບບປະເມີນ</a>
+                        <a href="/assessment/answer">ເລືອກຕອບແບບປະເມີນ</a>
                         </div>
                     </div>
     
