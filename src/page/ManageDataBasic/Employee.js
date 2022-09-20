@@ -143,7 +143,7 @@ function Employee() {
                     </tr>
                   </thead>
                   <tbody>
-                    {items != null ? 
+                    {items && 
                     items?.filter((val) => {
                         if (searchTerm === "") {
                           return val;
@@ -247,7 +247,7 @@ function Employee() {
                             </button>
                           </td>
                         </tr>
-                      )): ""}
+                      ))}
                   </tbody>
                 </table>
               </div>
@@ -255,6 +255,7 @@ function Employee() {
           </div>
         </div>
       </div>
+      {/* {openModal && <EmCreate closeModal={setOpenModal} />} */}
     </div>
   );
 }

@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import "../css/EmCreate.css";
 import { RiCloseLine } from "react-icons/ri";
 
-//import axios from "axios";
+import axios from "axios";
 
 export default function CreateEmployee({ closeModal }) {
+  console.log(closeModal);
   const [emp_ID, setEID] = useState("");
   const [profilepic, setProfilepic] = useState("");
   const [gender, setGender] = useState("");
@@ -55,25 +56,74 @@ export default function CreateEmployee({ closeModal }) {
       })
       .catch((error) => console.log("error", error));
   };
+  const getPro =async () => {
+    const provinces = await axios.get(
+      "http://47.250.49.41/myproject1/province",
+      {
+        headers: {
+          "x-api-key": sessionStorage.getItem("token"),
+        },
+      }
+    );
+    setProvince(provinces?.data)
+    console.log( provinces?.data);
+    const sessions = await axios.get(
+      "http://47.250.49.41/myproject1/session",
+      {
+        headers: {
+          "x-api-key": sessionStorage.getItem("token"),
+        },
+      }
+    );
+    setSession(sessions?.data)
+    console.log({ sessions });
+    const positions = await axios.get(
+      "http://47.250.49.41/myproject1/positions",
+      {
+        headers: {
+          "x-api-key": sessionStorage.getItem("token"),
+        },
+      }
+    );
 
-  useEffect(async () => {
+    setPosition(positions?.data)
+    console.log({ positions });
+    const departments = await axios.get(
+      "http://47.250.49.41/myproject1/departments",
+      {
+        headers: {
+          "x-api-key": sessionStorage.getItem("token"),
+        },
+      }
+    );
 
+    setDepartment(departments?.data)
+    console.log({ departments });
+
+    
+  }
+
+  useEffect(() => {
+    getPro();
     if (profilepic.length < 1) return;
     const newImageUrls = [];
     profilepic.forEach((image) =>
       newImageUrls.push(URL.createObjectURL(image))
     );
     setImageURLs(newImageUrls);
-  }, [], [profilepic]);
+    console.log(newImageUrls?.data)
+  },[profilepic]);
+  
 
   function onImageChange(e) {
     setProfilepic([e.target.files[0]]);
   }
 
+
   return (
     <div className="myModal-cre-em">
       <div className="modal-content-cre-em">
-        <button onClick={() => closeModal(false)} className="close-cre-em">
+        <button onClick={() =>closeModal(false)} className="close-cre-em">
           <RiCloseLine />
         </button>
         <p className="header-cre-em">
@@ -183,21 +233,17 @@ export default function CreateEmployee({ closeModal }) {
               <label id="position" className="lbl-head-cre-em">
                 ພາກສ່ວນ:
               </label>
-              <select 
-              value={session_name}
-                onChange={(e) => setSession(e.target.value)} 
-                className="sel-cre-em">
+              <select className="sel-cre-em">
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
                 </option>
-                <option value="ຂໍ້ມູນ">ຂໍ້ມູນ</option>
-                {/* {session_name != null
+                {session_name != null
                   ? session_name?.map((val) => (
                       <option key={val.session_name} value={val.session_name}>
                         {val.session_name}
                       </option>
                     ))
-                  : ""} */}
+                  : ""}
               </select>
             </p>
             <p className="pppp-cre-em">
@@ -208,13 +254,13 @@ export default function CreateEmployee({ closeModal }) {
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
                 </option>
-                {/* {pos_name != null
+                {pos_name != null
                   ? pos_name?.map((val) => (
                       <option key={val.pos_name} value={val.pos_name}>
                         {val.pos_name}
                       </option>
                     ))
-                  : ""} */}
+                  : ""}
               </select>
             </p>
             <p className="pppp-cre-em">
@@ -223,13 +269,13 @@ export default function CreateEmployee({ closeModal }) {
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
                 </option>
-                {/* {dep_name != null
+                {dep_name != null
                   ? dep_name?.map((val) => (
                       <option key={val?.dep_name} value={val?.dep_name}>
                         {val?.dep_name}
                       </option>
                     ))
-                  : ""} */}
+                  : ""}
               </select>
             </p>
             <p className="pppp-cre-em">
@@ -256,13 +302,13 @@ export default function CreateEmployee({ closeModal }) {
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
                 </option>
-                {/* {province != null
+                {province != null
                   ? province?.map((val) => (
                       <option key={val.province} value={val.province}>
                         {val.province}
                       </option>
                     ))
-                  : ""} */}
+                  : ""}
               </select>
             </p>
 

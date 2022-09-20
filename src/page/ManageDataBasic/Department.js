@@ -85,7 +85,7 @@ function Department() {
     myHeaders.append("Content-Type", "application/json");
     
     var raw = JSON.stringify({
-      "dep_ID": 44,
+      "dep_ID": dep_ID,
       "dep_name": id
     });
     console.log(id);
@@ -155,13 +155,41 @@ function Department() {
       });
 
       if (ipAddress) {
-
+        Swal.fire(`ເພີ່ມພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
+          () => {
+            CreateDepartment(ipAddress);
+          }
+        );
       }
     })();
   }
 
   function SwalUpdateDepart() {
+    (async () => {
+      const { value: ipAddress } = await Swal.fire({
+        title: "ຊື່ພະແນກ",
+        input: "text",
+        inputPlaceholder: "ປ້ອນຊື່ພະແນກ",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "ຢືນຢັນ",
+        cancelButtonText: "ຍົກເລີກ",
+        inputValidator: (value) => {
+          if (!value) {
+            return "ກະລຸນາປ້ອນຂໍ້ມູນທີ່ທ່ານຕ້ອງການເພີ່ມ!";
+          }
+        },
+      });
 
+      if (ipAddress) {
+        Swal.fire(`ແກ້ໄຂພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
+          () => {
+            UpdateDepartment(ipAddress);
+          }
+        );
+      }
+    })();
   }
 
   const MySwalDeleteDepart = withReactContent(Swal);
@@ -238,35 +266,9 @@ function Department() {
                             <button
                              // onClick={() => SwalUpdateDepart()}
                              onClick={() => {
-                              setSelectData(row);
-
+                              SwalUpdateDepart();
                               // console.log(formData.profilepic)
-                              (async () => {
-                                const { value: ipAddress } = await Swal.fire({
-                                  title: "ຊື່ພະແນກ",
-                                  input: "text",
-                                  inputPlaceholder: "ປ້ອນຊື່ພະແນກ",
-                                  showCancelButton: true,
-                                  confirmButtonColor: "#3085d6",
-                                  cancelButtonColor: "#d33",
-                                  confirmButtonText: "ຢືນຢັນ",
-                                  cancelButtonText: "ຍົກເລີກ",
-                                  
-                                  inputValidator: (value) => {
-                                    if (!value) {
-                                      return "ກະລຸນາປ້ອນຂໍ້ມູນທີ່ທ່ານຕ້ອງການເພີ່ມ!";
-                                    }
-                                  },
-                                });
-                          
-                                if (ipAddress) {
-                                  Swal.fire(`ແກ້ໄຂພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
-                                    () => {
-                                      UpdateDepartment(ipAddress);
-                                    }
-                                  );
-                                }
-                              })();
+                              setSelectData(row);
                             }}
                               className="btnnn-depart"
                             >
