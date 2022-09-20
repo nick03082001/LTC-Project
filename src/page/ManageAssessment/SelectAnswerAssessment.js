@@ -33,7 +33,7 @@ function SelectAnswerAssessment() {
             <div className="tb-select-ass">
                 <div className="con-tbl-select-ass">
                 <p className="p-man-select-ass">
-                    ຕອບແບບປະເມີນ
+                    ເລືອກຕອບແບບປະເມີນ
                 </p>
                 <div className='box-tbl-select-ass'>
                     <table className="tbl-select-ass">
