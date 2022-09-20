@@ -88,7 +88,7 @@
 
 
 .box-title-1-save-ass{
-    background-color: rgb(151, 87, 64);
+    /* background-color: rgb(151, 87, 64); */
     padding-top: 20px;
     /* overflow-x: scroll; */
 }
@@ -108,7 +108,7 @@
 }
 
 .lbl-string-big-title-save-ass{
-    background-color: #463b3d;
+    /* background-color: #463b3d; */
     padding: 5px 0px 0px 5px;
     font-size: clamp(16px, 2.5vw, 20px);
     font-weight: 600;
@@ -144,7 +144,7 @@
 }
 
 .lbl-string-title-1_1-save-ass{
-    background-color: #cca0a9;
+    /* background-color: #cca0a9; */
     font-size: clamp(14px, 2.5vw, 18px);
     font-weight: 400;
     margin-left: 5px;
