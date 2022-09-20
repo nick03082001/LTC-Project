@@ -88,9 +88,9 @@
 
 
 .box-title-1-save-ass{
-    /* background-color: rgb(151, 87, 64); */
+    background-color: rgb(151, 87, 64);
     padding-top: 20px;
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
 }
 
 .title-1-save-ass{
@@ -113,11 +113,12 @@
     font-size: clamp(16px, 2.5vw, 20px);
     font-weight: 600;
     width: 50%;
+    display: flex;
 }
 
 .box-score-1-save-ass{
     background-color: rgb(100, 178, 247);
-    width: 45%;
+    width: 40%;
     font-size: clamp(16px, 2.5vw, 20px);
     font-weight: 600;
     display: flex;
@@ -137,7 +138,7 @@
 }
 
 .num-title-1_1-save-ass{
-    background-color: #f05171;
+    /* background-color: #f05171; */
     font-size: clamp(14px, 2.5vw, 18px);
     font-weight: 400;
 }
@@ -147,20 +148,20 @@
     font-size: clamp(14px, 2.5vw, 18px);
     font-weight: 400;
     margin-left: 5px;
-    width: 50%;
+    width: 49%;
 }
 
 .box-score-1_1-save-ass{
     background-color: rgb(100, 178, 247);
-    width: 45%;
+    width: 40%;
     font-size: clamp(14px, 2.5vw, 18px);
     font-weight: 600;
-    /* display: flex;
-    justify-content: space-around; */
+    display: flex;
+    justify-content: space-around;
     position: absolute;
     right: 5px;
-    display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
+    /* display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto; */
 }
 
 /* .title-1-save-ass{

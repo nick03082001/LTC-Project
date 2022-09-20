@@ -67,6 +67,24 @@ function SaveAnswerAssessment() {
                               >
                               </input> */}
                             </div>
+                            <div className="box-inp-title-1_1-save-ass">
+                                <span className='num-title-1_1-save-ass'>1.2</span>
+                                <label className='lbl-string-title-1_1-save-ass'>
+                                    ເຈົ້າມັກໂຕລະຄອນຊັນຈິຂາດຳຫຼາຍປານໃດ?
+                                </label>
+                                <div className='box-score-1_1-save-ass'>
+                                    <label>0</label><label>1</label><label>2</label><label>3</label><label>4</label>
+                                    <label>5</label><label>6</label><label>7</label><label>8</label><label>9</label>
+                                    <label>10</label>
+                                </div>
+                              {/* <input className='inp-title-1_1-create-ass'
+                                type="text"
+                                value={data}
+                                placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
+                                onChange={e=>btnHandleChange(e,i) }
+                              >
+                              </input> */}
+                            </div>
                             
                             {/* )
                         })} */}
