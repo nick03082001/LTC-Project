@@ -28,7 +28,7 @@ function Department() {
       headers: myHeaders,
       redirect: "follow",
     };
-    fetch("http://47.250.49.41/myproject1/departments", requestOptions)
+    fetch("http://192.168.0.171:3000/myproject1/departments", requestOptions)
       .then((res) => res.json())
       .then((result) => {
         setItems(result);
@@ -41,7 +41,7 @@ function Department() {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/myproject1/update_department", requestOptions)
+    fetch("http://192.168.0.171:3000/myproject1/update_department", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result["status"] === "ok") {
@@ -69,7 +69,7 @@ function Department() {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/myproject1/create_department", requestOptions)
+    fetch("http://192.168.0.171:3000/myproject1/create_department", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result["status"] === "ok") {
@@ -97,7 +97,7 @@ function Department() {
       redirect: 'follow'
     };
     
-    fetch("http://47.250.49.41/myproject1/update_department", requestOptions)
+    fetch("http://192.168.0.171:3000/myproject1/update_department", requestOptions)
     .then((response) => response.json())
     .then((result) => {
       alert(result["message"]);
@@ -124,7 +124,7 @@ function Department() {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/myproject1/delete_department", requestOptions)
+    fetch("http://192.168.0.171:3000/myproject1/delete_department", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result["status"] === "ok") {

@@ -26,7 +26,7 @@ function User() {
       headers: myHeaders,
       redirect: 'follow'
     };
-    fetch("http://47.250.49.41/myproject1/users", requestOptions)
+    fetch("http://192.168.0.171:3000/test/myproject1/users", requestOptions)
       .then(res => res.json())
       .then(
         (result) => {
@@ -58,7 +58,7 @@ function User() {
       redirect: 'follow'
     };
 
-    fetch("http://47.250.49.41/myproject1/delete_department", requestOptions)
+    fetch("http://192.168.0.171:3000/myproject1/delete_department", requestOptions)
       .then(response => response.json())
       .then(result => {
         if (result['status'] === 'ok') {

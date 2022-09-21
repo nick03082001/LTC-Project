@@ -26,7 +26,7 @@ function Position() {
       headers: myHeaders,
       redirect: 'follow'
     };
-    fetch("http://47.250.49.41/myproject1/positions", requestOptions)
+    fetch("http://192.168.0.171:3000/myproject1/positions", requestOptions)
       .then(res => res.json())
       .then(
         (result) => {
@@ -55,7 +55,7 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-fetch("http://47.250.49.41/myproject1/create_position", requestOptions)
+fetch("http://192.168.0.171:3000/myproject1/create_position", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result["status"] === "ok") {
@@ -83,7 +83,7 @@ fetch("http://47.250.49.41/myproject1/create_position", requestOptions)
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/myproject1/delete_position", requestOptions)
+    fetch("http://192.168.0.171:3000/myproject1/delete_position", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result["status"] === "ok") {
@@ -307,7 +307,7 @@ export default Position;
 //     }, [])
 
 //     const UserGet = () => {
-//       fetch("http://47.250.49.41/myproject1/position")
+//       fetch("http://192.168.0.171:3000/myproject1/position")
 //         .then(res => res.json())
 //         .then(
 //           (result) => {
@@ -336,7 +336,7 @@ export default Position;
 // redirect: 'follow'
 // };
 
-// fetch("http://47.250.49.41/myproject1/delete_position", requestOptions)
+// fetch("http://192.168.0.171:3000/myproject1/delete_position", requestOptions)
 // .then(response => response.json())
 // .then(result => {
 //   alert(result['message'])
