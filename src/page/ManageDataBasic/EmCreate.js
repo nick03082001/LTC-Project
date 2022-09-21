@@ -24,7 +24,6 @@ export default function CreateEmployee({ closeModal }) {
   const [selectPosition, setselectPosition] = useState("");
   const [selectDepartment, setselectDepartment] = useState("");
 
-
   // const [uploadData,setUploadData] = useState({emp_ID:"123",emp_name:""})
 
   const handleSubmit = async (e) => {
