@@ -64,6 +64,8 @@ export default function CreateEmployee({ closeModal }) {
       newImageUrls.push(URL.createObjectURL(image))
     );
     setImageURLs(newImageUrls);
+
+    
   }, [], [profilepic]);
 
   function onImageChange(e) {
