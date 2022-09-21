@@ -6,7 +6,10 @@ import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
+
+
 function Department() {
+  
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
   const [dep_name, setDname] = useState("");
