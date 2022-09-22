@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import "../css/SaveAnswerAssessment.css";
 import Menubar from "../components/Menubar.js";
 import { IoIosSave } from "react-icons/io";
+import axios from "axios";
 
 function SaveAnswerAssessment() {
 
     const [val,setVal]=useState([]);
+    const [val2,setVal2]=useState([]);
 
     const btnHandleChange=(onChangeValueTitleOne,i)=>{
         const inputDataTitleOne=[...val]
@@ -14,27 +16,18 @@ function SaveAnswerAssessment() {
     }
 
 
-
-
-    useEffect(() => {
-      TitleBigOnetGet();
-    }, []);
-
-    const TitleBigOnetGet = () => {
-      var myHeaders = new Headers();
-      myHeaders.append("x-api-key", sessionStorage.getItem("token"));
-  
-      var requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-        redirect: "follow",
-      };
-      fetch("http://192.168.0.193:1000/form", requestOptions)
-        .then((res) => res.json())
-        .then((result) => {
-          setVal(result);
+    const HeaderAssGet = () => {
+      axios.get("http://192.168.0.193:5000/test/myproject1/header_form")
+      .then((result) => {
+          // console.log(result.data.form)
+          setVal(result.data.form);
         });
+        
     };
+
+  useEffect(() => {
+      HeaderAssGet();
+  }, []);
     
     console.log(val.head_name)
 
@@ -76,7 +69,7 @@ function SaveAnswerAssessment() {
                             <div className="box-inp-title-1_1-save-ass" key={i}>
                                 <span className='num-title-1_1-save-ass'>1.{i+1}</span>
                                 <label className='lbl-string-title-1_1-save-ass'>
-                                {row.title2_name}
+                                {row.head_name}
                                 </label>
                                 <div className='box-score-1_1-save-ass'>
                                     <label><input className="inp-radio-score-1_1-save-ass" name={i} type="radio"
@@ -136,7 +129,7 @@ function SaveAnswerAssessment() {
                           </div>
                         </div>
                         <div className='title-1_1-save-ass'>
-                        {val.map((row,j)=>{
+                        {val2.map((row,j)=>{
                           
                           return(
                             <div className="box-inp-title-1_1-save-ass" key={j}>
@@ -192,7 +185,7 @@ function SaveAnswerAssessment() {
                           <div className='total-score-title-1-save-ass'>
                             <label className='lbl-string-total-score-save-ass'>ຄະແນນລວມທັງໝົດ:</label>
                             <div className='box-total-score-1-save-ass'>
-                              <span className='string-tital-score-1-save-ass'>100%</span>
+                              <span className='string-tital-score-1-save-ass'>10%</span>
                             </div>
                           </div>
                         </div>

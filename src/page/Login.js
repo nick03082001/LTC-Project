@@ -33,7 +33,7 @@ function Login() {
       redirect: "follow",
     };
 
-    fetch("http://192.168.0.182:3000/test/myproject1/login", requestOptions)
+    fetch("http://47.250.49.41/myproject1/login", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
