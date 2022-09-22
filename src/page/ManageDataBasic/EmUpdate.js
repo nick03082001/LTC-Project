@@ -4,7 +4,7 @@ import "../css/EmUpdate.css";
 import { RiCloseLine } from "react-icons/ri";
 import axios from "axios";
 
-export default function EmUpdate({ closeModalUp, data,isOpen }) {
+export default function EmUpdate({ closeModalUp, data, isOpen }) {
   const [emp_ID, setEID] = useState(data.emp_ID);
   const [emp_name, setEname] = useState(data.emp_name);
   const [emp_surname, setESurname] = useState(data.emp_surname);
@@ -16,13 +16,13 @@ export default function EmUpdate({ closeModalUp, data,isOpen }) {
   const [province, setProvince] = useState([]);
   const [session_name, setSession] = useState([]);
   const [imageURLs, setImageURLs] = useState(data?.profilepic);
+
   const [selectProvince, setSelectedProvince] = useState(data.province);
   const [selectSession, setSelectSession] = useState("");
   const [selectPosition, setselectPosition] = useState("");
   const [selectDepartment, setselectDepartment] = useState("");
   const [profilepic, setProfilepic] = useState("");
   const [selectGender, setselectGender] = useState("ຍິງ");
-  
 
   const imageRef = useRef();
 
@@ -44,9 +44,7 @@ export default function EmUpdate({ closeModalUp, data,isOpen }) {
     formdata.append("gender", selectGender);
     formdata.append("prov_name", selectProvince);
     formdata.append("sessions_name", selectSession);
-    formdata.append("files", profilepic[0], profilepic[0].name);
-
-    
+    formdata.append("files", profilepic, profilepic?.name);
 
     var requestOptions = {
       method: "PUT",
@@ -55,7 +53,7 @@ export default function EmUpdate({ closeModalUp, data,isOpen }) {
       redirect: "follow",
     };
 
-    fetch("http://192.168.0.171:3000/test/myproject1/employee", requestOptions)
+    fetch("http://47.250.49.41/myproject1/employee", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         alert(result["message"]);
@@ -65,72 +63,70 @@ export default function EmUpdate({ closeModalUp, data,isOpen }) {
       })
       .catch((error) => console.log("error", error));
   };
-  React.useEffect(()=>{
-    setselectGender(data?.gender)
-    setSelectedProvince(data.province)
-    setEname(data?.emp_name)
-    setESurname(data.emp_surname)
-    setETel(data.emp_tel)
-    setImageURLs(data?.profilepic)
-    setSelectSession(data.session_name)
-    setselectDepartment(data.dep_name)
-    setDistrict(data.district)
-    setVillage(data.village)
-    setEID(data.emp_ID)
-    setselectPosition(data.position)
 
-   
-  },[data])
+  React.useEffect(() => {
+    setselectGender(data?.gender);
+    setSelectedProvince(data.province);
+    setEname(data?.emp_name);
+    setESurname(data.emp_surname);
+    setETel(data.emp_tel);
+    setImageURLs(data?.profilepic);
+    setSelectSession(data.session_ID);
+    setselectDepartment(data.dep_name);
+    setDistrict(data.district);
+    setVillage(data.village);
+    setEID(data.emp_ID);
+    setselectPosition(data.pos_name);
+  }, [data]);
 
-  
   React.useEffect(() => {
     axios
-    .get("http://192.168.0.171:3000/test/myproject1/provinces", {
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
-      },
-    })
-    .then((res) => {
-      console.log(res.data.province)
-      setProvince(res?.data?.province);
-    });
+      .get("http://47.250.49.41/myproject1/provinces", {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        console.log(res.data.province);
+        setProvince(res?.data?.province);
+      });
 
-  axios
-    .get("http://192.168.0.171:3000/test/myproject1/session", {
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
-      },
-    })
-    .then((res) => {
-      // console.log(res.data.session)
-      setSession(res?.data?.session);
-    });
+    axios
+      .get("http://47.250.49.41/myproject1/session", {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        // console.log(res.data.session)
+        setSession(res?.data?.session);
+      });
 
-  axios
-    .get("http://192.168.0.171:3000/test/myproject1/department", {
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
-      },
-    })
-    .then((res) => {
-      // console.log(res.data.department)
-      setDepartment(res?.data?.department);
-    });
+    axios
+      .get("http://47.250.49.41/myproject1/department", {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        // console.log(res.data.department)
+        setDepartment(res?.data?.department);
+      });
 
-  axios
-    .get("http://192.168.0.171:3000/test/myproject1/position", {
-      headers: {
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
-      },
-    })
-    .then((res) => {
-      // console.log(res.data.position)
-      setPosition(res?.data?.position);
-    });
+    axios
+      .get("http://47.250.49.41/myproject1/position", {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        // console.log(res.data.position)
+        setPosition(res?.data?.position);
+      });
   }, []);
 
-  // console.log("profilepic : ", profilepic.length);
-  // console.log("imageURLs : ", imageURLs);
+  //  console.log("profilepic : ", profilepic.length);
+  //  console.log("imageURLs : ", imageURLs);
   // useEffect(() => {
   //   if (profilepic.length < 1) return;
   //   const newImageUrls = [];
@@ -141,12 +137,15 @@ export default function EmUpdate({ closeModalUp, data,isOpen }) {
   // }, [profilepic]);
 
   function onImageChangeUp(e) {
-
     // console.log(e.target.files)
+    setProfilepic(e.target.files[0])
     setImageURLs(URL.createObjectURL(e.target.files[0]));
   }
   return (
-    <div className="myModal-up-em" style={{display:isOpen?"block":"none",marginTop:100}}>
+    <div
+      className="myModal-up-em"
+      style={{ display: isOpen ? "block" : "none", marginTop: 100 }}
+    >
       <div className="modal-content-up-em">
         <button onClick={() => closeModalUp(false)} className="close-up-em">
           <RiCloseLine />
@@ -173,12 +172,17 @@ export default function EmUpdate({ closeModalUp, data,isOpen }) {
               multiple
               accept="image/*"
               onChange={onImageChangeUp}
-              style={{ display:'none' }}
+              style={{ display: "none" }}
             />
             {/* {imageURLs.map((imageSrcUp, idxx) => ( */}
-              <img onClick={()=>{
-                imageRef?.current?.click()
-              }} className="img-up-em"  src={imageURLs} alt="" />
+            <img
+              onClick={() => {
+                imageRef?.current?.click();
+              }}
+              className="img-up-em"
+              src={imageURLs}
+              alt=""
+            />
             {/* ))} */}
           </p>
         </div>
@@ -264,7 +268,7 @@ export default function EmUpdate({ closeModalUp, data,isOpen }) {
               <label className="lbl-head-cre-em">ພາກສ່ວນ:</label>
               <select
                 className="sel-up-em"
-                value={session_name}
+                value={selectSession}
                 onChange={(e) => setSelectSession(e.target.value)}
               >
                 <option selected disabled>
@@ -282,7 +286,7 @@ export default function EmUpdate({ closeModalUp, data,isOpen }) {
               <label className="lbl-head-up-em">ຕໍາແໜ່ງ:</label>
               <select
                 className="sel-up-em"
-                value={pos_name}
+                value={selectPosition}
                 onChange={(e) => setselectPosition(e.target.value)}
               >
                 <option selected disabled>
@@ -300,7 +304,7 @@ export default function EmUpdate({ closeModalUp, data,isOpen }) {
               <label className="lbl-head-up-em">ພະແນກ:</label>
               <select
                 className="sel-up-em"
-                value={dep_name}
+                value={selectDepartment}
                 onChange={(e) => setselectDepartment(e.target.value)}
               >
                 <option selected disabled>

@@ -33,7 +33,7 @@ function Login() {
       redirect: "follow",
     };
 
-    fetch("http://192.168.0.171:3000/test/myproject1/login", requestOptions)
+    fetch("http://47.250.49.41/myproject1/login", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
@@ -41,9 +41,8 @@ function Login() {
           MySwal.fire({
             html: <i>{result?.message}</i>,
             icon: "success",
-            
           }).then((value) => {
-            console.log(result?.token)
+            console.log(result?.token);
             sessionStorage.setItem("token", result.token);
             navigate("/home");
           });
@@ -58,8 +57,6 @@ function Login() {
 
     console.log(inputs);
   };
-
-
 
   return (
     <div className="background-login">

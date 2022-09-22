@@ -4,7 +4,7 @@ import EmCreate from "./EmCreate.js";
 import EmUpdate from "./EmUpdate.js";
 import { FaSearch, FaPencilAlt, FaPlusCircle } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Avatar } from "@mui/material";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -16,7 +16,7 @@ function Employee() {
 
   React.useEffect(() => {
     axios
-      .get("http://192.168.0.171:3000/test/myproject1/employee", {
+      .get("http://47.250.49.41/myproject1/employee", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -24,7 +24,7 @@ function Employee() {
       .then((res) => {
         setItems(res?.data?.employee);
       });
-  },[]);
+  }, []);
 
   const DelEmployee = (id) => {
     var myHeaders = new Headers();
@@ -34,26 +34,22 @@ function Employee() {
       "Bearer " + sessionStorage.getItem("token")
     );
 
-    var raw = JSON.stringify({
-      emp_ID: id,
-    });
+    // var raw = JSON.stringify({
+    //   emp_ID: id,
+    // });
 
     var requestOptions = {
       method: "DELETE",
       headers: myHeaders,
-      body: raw,
       redirect: "follow",
     };
 
-    fetch(
-      "http://192.168.0.171:3000/test/myproject1/delete_employee",
-      requestOptions
-    )
+    fetch("http://47.250.49.41/myproject1/employee?emp_ID="+id, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result["status"] === "ok") {
           axios
-            .get("http://192.168.0.171:3000/test/myproject1/employee", {
+            .get("http://47.250.49.41/myproject1/employee", {
               headers: {
                 Authorization: "Bearer " + sessionStorage.getItem("token"),
               },
@@ -67,10 +63,10 @@ function Employee() {
   };
 
   const getRecord = (e) => {
-    console.log("My DATA : " ,e);
+    console.log("My DATA : ", e);
     setOpenModalUp(true);
     setSelectData(e);
-  }
+  };
 
   const [openModal, setOpenModal] = useState(false);
   const [openModalUp, setOpenModalUp] = useState(false);
@@ -185,8 +181,8 @@ function Employee() {
                             <td>{formData.province}</td>
                             <td>
                               <button
-                                onClick={() => 
-                                  getRecord(formData)
+                                onClick={
+                                  () => getRecord(formData)
                                   // setOpenModalUp(true)
                                   // this.close(formData.emp_ID);
                                   // setSelectData(formData)
@@ -252,10 +248,10 @@ function Employee() {
         </div>
       </div>
       <EmUpdate
-                                  closeModalUp={setOpenModalUp}
-                                  data={selectData}
-                                  isOpen={openModalUp}
-                                />
+        closeModalUp={setOpenModalUp}
+        data={selectData}
+        isOpen={openModalUp}
+      />
     </div>
   );
 }
