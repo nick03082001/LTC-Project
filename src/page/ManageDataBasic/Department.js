@@ -7,7 +7,10 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import axios from "axios";
 
+
+
 function Department() {
+  
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
   const [selectDepartment, setSelectDepartment] = useState("");
