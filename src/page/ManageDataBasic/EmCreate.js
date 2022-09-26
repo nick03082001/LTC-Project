@@ -54,6 +54,7 @@ export default function CreateEmployee({ closeModal }) {
     console.log(gender);
     console.log(selectProvince);
     console.log(selectSession);
+    
 
     var requestOptions = {
       method: "POST",
