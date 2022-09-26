@@ -3,6 +3,7 @@ import { Routes, Route, } from "react-router-dom";
 import Employee from "./page/ManageDataBasic/Employee.js";
 import Department from "./page/ManageDataBasic/Department.js";
 import Home from './page/Home.js'
+import Profile from './page/Profile.js'
 import './App.css'
 import Position from "./page/ManageDataBasic/Position.js";
 import User from "./page/ManageDataBasic/User.js";
@@ -22,7 +23,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-      {/* <Route element = {< PrivateRoute/>}> */}
+      <Route element = {< PrivateRoute/>}>
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/employee" element={<Employee />} />
         <Route exact path="/department" element={<Department />} />
@@ -35,7 +36,8 @@ function App() {
         <Route exact path="/assessment/answer" element={<SelectAnswerAssessment />} />
         <Route exact path="/assessment/save/answer" element={<SaveAnswerAssessment />} />
         <Route exact path="/home" element={<Home/>} />
-        {/* </Route> */}
+        <Route exact path="/profile" element={<Profile/>} />
+        </Route>
         
         <Route exact path="/" element={<Login />} />
         <Route exact path="/login" element={<Login />} />
