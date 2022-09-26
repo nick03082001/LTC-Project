@@ -176,6 +176,7 @@ function User() {
                 <table className="tbl-user">
                   <thead>
                     <tr>
+                      <th>ລໍາດັບ</th>
                       <th>ຊື່ຜູ້ໃຊ້</th>
                       <th>ຊື່ພະນັກງານ</th>
                       <th>ຕໍາແໜ່ງ</th>
@@ -188,6 +189,7 @@ function User() {
                       <tr
                         key={row.name}
                       >
+                        <td className="tbl-row-no-user"></td>
                         <td>{row.username}</td>
                         <td>{row.emp_name}</td>
                         <td>{row.pos_name}</td>

@@ -10,7 +10,100 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import axios from "axios";
 
+// Mui test
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+const theme = createTheme({
+  typography: {
+    allVariants: {
+      fontFamily: 'Noto Serif Lao',
+      textTransform: 'none',
+      fontSize: 16,
+    },
+  },
+});
+
+
+
 function Employee() {
+
+  // Mui test
+  const columns = [
+    { id: 'name', label: 'ລໍາດັບ' },
+    { id: 'code', label: 'ລະຫັດ' },
+    { id: 'code', label: 'ຮູບພະນັກງານ' },
+    {
+      id: 'population',
+      label: 'ເພດ',
+      align: 'right',
+    },
+    {
+      id: 'size',
+      label: 'ຊື່',
+      align: 'right',
+    },
+    {
+      id: 'density',
+      label: 'ນາມສະກຸນ',
+      align: 'right',
+    },
+    {
+      id: 'densit',
+      label: 'ເບີໂທ',
+      align: 'right',
+    },
+    {
+      id: 'densi',
+      label: 'ພາກສ່ວນ',
+      align: 'right',
+    },
+    {
+      id: 'dens',
+      label: 'ຕໍາແໜ່ງ',
+      align: 'right',
+    },
+    
+    {
+      id: 'den',
+      label: 'ພະແນກ',
+      align: 'right',
+    },
+    
+    {
+      id: 'de',
+      label: 'ແຂວງ',
+      align: 'right',
+    },
+  ];
+
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+
+
+  
+
+
+
+
+
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
 
@@ -112,10 +205,11 @@ function Employee() {
                 </button>
                 {openModal && <EmCreate closeModal={setOpenModal} />}
               </p>
-              <div className="box-tbl-em">
+              {/* <div className="box-tbl-em">
                 <table className="tbl-em">
                   <thead>
                     <tr>
+                      <th>ລໍາດັບ</th>
                       <th>ລະຫັດພະນັກງານ</th>
                       <th>ຮູບພະນັກງານ</th>
                       <th>ເພດ</th>
@@ -152,9 +246,6 @@ function Employee() {
                             val.emp_tel
                               .toLowerCase()
                               .includes(searchTerm.toLowerCase()) ||
-                            // val.session_name
-                            //   .toLowerCase()
-                            //   .includes(searchTerm.toLowerCase()) ||
                             val.pos_name
                               .toLowerCase()
                               .includes(searchTerm.toLowerCase()) ||
@@ -167,6 +258,7 @@ function Employee() {
                         })
                         .map((formData) => (
                           <tr key={formData.name}>
+                            <td className="tbl-row-no-em"></td>
                             <td>{formData.emp_ID}</td>
                             <td>
                               <Avatar src={formData.profilepic} />
@@ -183,9 +275,6 @@ function Employee() {
                               <button
                                 onClick={
                                   () => getRecord(formData)
-                                  // setOpenModalUp(true)
-                                  // this.close(formData.emp_ID);
-                                  // setSelectData(formData)
                                 }
                                 className="btnnn"
                               >
@@ -193,12 +282,6 @@ function Employee() {
                                   <FaPencilAlt className="up-em" />
                                 </label>
                               </button>
-                              {/* {openModalUp && (
-                                <EmUpdate
-                                  closeModalUp={setOpenModalUp}
-                                  data={selectData}
-                                />
-                              )} */}
                             </td>
                             <td>
                               <button
@@ -242,7 +325,120 @@ function Employee() {
                         ))}
                   </tbody>
                 </table>
-              </div>
+                
+              </div> */}
+              <div>
+                <ThemeProvider theme={theme}>
+                <Paper sx={{ width: '100%', }}>
+                  <TableContainer sx={{ maxHeight: 440 }}>
+                    <Table stickyHeader aria-label="sticky table">
+                      <TableHead>
+                        <TableRow>
+                            <TableCell>ລໍາດັບ</TableCell>
+                            <TableCell>ລະຫັດພະນັກງານ</TableCell>
+                            <TableCell>ຮູບພະນັກງານ</TableCell>
+                            <TableCell>ເພດ</TableCell>
+                            <TableCell>ຊື່</TableCell>
+                            <TableCell>ນາມສະກຸນ</TableCell>
+                            <TableCell>ເບີໂທ</TableCell>
+                            <TableCell>ພາກສ່ວນ</TableCell>
+                            <TableCell>ຕໍາແໜ່ງ</TableCell>
+                            <TableCell>ພະແນກ</TableCell>
+                            <TableCell>ແຂວງ</TableCell>
+                            <TableCell>ແກ້ໄຂ</TableCell>
+                            <TableCell>ລົບ</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {items
+                          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                          .map((row, i) => {
+                            return (
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
+                                <TableCell>{i+1}</TableCell>
+                                <TableCell>{row.emp_ID}</TableCell>
+                                <TableCell>
+                                  <Avatar src={row.profilepic} />
+                                </TableCell>
+                                <TableCell>{row.gender}</TableCell>
+                                <TableCell>{row.emp_name}</TableCell>
+                                <TableCell>{row.emp_surname}</TableCell>
+                                <TableCell>{row.emp_tel}</TableCell>
+                                <TableCell>{row.session_name}</TableCell>
+                                <TableCell>{row.pos_name}</TableCell>
+                                <TableCell>{row.dep_name}</TableCell>
+                                <TableCell>{row.province} </TableCell>
+                                <TableCell>
+                                  <button
+                                    onClick={
+                                      () => getRecord(row)
+                                      // setOpenModalUp(true)
+                                      // this.close(formData.emp_ID);
+                                      // setSelectData(formData)
+                                    }
+                                    className="btnnn"
+                                  >
+                                    <label>
+                                      <FaPencilAlt className="up-em" />
+                                    </label>
+                                  </button>
+                                </TableCell>
+                                <TableCell>
+                                  <button
+                                    className="btnnn"
+                                    onClick={() =>
+                                      MySwal.fire({
+                                        title: "ຢືນຢັນການລົບ",
+                                        html: "ຂໍ້ມູນທີ່ທ່ານລົບຈະບໍ່ສາມາດກູ້ຄືນໄດ້.<br /> ທ່ານແນ່ໃຈທີ່ຈະລົບ ຫຼື ບໍ່?",
+                                        icon: "warning",
+                                        iconColor: "red",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#3085d6",
+                                        cancelButtonColor: "#d33",
+                                        confirmButtonText: "ຢືນຢັນ",
+                                        cancelButtonText: "ຍົກເລີກ",
+                                      }).then((result) => {
+                                        if (result.isConfirmed) {
+                                          Swal.fire(
+                                            "ລົບຂໍ້ມູນສຳເລັດ!",
+                                            "ທ່ານໄດ້ລົບຂໍ້ມູນພະນັກງານສຳເລັດແລ້ວ.",
+                                            "success"
+                                          ).then(() => {
+                                            DelEmployee(row.emp_ID);
+                                          });
+                                        } else {
+                                          Swal.fire(
+                                            "ລົບຂໍ້ມູນບໍ່ສຳເລັດ!",
+                                            "ທ່ານໄດ້ລົບຂໍ້ມູນພະນັກງານບໍ່ສຳເລັດແລ້ວ.",
+                                            "error"
+                                          );
+                                        }
+                                      })
+                                    }
+                                  >
+                                    <label>
+                                      <RiDeleteBin6Line className="del-em" />
+                                    </label>
+                                  </button>
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[2, 25, 100]}
+                    component="div"
+                    count={items.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                  />
+                </Paper>
+                </ThemeProvider>
+                </div>
             </div>
           </div>
         </div>

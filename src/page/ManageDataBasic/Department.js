@@ -221,6 +221,7 @@ function Department() {
                 <table className="tbl-depart">
                   <thead>
                     <tr>
+                      <th>ລໍາດັບ</th>
                       <th>ລະຫັດພະແນກ</th>
                       <th>ຊື່ພະແນກ</th>
                       <th>ວັນເດືອນປີສ້າງພະແນກ</th>
@@ -246,6 +247,7 @@ function Department() {
                       })
                       .map((row) => (
                         <tr key={row.name}>
+                          <td className="tbl-row-no-depart"></td>
                           <td>{row.dep_ID}</td>
                           <td>{row.dep_name}</td>
                           <td>{row.dep_create_date}</td>

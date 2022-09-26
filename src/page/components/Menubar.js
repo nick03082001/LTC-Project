@@ -15,7 +15,7 @@ function Mybar() {
                             <img src="avatar.png" alt="Avatar" className="Avatar"></img>
                         </button>
                         <div className="dropdown-content-avatar">
-                        <a href="/setting">ຕັ້ງຄ່າໂປຣຟາຍ</a>
+                        <a href="/profile">ຕັ້ງຄ່າໂປຣຟາຍ</a>
                         <hr className='menu-hr'/>
                         <a href="/">ອອກຈາກລະບົບ</a>
                         </div>
