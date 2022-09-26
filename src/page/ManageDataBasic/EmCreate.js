@@ -24,10 +24,7 @@ export default function CreateEmployee({ closeModal }) {
   const [selectPosition, setselectPosition] = useState("");
   const [selectDepartment, setselectDepartment] = useState("");
 
-  // const [uploadData,setUploadData] = useState({emp_ID:"123",emp_name:""})
-
   const handleSubmit = async (e) => {
-    // setUploadData({...uploadData,emp_ID:"emp_ID"})
     var myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
@@ -46,6 +43,18 @@ export default function CreateEmployee({ closeModal }) {
     formdata.append("prov_name", selectProvince);
     formdata.append("sessions_name", selectSession);
     formdata.append("files", profilepic[0], profilepic[0].name);
+    console.log(emp_ID);
+    console.log(emp_name);
+    console.log(emp_surname);
+    console.log(emp_tel);
+    console.log(selectDepartment);
+    console.log(district);
+    console.log(village);
+    console.log(selectPosition);
+    console.log(gender);
+    console.log(selectProvince);
+    console.log(selectSession);
+    
 
     var requestOptions = {
       method: "POST",
@@ -54,7 +63,7 @@ export default function CreateEmployee({ closeModal }) {
       redirect: "follow",
     };
 
-    fetch("http://192.168.0.182:3000/test/myproject1/employee", requestOptions)
+    fetch("http://47.250.49.41/myproject1/employee", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         alert(result["message"]);
@@ -67,7 +76,7 @@ export default function CreateEmployee({ closeModal }) {
 
   React.useEffect(() => {
     axios
-      .get("http://192.168.0.182:3000/test/myproject1/provinces", {
+      .get("http://47.250.49.41/myproject1/provinces", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -77,7 +86,7 @@ export default function CreateEmployee({ closeModal }) {
       });
 
     axios
-      .get("http://192.168.0.182:3000/test/myproject1/sessions", {
+      .get("http://47.250.49.41/myproject1/session", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -87,7 +96,7 @@ export default function CreateEmployee({ closeModal }) {
       });
 
     axios
-      .get("http://192.168.0.182:3000/test/myproject1/departments", {
+      .get("http://47.250.49.41/myproject1/department", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -97,7 +106,7 @@ export default function CreateEmployee({ closeModal }) {
       });
 
     axios
-      .get("http://192.168.0.182:3000/test/myproject1/positions", {
+      .get("http://47.250.49.41/myproject1/position", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },

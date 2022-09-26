@@ -4,70 +4,69 @@ import EmCreate from "./EmCreate.js";
 import EmUpdate from "./EmUpdate.js";
 import { FaSearch, FaPencilAlt, FaPlusCircle } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Avatar } from "@mui/material";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import axios from "axios";
 
 function Employee() {
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
-  
-  
 
-  const UserGet = () => {
-    var myHeaders = new Headers();
-    myHeaders.append("x-api-key", sessionStorage.getItem("token"));
-
-    var requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow",
-    };
-    fetch("http://47.250.49.41/myproject1/employees", requestOptions)
-      .then((res) => res.json())
-      .then((result) => {
-        setItems(result);
+  React.useEffect(() => {
+    axios
+      .get("http://47.250.49.41/myproject1/employee", {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        setItems(res?.data?.employee);
       });
-  };
-
-
-
-  useEffect(() => {
-    UserGet();
   }, []);
 
-  
   const DelEmployee = (id) => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("x-api-key", sessionStorage.getItem("token"));
+    myHeaders.append(
+      "Authorization",
+      "Bearer " + sessionStorage.getItem("token")
+    );
 
-    var raw = JSON.stringify({
-      emp_ID: id,
-    });
+    // var raw = JSON.stringify({
+    //   emp_ID: id,
+    // });
 
     var requestOptions = {
       method: "DELETE",
       headers: myHeaders,
-      body: raw,
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/myproject1/delete_employee", requestOptions)
+    fetch("http://47.250.49.41/myproject1/employee?emp_ID="+id, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result["status"] === "ok") {
-          UserGet();
+          axios
+            .get("http://47.250.49.41/myproject1/employee", {
+              headers: {
+                Authorization: "Bearer " + sessionStorage.getItem("token"),
+              },
+            })
+            .then((res) => {
+              setItems(res?.data?.employee);
+            });
         }
       })
       .catch((error) => console.log("error", error));
   };
 
-  // const [modal, setModal] = useState(false);
-  // const toggleModal = () => {
-  //   setModal(!modal)
-  // };
+  const getRecord = (e) => {
+    console.log("My DATA : ", e);
+    setOpenModalUp(true);
+    setSelectData(e);
+  };
 
   const [openModal, setOpenModal] = useState(false);
   const [openModalUp, setOpenModalUp] = useState(false);
@@ -112,18 +111,6 @@ function Employee() {
                   ເພີ່ມ
                 </button>
                 {openModal && <EmCreate closeModal={setOpenModal} />}
-                {/*button no loop*/
-                /* <button
-                  className="btnnn"
-                  onClick={() => {
-                    setOpenModal(true);
-                  }}
-                >
-                  <label>
-                    <FaPencilAlt className="up-em" />
-                  </label>
-                </button>
-                {openModalUp && <EmUpdate closeModalUp={setOpenModalUp} />} */}
               </p>
               <div className="box-tbl-em">
                 <table className="tbl-em">
@@ -138,116 +125,121 @@ function Employee() {
                       <th>ພາກສ່ວນ</th>
                       <th>ຕໍາແໜ່ງ</th>
                       <th>ພະແນກ</th>
+                      <th>ແຂວງ</th>
                       <th>ແກ້ໄຂ</th>
                       <th>ລົບ</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {items && 
-                    items?.filter((val) => {
-                        if (searchTerm === "") {
-                          return val;
-                        } else if (
-                          val.emp_ID
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()) ||
-                          val.gender
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()) ||
-                          val.emp_name
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()) ||
-                          val.emp_surname
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()) ||
-                          val.emp_tel
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()) ||
-                          // val.session_name
-                          //   .toLowerCase()
-                          //   .includes(searchTerm.toLowerCase()) ||
-                          val.pos_name
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()) ||
-                          val.dep_name
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase())
-                        ) {
-                          return val;
-                        }
-                      })
-                      .map((formData) => (
-                        <tr key={formData.name}>
-                          <td>{formData.emp_ID}</td>
-                          <td>
-                            <Avatar src={formData.profilepic} />
-                          </td>
-                          <td>{formData.gender}</td>
-                          <td>{formData.emp_name}</td>
-                          <td>{formData.emp_surname}</td>
-                          <td>{formData.emp_tel}</td>
-                          <td>{formData.session_name}</td>
-                          <td>{formData.pos_name}</td>
-                          <td>{formData.dep_name}</td>
-                          <td>
-                            <button
-                              onClick={() => {
-                                setOpenModalUp(true);
-                                setSelectData(formData);
-                              }}
-                              className="btnnn"
-                            >
-                              <label>
-                                <FaPencilAlt className="up-em" />
-                              </label>
-                            </button>
-                            {openModalUp && (
-                              <EmUpdate
-                                closeModalUp={setOpenModalUp}
-                                data={selectData}
-                              />
-                            )}
-                          </td>
-                          <td>
-                            <button
-                              className="btnnn"
-                              onClick={() =>
-                                MySwal.fire({
-                                  title: "ຢືນຢັນການລົບ",
-                                  html: "ຂໍ້ມູນທີ່ທ່ານລົບຈະບໍ່ສາມາດກູ້ຄືນໄດ້.<br /> ທ່ານແນ່ໃຈທີ່ຈະລົບ ຫຼື ບໍ່?",
-                                  icon: "warning",
-                                  iconColor: "red",
-                                  showCancelButton: true,
-                                  confirmButtonColor: "#3085d6",
-                                  cancelButtonColor: "#d33",
-                                  confirmButtonText: "ຢືນຢັນ",
-                                  cancelButtonText: "ຍົກເລີກ",
-                                }).then((result) => {
-                                  if (result.isConfirmed) {
-                                    Swal.fire(
-                                      "ລົບຂໍ້ມູນສຳເລັດ!",
-                                      "ທ່ານໄດ້ລົບຂໍ້ມູນພະນັກງານສຳເລັດແລ້ວ.",
-                                      "success"
-                                    ).then(() => {
-                                      DelEmployee(formData.emp_ID);
-                                    });
-                                  } else {
-                                    Swal.fire(
-                                      "ລົບຂໍ້ມູນບໍ່ສຳເລັດ!",
-                                      "ທ່ານໄດ້ລົບຂໍ້ມູນພະນັກງານບໍ່ສຳເລັດແລ້ວ.",
-                                      "error"
-                                    );
-                                  }
-                                })
-                              }
-                            >
-                              <label>
-                                <RiDeleteBin6Line className="del-em" />
-                              </label>
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                    {items &&
+                      items
+                        ?.filter((val) => {
+                          if (searchTerm === "") {
+                            return val;
+                          } else if (
+                            val.emp_ID
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            val.gender
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            val.emp_name
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            val.emp_surname
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            val.emp_tel
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            // val.session_name
+                            //   .toLowerCase()
+                            //   .includes(searchTerm.toLowerCase()) ||
+                            val.pos_name
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            val.dep_name
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase())
+                          ) {
+                            return val;
+                          }
+                        })
+                        .map((formData) => (
+                          <tr key={formData.name}>
+                            <td>{formData.emp_ID}</td>
+                            <td>
+                              <Avatar src={formData.profilepic} />
+                            </td>
+                            <td>{formData.gender}</td>
+                            <td>{formData.emp_name}</td>
+                            <td>{formData.emp_surname}</td>
+                            <td>{formData.emp_tel}</td>
+                            <td>{formData.session_name}</td>
+                            <td>{formData.pos_name}</td>
+                            <td>{formData.dep_name}</td>
+                            <td>{formData.province}</td>
+                            <td>
+                              <button
+                                onClick={
+                                  () => getRecord(formData)
+                                  // setOpenModalUp(true)
+                                  // this.close(formData.emp_ID);
+                                  // setSelectData(formData)
+                                }
+                                className="btnnn"
+                              >
+                                <label>
+                                  <FaPencilAlt className="up-em" />
+                                </label>
+                              </button>
+                              {/* {openModalUp && (
+                                <EmUpdate
+                                  closeModalUp={setOpenModalUp}
+                                  data={selectData}
+                                />
+                              )} */}
+                            </td>
+                            <td>
+                              <button
+                                className="btnnn"
+                                onClick={() =>
+                                  MySwal.fire({
+                                    title: "ຢືນຢັນການລົບ",
+                                    html: "ຂໍ້ມູນທີ່ທ່ານລົບຈະບໍ່ສາມາດກູ້ຄືນໄດ້.<br /> ທ່ານແນ່ໃຈທີ່ຈະລົບ ຫຼື ບໍ່?",
+                                    icon: "warning",
+                                    iconColor: "red",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                    confirmButtonText: "ຢືນຢັນ",
+                                    cancelButtonText: "ຍົກເລີກ",
+                                  }).then((result) => {
+                                    if (result.isConfirmed) {
+                                      Swal.fire(
+                                        "ລົບຂໍ້ມູນສຳເລັດ!",
+                                        "ທ່ານໄດ້ລົບຂໍ້ມູນພະນັກງານສຳເລັດແລ້ວ.",
+                                        "success"
+                                      ).then(() => {
+                                        DelEmployee(formData.emp_ID);
+                                      });
+                                    } else {
+                                      Swal.fire(
+                                        "ລົບຂໍ້ມູນບໍ່ສຳເລັດ!",
+                                        "ທ່ານໄດ້ລົບຂໍ້ມູນພະນັກງານບໍ່ສຳເລັດແລ້ວ.",
+                                        "error"
+                                      );
+                                    }
+                                  })
+                                }
+                              >
+                                <label>
+                                  <RiDeleteBin6Line className="del-em" />
+                                </label>
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
                   </tbody>
                 </table>
               </div>
@@ -255,7 +247,11 @@ function Employee() {
           </div>
         </div>
       </div>
-      {/* {openModal && <EmCreate closeModal={setOpenModal} />} */}
+      <EmUpdate
+        closeModalUp={setOpenModalUp}
+        data={selectData}
+        isOpen={openModalUp}
+      />
     </div>
   );
 }

@@ -37,19 +37,18 @@ function Login() {
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
-        if (result.status === "ok") {
+        if (result?.status === "ok") {
           MySwal.fire({
-            html: <i>{result.message}</i>,
+            html: <i>{result?.message}</i>,
             icon: "success",
-            
           }).then((value) => {
-            console.log(result.token)
+            console.log(result?.token);
             sessionStorage.setItem("token", result.token);
             navigate("/home");
           });
         } else {
           MySwal.fire({
-            html: <i>{result.message}</i>,
+            html: <i>{result?.message}</i>,
             icon: "error",
           });
         }
@@ -58,8 +57,6 @@ function Login() {
 
     console.log(inputs);
   };
-
-
 
   return (
     <div className="background-login">

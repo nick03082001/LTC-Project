@@ -5,6 +5,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import axios from "axios";
 
 
 
@@ -12,53 +13,26 @@ function Department() {
   
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
-  const [dep_name, setDname] = useState("");
-  const [dep_ID, setDID] = useState("");
-  const [dep_create_date, setDepDate] = useState("");
-  const [selectData, setSelectData] = useState("");
+  const [selectDepartment, setSelectDepartment] = useState("");
 
-  useEffect(() => {
-    DepartmentGet();
-    DepartmentUpdate();
-  }, []);
-
-  const DepartmentGet = () => {
-    var myHeaders = new Headers();
-    myHeaders.append("x-api-key", sessionStorage.getItem("token"));
-
-    var requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow",
-    };
-    fetch("http://47.250.49.41/myproject1/departments", requestOptions)
-      .then((res) => res.json())
-      .then((result) => {
-        setItems(result);
-      });
-  };
-
-  const DepartmentUpdate = () => {
-    var requestOptions = {
-      method: "PUT",
-      redirect: "follow",
-    };
-
-    fetch("http://47.250.49.41/myproject1/update_department", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result["status"] === "ok") {
-          setDname(result["department"]["dep_name"]);
-          setDID(result["department"]["dep_ID"]);
-        }
+  React.useEffect(() => {
+    axios
+      .get("http://47.250.49.41/myproject1/department", {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
       })
-      .catch((error) => console.log("error", error));
-  };
+      .then((res) => {
+        setItems(res?.data?.department);
+      });
+  }, []);
 
   const CreateDepartment = (id) => {
     var myHeaders = new Headers();
-    myHeaders.append("x-api-key", sessionStorage.getItem("token"));
-
+    myHeaders.append(
+      "Authorization",
+      "Bearer " + sessionStorage.getItem("token"),
+    );
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
@@ -72,9 +46,10 @@ function Department() {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/myproject1/create_department", requestOptions)
+    fetch("http://47.250.49.41/myproject1/department", requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        alert(result["message"]);
         if (result["status"] === "ok") {
           window.location.href = "/department";
         }
@@ -82,38 +57,14 @@ function Department() {
       .catch((error) => console.log("error", error));
   };
 
-  const UpdateDepartment = (id) => {
-    var myHeaders = new Headers();
-    myHeaders.append("x-api-key", sessionStorage.getItem("token"));
-    myHeaders.append("Content-Type", "application/json");
-    
-    var raw = JSON.stringify({
-      "dep_ID": dep_ID,
-      "dep_name": id
-    });
-    console.log(id);
-    
-    var requestOptions = {
-      method: 'PUT',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
-    
-    fetch("http://47.250.49.41/myproject1/update_department", requestOptions)
-    .then((response) => response.json())
-    .then((result) => {
-      alert(result["message"]);
-      if (result["status"] === "ok") {
-        window.location.href = "/department";
-      }
-    })
-    .catch((error) => console.log("error", error));
-  };
+
 
   const DelDepartment = (id) => {
     var myHeaders = new Headers();
-    myHeaders.append("x-api-key", sessionStorage.getItem("token"));
+    myHeaders.append(
+      "Authorization",
+      "Bearer " + sessionStorage.getItem("token")
+    );
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
@@ -127,15 +78,46 @@ function Department() {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/myproject1/delete_department", requestOptions)
+    fetch("http://47.250.49.41/myproject1/department", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result["status"] === "ok") {
-          DepartmentGet();
+          window.location.href = "/department";
         }
       })
       .catch((error) => console.log("error", error));
   };
+
+  const UpdateDepartment = (id) => {
+    var myHeaders = new Headers();
+    myHeaders.append(
+      "Authorization",
+      "Bearer " + sessionStorage.getItem("token")
+    );
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      dep_ID: id,
+    });
+
+    var requestOptions = {
+      method: "PUT",
+      body: raw,
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    fetch("http://47.250.49.41/myproject1/department", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        alert(result["message"]);
+        if (result["status"] === "ok") {
+          window.location.href = "/department";
+        }
+      })
+      .catch((error) => console.log("error", error));
+  };
+
 
   // ປູ່ມແກ້ໄຂ-ລົບໃຫ້ດືງ api ໃນຟັງຊັນລູ່ມນີ້
 
@@ -160,6 +142,7 @@ function Department() {
       if (ipAddress) {
         Swal.fire(`ເພີ່ມພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
           () => {
+            console.log(ipAddress);
             CreateDepartment(ipAddress);
           }
         );
@@ -172,6 +155,7 @@ function Department() {
       const { value: ipAddress } = await Swal.fire({
         title: "ຊື່ພະແນກ",
         input: "text",
+        inputValue: selectDepartment,
         inputPlaceholder: "ປ້ອນຊື່ພະແນກ",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -237,7 +221,7 @@ function Department() {
                 <table className="tbl-depart">
                   <thead>
                     <tr>
-                      <th>ລໍາດັບ</th>
+                      <th>ລະຫັດພະແນກ</th>
                       <th>ຊື່ພະແນກ</th>
                       <th>ວັນເດືອນປີສ້າງພະແນກ</th>
                       <th>ແກ້ໄຂ</th>
@@ -246,7 +230,7 @@ function Department() {
                   </thead>
                   <tbody>
                     {items
-                      .filter((val) => {
+                      ?.filter((val) => {
                         if (searchTerm === "") {
                           return val;
                         } else if (
@@ -262,17 +246,16 @@ function Department() {
                       })
                       .map((row) => (
                         <tr key={row.name}>
-                          <td className="tbl-row-no-depart"></td>
+                          <td>{row.dep_ID}</td>
                           <td>{row.dep_name}</td>
                           <td>{row.dep_create_date}</td>
                           <td>
                             <button
-                             // onClick={() => SwalUpdateDepart()}
-                             onClick={() => {
-                              SwalUpdateDepart();
-                              // console.log(formData.profilepic)
-                              setSelectData(row);
-                            }}
+                              // onClick={() => SwalUpdateDepart()}
+                              onClick={() => {
+                                SwalUpdateDepart();
+                                // console.log(formData.profilepic)
+                              }}
                               className="btnnn-depart"
                             >
                               <label>
