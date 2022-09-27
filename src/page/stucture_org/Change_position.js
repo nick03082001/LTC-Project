@@ -1,11 +1,59 @@
 import "../css/Change_position.css";
 import Menubar from "../components/Menubar.js";
-import { FaSearch, FaExchangeAlt, FaHistory } from "react-icons/fa";
+import { FaSearch, FaExchangeAlt, FaHistory, FaPencilAlt } from "react-icons/fa";
 import React from "react";
 import Swal from 'sweetalert2';
 // import withReactContent from 'sweetalert2-react-content';
 
+// Mui test
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+
+const theme = createTheme({
+  typography: {
+    allVariants: {
+      fontFamily: 'Noto Serif Lao',
+      textTransform: 'none',
+      fontSize: 'clamp(14px, 2.5vw, 16px)',
+      fontWeight: '400',
+    },
+  },
+});
+
 function Change_Pos() {
+
+     // Mui test
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+
+
+
+
+
+
+
+
+
+
 
 // ປູ່ມຍ້າຍຈຳແໜ່ງໃຫ້ດືງ api ໃນຟັງຊັນລູ່ມນີ້
 
@@ -166,7 +214,82 @@ function Change_Pos() {
                     </tbody>
                     </table>
                 </div>
-                </div>
+                <div>
+                <ThemeProvider theme={theme}>
+                <Paper sx={{ width: '100%', }}>
+                  <TableContainer sx={{ maxHeight: 440 }}>
+                    <Table stickyHeader aria-label="sticky table">
+                      <TableHead sx={{backgroundColor: "#51b3f0"}}>
+                        <TableRow sx={{backgroundColor: "#51b3f0"}}>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລໍາດັບ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລະຫັດພະນັກງານ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຮູບພະນັກງານ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຊື່</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ນາມສະກຸນ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຕໍາແໜ່ງ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ພະແນກ</TableCell>
+                            <TableCell
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຍ້າຍຕຳແໜ່ງ</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {/* {items
+                          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                          .map((row, i) => {
+                            return ( */}
+                              <TableRow hover role="checkbox" tabIndex={-1}>
+                                <TableCell>no</TableCell>
+                                <TableCell>ລະຫັດພະນັກງານ</TableCell>
+                                <TableCell>ຮູບພະນັກງານ</TableCell>
+                                <TableCell>ຊື່</TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell></TableCell>
+                                <TableCell >
+                                  <button
+                                    onClick={() => SwalUpdateDepart()}
+                                    className="btnnn-change-pos"
+                                  >
+                                    <label>
+                                      <FaPencilAlt className="up-change-pos" />
+                                    </label>
+                                  </button>
+                                </TableCell>
+                              </TableRow>
+                             {/* );
+                           })
+                          } */}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    // count={items.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                  />
+                </Paper>
+                </ThemeProvider>
+              </div>
+            </div>
             </div>
             </div>
         </div>

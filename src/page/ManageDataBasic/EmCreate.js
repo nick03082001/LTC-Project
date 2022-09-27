@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import "../css/EmCreate.css";
 import { RiCloseLine } from "react-icons/ri";
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function CreateEmployee({ closeModal }) {
   const [emp_ID, setEID] = useState("");
@@ -128,6 +130,14 @@ export default function CreateEmployee({ closeModal }) {
   function onImageChange(e) {
     setProfilepic([e.target.files[0]]);
   }
+
+
+
+
+  // sweetalert button
+
+  const MySwalDeleteDepart = withReactContent(Swal);
+
 
   return (
     <div className="myModal-cre-em">
@@ -326,12 +336,45 @@ export default function CreateEmployee({ closeModal }) {
             </p>
             <p className="p-btn-save-cancle-cre-em">
               <button
-                onClick={() => closeModal(false)}
+                onClick={() => 
+                  MySwalDeleteDepart.fire({
+                    title: "ຢືນຢັນການຍົກເລີກ",
+                    icon: "warning",
+                    iconColor: "red",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "ຢືນຢັນ",
+                    cancelButtonText: "ຍົກເລີກ",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      closeModal(false)
+                    }
+                  })
+                  }
                 className="btn-cancle-cre-em"
               >
                 ຍົກເລີກ
               </button>
-              <button onClick={handleSubmit} className="btn-save-cre-em">
+              <button 
+                onClick={()=>
+                  MySwalDeleteDepart.fire({
+                      title: "ຢືນຢັນການເພີ່ມຂໍ້ມູນ",
+                      icon: "warning",
+                      iconColor: "#3085d6",
+                      showCancelButton: true,
+                      confirmButtonColor: "#3085d6",
+                      cancelButtonColor: "#d33",
+                      confirmButtonText: "ຢືນຢັນ",
+                      cancelButtonText: "ຍົກເລີກ",
+                    }).then((result) => {
+                      if (result.isConfirmed){
+                        Swal.fire(`ເພີ່ມຂໍ້ມູນພະນັກງານສຳເລັດ!`, ``, `success`)
+                        handleSubmit();
+                        closeModal(false);
+                      }
+                    })} 
+                    className="btn-save-cre-em">
                 ບັນທຶກ
               </button>
             </p>

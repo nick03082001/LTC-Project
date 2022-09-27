@@ -6,7 +6,55 @@ import React, { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
+// Mui test
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+
+const theme = createTheme({
+  typography: {
+    allVariants: {
+      fontFamily: 'Noto Serif Lao',
+      textTransform: 'none',
+      fontSize: 'clamp(14px, 2.5vw, 16px)',
+      fontWeight: '400',
+    },
+  },
+});
+
+
+
+
+
 function Position() {
+
+  // Mui test
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+
+
+
+
+
+
 
 
   const [items, setItems] = useState([]);
@@ -267,6 +315,103 @@ fetch("http://192.168.0.171:3000/myproject1/create_position", requestOptions)
                     ))}
                   </tbody>
                 </table>
+              </div>
+              <div>
+                <ThemeProvider theme={theme}>
+                <Paper sx={{ width: '100%', }}>
+                  <TableContainer sx={{ maxHeight: 440 }}>
+                    <Table stickyHeader aria-label="sticky table">
+                      <TableHead sx={{backgroundColor: "#51b3f0"}}>
+                        <TableRow sx={{backgroundColor: "#51b3f0"}}>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລໍາດັບ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລະຫັດຕຳແໜ່ງ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຕຳແໜ່ງ</TableCell>
+                            <TableCell
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ແກ້ໄຂ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລົບ</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {items
+                          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                          .map((row, i) => {
+                            return (
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
+                                <TableCell>{i+1}</TableCell>
+                                <TableCell>{row.pos_ID}</TableCell>
+                                <TableCell>{row.pos_name}</TableCell>
+                                <TableCell >
+                                  <button
+                                    onClick={() => SwalUpdatePosition()}
+                                    className="btnnn-position"
+                                  >
+                                    <label>
+                                      <FaPencilAlt className="up-position" />
+                                    </label>
+                                  </button>
+                                </TableCell>
+                                <TableCell >
+                                  <button
+                                    className="btnnn-position"
+                                    onClick={() =>
+                                      MySwalDeletePosition.fire({
+                                        title: 'ຢືນຢັນການລົບ',
+                                        html: "ຂໍ້ມູນທີ່ທ່ານລົບຈະບໍ່ສາມາດກູ້ຄືນໄດ້.<br /> ທ່ານແນ່ໃຈທີ່ຈະລົບ ຫຼື ບໍ່?",
+                                        icon: 'warning',
+                                        iconColor: 'red',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'ຢືນຢັນ',
+                                        cancelButtonText: 'ຍົກເລີກ'
+                                      }).then((result) => {
+                                        if (result.isConfirmed) {
+                                          Swal.fire(
+                                            'ລົບຂໍ້ມູນສຳເລັດ!',
+                                            'ທ່ານໄດ້ລົບຂໍ້ມູນຕຳແໜ່ງສຳເລັດແລ້ວ.',
+                                            'success'
+                                          ).then(() => { DelPositon(row.pos_name) })
+                                        }
+                                        else {
+                                          Swal.fire(
+                                            'ລົບຂໍ້ມູນບໍ່ສຳເລັດ!',
+                                            'ທ່ານໄດ້ລົບຂໍ້ມູນຕຳແໜ່ງບໍ່ສຳເລັດ.',
+                                            'error'
+                                          )
+                                        }
+                                      })}
+                                  >
+                                    <label>
+                                      <RiDeleteBin6Line className="del-position" />
+                                    </label>
+                                  </button>
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={items.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                  />
+                </Paper>
+                </ThemeProvider>
               </div>
             </div>
           </div>

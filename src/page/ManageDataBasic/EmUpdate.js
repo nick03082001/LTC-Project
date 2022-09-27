@@ -3,6 +3,8 @@ import React, { useState, useRef } from "react";
 import "../css/EmUpdate.css";
 import { RiCloseLine } from "react-icons/ri";
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function EmUpdate({ closeModalUp, data, isOpen }) {
   const [emp_ID, setEID] = useState(data.emp_ID);
@@ -137,10 +139,17 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
   // }, [profilepic]);
 
   function onImageChangeUp(e) {
-    // console.log(e.target.files)
+    console.log(e.target.files)
     setProfilepic(e.target.files[0])
     setImageURLs(URL.createObjectURL(e.target.files[0]));
   }
+
+  
+  // sweetalert button
+
+  const MySwalDeleteDepart = withReactContent(Swal);
+
+
   return (
     <div
       className="myModal-up-em"
@@ -358,12 +367,45 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
             </p>
             <p className="p-btn-save-cancle-up-em">
               <button
-                onClick={() => closeModalUp(false)}
+                onClick={() => 
+                  MySwalDeleteDepart.fire({
+                    title: "ຢືນຢັນການຍົກເລີກ",
+                    icon: "warning",
+                    iconColor: "red",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "ຢືນຢັນ",
+                    cancelButtonText: "ຍົກເລີກ",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      closeModalUp(false)
+                    }
+                  })
+                  }
                 className="btn-cancle-up-em"
               >
                 ຍົກເລີກ
               </button>
-              <button onClick={handleSubmitUpdate} className="btn-save-up-em">
+              <button 
+                onClick={()=>
+                  MySwalDeleteDepart.fire({
+                      title: "ຢືນຢັນການແກ້ໄຂຂໍ້ມູນ",
+                      icon: "warning",
+                      iconColor: "#3085d6",
+                      showCancelButton: true,
+                      confirmButtonColor: "#3085d6",
+                      cancelButtonColor: "#d33",
+                      confirmButtonText: "ຢືນຢັນ",
+                      cancelButtonText: "ຍົກເລີກ",
+                    }).then((result) => {
+                      if (result.isConfirmed){
+                        Swal.fire(`ແກ້ໄຂຂໍ້ມູນພະນັກງານສຳເລັດ!`, ``, `success`)
+                        handleSubmitUpdate();
+                        closeModalUp(false);
+                      }
+                    })}
+                className="btn-save-up-em">
                 ບັນທຶກ
               </button>
             </p>

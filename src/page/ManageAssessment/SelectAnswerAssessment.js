@@ -6,24 +6,75 @@ import Data from "./DataYai.json"
 import SaveAnswerAssessment from "./SaveAnswerAssessment.js";
 import axios from "axios";
 
+// Mui test
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+
+const theme = createTheme({
+  typography: {
+    allVariants: {
+      fontFamily: 'Noto Serif Lao',
+      textTransform: 'none',
+      fontSize: 'clamp(14px, 2.5vw, 16px)',
+      fontWeight: '400',
+    },
+  },
+});
+
+
+
+
+
+
 
 function SelectAnswerAssessment() {
+
+  // Mui test
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+
+
+  
+
+
+
+
+
     
-    const [contacts, setContacts] = useState(Data);
-    const [val,setVal]=useState([]);
+  const [contacts, setContacts] = useState(Data);
+  const [val,setVal]=useState([]);
 
-    const HeaderAssGet = () => {
-        axios.get("http://192.168.0.193:5000/test/myproject1/header_form")
-        .then((result) => {
-            // console.log(result.data.form)
-            setVal(result.data.form);
-          });
-          
-      };
+  const HeaderAssGet = () => {
+      axios.get("http://192.168.0.193:5000/test/myproject1/header_form")
+      .then((result) => {
+          // console.log(result.data.form)
+          setVal(result.data.form);
+        });
+        
+    };
 
-    useEffect(() => {
-        HeaderAssGet();
-    }, []);
+  useEffect(() => {
+      HeaderAssGet();
+  }, []);
 
 
 
@@ -71,29 +122,6 @@ function SelectAnswerAssessment() {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {contacts.map((row,i)=>(
-                            <tr key={i}
-                            >
-                            <td className="tbl-row-no-select-ass"></td>
-                            <td>{row.fullName}</td>
-                            <td>{row.address}</td>
-                            <td>{row.id}</td>
-                            <td>
-                            <button
-                              onClick={() => {
-                                // getTitle(row); 
-                                alert( row.id)
-                              }}
-                              className="btnnn"
-                            >
-                              <label>
-                                <FaFileSignature className="up-em" />
-                              </label>
-                            </button>
-                            </td>
-                        </tr>
-                        ))} */}
-
                         {val?.map((row,j)=>(
                             <tr key={j}
                             >
@@ -119,6 +147,72 @@ function SelectAnswerAssessment() {
                     </tbody>
                     </table>
                 </div>
+                <div>
+                <ThemeProvider theme={theme}>
+                <Paper sx={{ width: '100%', }}>
+                  <TableContainer sx={{ maxHeight: 440 }}>
+                    <Table stickyHeader aria-label="sticky table">
+                      <TableHead sx={{backgroundColor: "#51b3f0"}}>
+                        <TableRow sx={{backgroundColor: "#51b3f0"}}>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລໍາດັບ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຊື່ແບບປະເມີນ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ວັນທີສ້າງ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ກຳນົດສົ່ງ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຕອບ</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {val
+                          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                          .map((row, i) => {
+                            return (
+                              <TableRow hover role="checkbox" tabIndex={-1}>
+                                <TableCell>ລໍາດັບ</TableCell>
+                                <TableCell>{row.head_name}</TableCell>
+                                <TableCell>{row.date_create}</TableCell>
+                                <TableCell>{row.head_ID}</TableCell>
+                                <TableCell >
+                                  <button
+                                    onClick={() => {
+                                      // getTitle(row); 
+                                      alert( row.head_ID)
+                                    }}
+                                    className="btnnn"
+                                  >
+                                    <label>
+                                      <FaFileSignature className="up-em" />
+                                    </label>
+                                  </button>
+                                </TableCell>
+                              </TableRow>
+                              );
+                           })
+                          } 
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={val.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                  />
+                </Paper>
+                </ThemeProvider>
+              </div>
                 </div>
             </div>
             </div>

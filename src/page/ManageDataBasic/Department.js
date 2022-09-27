@@ -7,9 +7,52 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import axios from "axios";
 
+// Mui test
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+
+const theme = createTheme({
+  typography: {
+    allVariants: {
+      fontFamily: 'Noto Serif Lao',
+      textTransform: 'none',
+      fontSize: 'clamp(14px, 2.5vw, 16px)',
+      fontWeight: '400',
+    },
+  },
+});
+
+
 
 
 function Department() {
+
+  // Mui test
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+
+
+
+
   
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
@@ -308,6 +351,128 @@ function Department() {
                   </tbody>
                 </table>
               </div>
+
+              <div>
+                <ThemeProvider theme={theme}>
+                <Paper sx={{ width: '100%', }}>
+                  <TableContainer sx={{ maxHeight: 440 }}>
+                    <Table stickyHeader aria-label="sticky table">
+                      <TableHead sx={{backgroundColor: "#51b3f0"}}>
+                        <TableRow sx={{backgroundColor: "#51b3f0"}}>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລໍາດັບ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລະຫັດພະແນກ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຊື່ພະແນກ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ວັນເດືອນປີສ້າງພະແນກ</TableCell>
+                            <TableCell
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ແກ້ໄຂ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລົບ</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {items &&
+                      items
+                      ?.filter((val) => {
+                        if (searchTerm === "") {
+                          return val;
+                        } else if (
+                          val.dep_name
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase()) ||
+                          val.dep_create_date
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase())
+                        ) {
+                          return val;
+                        }
+                      })
+                          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                          .map((row, i) => {
+                            return (
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
+                                <TableCell>{i+1}</TableCell>
+                                <TableCell>{row.dep_ID}</TableCell>
+                                <TableCell>{row.dep_name}</TableCell>
+                                <TableCell>{row.dep_create_date}</TableCell>
+                                <TableCell >
+                                  <button
+                                    onClick={() => {
+                                      SwalUpdateDepart();
+                                      // console.log(formData.profilepic)
+                                    }}
+                                    className="btnnn-depart"
+                                  >
+                                    <label>
+                                      <FaPencilAlt className="up-depart" />
+                                    </label>
+                                  </button>
+                                </TableCell>
+                                <TableCell >
+                                  <button
+                                    className="btnnn-depart"
+                                    onClick={() =>
+                                      MySwalDeleteDepart.fire({
+                                        title: "ຢືນຢັນການລົບ",
+                                        html: "ຂໍ້ມູນທີ່ທ່ານລົບຈະບໍ່ສາມາດກູ້ຄືນໄດ້.<br /> ທ່ານແນ່ໃຈທີ່ຈະລົບ ຫຼື ບໍ່?",
+                                        icon: "warning",
+                                        iconColor: "red",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#3085d6",
+                                        cancelButtonColor: "#d33",
+                                        confirmButtonText: "ຢືນຢັນ",
+                                        cancelButtonText: "ຍົກເລີກ",
+                                      }).then((result) => {
+                                        if (result.isConfirmed) {
+                                          Swal.fire(
+                                            "ລົບຂໍ້ມູນສຳເລັດ!",
+                                            "ທ່ານໄດ້ລົບຂໍ້ມູນພະແນກສຳເລັດແລ້ວ.",
+                                            "success"
+                                          ).then(() => {
+                                            DelDepartment(row.dep_name);
+                                          });
+                                        } else {
+                                          Swal.fire(
+                                            "ລົບຂໍ້ມູນບໍ່ສຳເລັດ!",
+                                            "ທ່ານໄດ້ລົບຂໍ້ມູນພະແນກບໍ່ສຳເລັດ.",
+                                            "error"
+                                          );
+                                        }
+                                      })
+                                    }
+                                  >
+                                    <label>
+                                      <RiDeleteBin6Line className="del-depart" />
+                                    </label>
+                                  </button>
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={items.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                  />
+                </Paper>
+                </ThemeProvider>
+                </div>
             </div>
           </div>
         </div>

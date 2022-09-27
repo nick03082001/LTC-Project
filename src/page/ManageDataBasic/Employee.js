@@ -20,12 +20,15 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+
 const theme = createTheme({
   typography: {
     allVariants: {
       fontFamily: 'Noto Serif Lao',
       textTransform: 'none',
-      fontSize: 16,
+      fontSize: 'clamp(14px, 2.5vw, 16px)',
+      fontWeight: '400',
     },
   },
 });
@@ -35,54 +38,6 @@ const theme = createTheme({
 function Employee() {
 
   // Mui test
-  const columns = [
-    { id: 'name', label: 'ລໍາດັບ' },
-    { id: 'code', label: 'ລະຫັດ' },
-    { id: 'code', label: 'ຮູບພະນັກງານ' },
-    {
-      id: 'population',
-      label: 'ເພດ',
-      align: 'right',
-    },
-    {
-      id: 'size',
-      label: 'ຊື່',
-      align: 'right',
-    },
-    {
-      id: 'density',
-      label: 'ນາມສະກຸນ',
-      align: 'right',
-    },
-    {
-      id: 'densit',
-      label: 'ເບີໂທ',
-      align: 'right',
-    },
-    {
-      id: 'densi',
-      label: 'ພາກສ່ວນ',
-      align: 'right',
-    },
-    {
-      id: 'dens',
-      label: 'ຕໍາແໜ່ງ',
-      align: 'right',
-    },
-    
-    {
-      id: 'den',
-      label: 'ພະແນກ',
-      align: 'right',
-    },
-    
-    {
-      id: 'de',
-      label: 'ແຂວງ',
-      align: 'right',
-    },
-  ];
-
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -332,25 +287,81 @@ function Employee() {
                 <Paper sx={{ width: '100%', }}>
                   <TableContainer sx={{ maxHeight: 440 }}>
                     <Table stickyHeader aria-label="sticky table">
-                      <TableHead>
-                        <TableRow>
-                            <TableCell>ລໍາດັບ</TableCell>
-                            <TableCell>ລະຫັດພະນັກງານ</TableCell>
-                            <TableCell>ຮູບພະນັກງານ</TableCell>
-                            <TableCell>ເພດ</TableCell>
-                            <TableCell>ຊື່</TableCell>
-                            <TableCell>ນາມສະກຸນ</TableCell>
-                            <TableCell>ເບີໂທ</TableCell>
-                            <TableCell>ພາກສ່ວນ</TableCell>
-                            <TableCell>ຕໍາແໜ່ງ</TableCell>
-                            <TableCell>ພະແນກ</TableCell>
-                            <TableCell>ແຂວງ</TableCell>
-                            <TableCell>ແກ້ໄຂ</TableCell>
-                            <TableCell>ລົບ</TableCell>
+                      <TableHead sx={{backgroundColor: "#51b3f0"}}>
+                        <TableRow sx={{backgroundColor: "#51b3f0"}}>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລໍາດັບ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລະຫັດພະນັກງານ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຮູບພະນັກງານ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ເພດ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຊື່</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ນາມສະກຸນ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ເບີໂທ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ພາກສ່ວນ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຕໍາແໜ່ງ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ພະແນກ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ແຂວງ</TableCell>
+                            <TableCell
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ແກ້ໄຂ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລົບ</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {items
+                        {items &&
+                      items
+                        ?.filter((val) => {
+                          if (searchTerm === "") {
+                            return val;
+                          } else if (
+                            val.emp_ID
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            val.gender
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            val.emp_name
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            val.emp_surname
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            val.emp_tel
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            val.pos_name
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            val.dep_name
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase())
+                          ) {
+                            return val;
+                          }
+                        })
                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                           .map((row, i) => {
                             return (
@@ -368,7 +379,7 @@ function Employee() {
                                 <TableCell>{row.pos_name}</TableCell>
                                 <TableCell>{row.dep_name}</TableCell>
                                 <TableCell>{row.province} </TableCell>
-                                <TableCell>
+                                <TableCell >
                                   <button
                                     onClick={
                                       () => getRecord(row)
@@ -383,7 +394,7 @@ function Employee() {
                                     </label>
                                   </button>
                                 </TableCell>
-                                <TableCell>
+                                <TableCell >
                                   <button
                                     className="btnnn"
                                     onClick={() =>
@@ -409,7 +420,7 @@ function Employee() {
                                         } else {
                                           Swal.fire(
                                             "ລົບຂໍ້ມູນບໍ່ສຳເລັດ!",
-                                            "ທ່ານໄດ້ລົບຂໍ້ມູນພະນັກງານບໍ່ສຳເລັດແລ້ວ.",
+                                            "ທ່ານໄດ້ລົບຂໍ້ມູນພະນັກງານບໍ່ສຳເລັດ.",
                                             "error"
                                           );
                                         }
@@ -428,7 +439,7 @@ function Employee() {
                     </Table>
                   </TableContainer>
                   <TablePagination
-                    rowsPerPageOptions={[2, 25, 100]}
+                    rowsPerPageOptions={[10, 25, 100]}
                     component="div"
                     count={items.length}
                     rowsPerPage={rowsPerPage}
@@ -438,7 +449,7 @@ function Employee() {
                   />
                 </Paper>
                 </ThemeProvider>
-                </div>
+              </div>
             </div>
           </div>
         </div>
