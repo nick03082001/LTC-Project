@@ -110,43 +110,6 @@ function SelectAnswerAssessment() {
                 <p className="p-man-select-ass">
                     ເລືອກຕອບແບບປະເມີນ
                 </p>
-                <div className='box-tbl-select-ass'>
-                    <table className="tbl-select-ass">
-                    <thead>
-                        <tr>
-                            <th>ລໍາດັບ</th>
-                            <th>ຊື່ແບບປະເມີນ</th>
-                            <th>ວັນທີສ້າງ</th>
-                            <th>ກຳນົດສົ່ງ</th>
-                            <th>ຕອບ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {val?.map((row,j)=>(
-                            <tr key={j}
-                            >
-                            <td className="tbl-row-no-select-ass"></td>
-                            <td>{row.head_name}</td>
-                            <td>{row.date_create}</td>
-                            <td>{row.head_ID}</td>
-                            <td>
-                            <button
-                              onClick={() => {
-                                // getTitle(row); 
-                                alert( row.head_ID)
-                              }}
-                              className="btnnn"
-                            >
-                              <label>
-                                <FaFileSignature className="up-em" />
-                              </label>
-                            </button>
-                            </td>
-                        </tr>
-                        ))}
-                    </tbody>
-                    </table>
-                </div>
                 <div>
                 <ThemeProvider theme={theme}>
                 <Paper sx={{ width: '100%', }}>

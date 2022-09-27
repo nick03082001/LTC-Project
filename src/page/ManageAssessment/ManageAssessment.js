@@ -122,62 +122,6 @@ function ManageAssessment() {
                     </button>
                     </a>
                 </p>
-                <div className='box-tbl-manage-ass'>
-                    <table className="tbl-manage-ass">
-                    <thead>
-                        <tr>
-                            <th>ລໍາດັບ</th>
-                            <th>ຊື່ແບບປະເມີນ</th>
-                            <th>ວັນທີສ້າງ</th>
-                            <th>ລົບ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td className="tbl-row-no-manage-ass"></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                            <button
-                                className="btnnn-manage-ass"
-                                onClick={() => 
-                                  MySwalDeletePosition.fire({
-                                    title: 'ຢືນຢັນການລົບ',
-                                    html: "ຂໍ້ມູນທີ່ທ່ານລົບຈະບໍ່ສາມາດກູ້ຄືນໄດ້.<br /> ທ່ານແນ່ໃຈທີ່ຈະລົບ ຫຼື ບໍ່?",
-                                    icon: 'warning',
-                                    iconColor: 'red',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'ຢືນຢັນ',
-                                    cancelButtonText: 'ຍົກເລີກ'
-                                  }).then((result) => {
-                                    if (result.isConfirmed) {
-                                      Swal.fire(
-                                        'ລົບຂໍ້ມູນສຳເລັດ!',
-                                        'ທ່ານໄດ້ລົບຂໍ້ມູນແບບປະເມີນສຳເລັດແລ້ວ.',
-                                        'success'
-                                      ) //.then(() => { DelDepartment(row.dep_name) })
-                                    }
-                                    else {
-                                      Swal.fire(
-                                        'ລົບຂໍ້ມູນບໍ່ສຳເລັດ!',
-                                        'ທ່ານໄດ້ລົບຂໍ້ມູນແບບປະເມີນບໍ່ສຳເລັດແລ້ວ.',
-                                        'error'
-                                      )
-                                    }
-                                  })
-                                }
-                            >
-                                <label>
-                                <RiDeleteBin6Line className="del-position" />
-                                </label>
-                            </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>
                 <div>
                 <ThemeProvider theme={theme}>
                 <Paper sx={{ width: '100%', }}>

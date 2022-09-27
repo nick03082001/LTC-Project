@@ -1,6 +1,7 @@
 import "../css/History_change_pos.css";
 import Menubar from "../components/Menubar.js";
 import { FaSearch} from "react-icons/fa";
+import { AiOutlineFileSearch } from "react-icons/ai";
 import React from "react";
 
 // Mui test
@@ -78,35 +79,6 @@ function History_change_pos() {
                 <p className="p-man-change-pos-history">
                     ປະຫວັດການຍ້າຍຕຳແໜ່ງ
                 </p>
-                <div className='box-tbl-change-pos-history'>
-                    <table className="tbl-change-pos-history">
-                    <thead>
-                        <tr>
-                            <th>ລໍາດັບ</th>
-                            <th>ວັນທີຍ້າຍ</th>
-                            <th>ລະຫັດພະນັກງານ</th>
-                            <th>ຮູບພະນັກງານ</th>
-                            <th>ຊື່</th>
-                            <th>ນາມສະກຸນ</th>
-                            <th>ພະແນກ</th>
-                            <th>ຕໍາແໜ່ງ</th>
-                            <th>ເອກະສານອ້າງອີງ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td className="tbl-row-no-change-pos-history"></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>
                 <div>
                 <ThemeProvider theme={theme}>
                 <Paper sx={{ width: '100%', }}>
@@ -150,22 +122,22 @@ function History_change_pos() {
                             return ( */}
                               <TableRow hover role="checkbox" tabIndex={-1}>
                                 <TableCell></TableCell>
+                                <TableCell>ລະຫັດພະນັກງານ</TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell >
-                                  {/* <button
-                                    onClick={() => SwalUpdateDepart()}
+                                <TableCell>
+                                  <button
+                                    // onClick={() => SwalUpdateDepart()}
                                     className="btnnn-change-pos"
                                   >
                                     <label>
-                                      <FaPencilAlt className="up-change-pos" />
+                                      <AiOutlineFileSearch className="ic-change-pos-history" />
                                     </label>
-                                  </button> */}
+                                  </button>
                                 </TableCell>
                               </TableRow>
                              {/* );

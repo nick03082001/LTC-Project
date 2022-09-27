@@ -51,6 +51,13 @@ function Employee() {
     setPage(0);
   };
 
+  // Serial number table
+  const [serial, setSerial] = React.useState([]);
+
+  const handleChangeSerial = (event, newserial) => {
+    setSerial(newserial);
+  };
+
 
 
   
@@ -81,10 +88,6 @@ function Employee() {
       "Authorization",
       "Bearer " + sessionStorage.getItem("token")
     );
-
-    // var raw = JSON.stringify({
-    //   emp_ID: id,
-    // });
 
     var requestOptions = {
       method: "DELETE",
@@ -160,128 +163,6 @@ function Employee() {
                 </button>
                 {openModal && <EmCreate closeModal={setOpenModal} />}
               </p>
-              {/* <div className="box-tbl-em">
-                <table className="tbl-em">
-                  <thead>
-                    <tr>
-                      <th>ລໍາດັບ</th>
-                      <th>ລະຫັດພະນັກງານ</th>
-                      <th>ຮູບພະນັກງານ</th>
-                      <th>ເພດ</th>
-                      <th>ຊື່</th>
-                      <th>ນາມສະກຸນ</th>
-                      <th>ເບີໂທ</th>
-                      <th>ພາກສ່ວນ</th>
-                      <th>ຕໍາແໜ່ງ</th>
-                      <th>ພະແນກ</th>
-                      <th>ແຂວງ</th>
-                      <th>ແກ້ໄຂ</th>
-                      <th>ລົບ</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {items &&
-                      items
-                        ?.filter((val) => {
-                          if (searchTerm === "") {
-                            return val;
-                          } else if (
-                            val.emp_ID
-                              .toLowerCase()
-                              .includes(searchTerm.toLowerCase()) ||
-                            val.gender
-                              .toLowerCase()
-                              .includes(searchTerm.toLowerCase()) ||
-                            val.emp_name
-                              .toLowerCase()
-                              .includes(searchTerm.toLowerCase()) ||
-                            val.emp_surname
-                              .toLowerCase()
-                              .includes(searchTerm.toLowerCase()) ||
-                            val.emp_tel
-                              .toLowerCase()
-                              .includes(searchTerm.toLowerCase()) ||
-                            val.pos_name
-                              .toLowerCase()
-                              .includes(searchTerm.toLowerCase()) ||
-                            val.dep_name
-                              .toLowerCase()
-                              .includes(searchTerm.toLowerCase())
-                          ) {
-                            return val;
-                          }
-                        })
-                        .map((formData) => (
-                          <tr key={formData.name}>
-                            <td className="tbl-row-no-em"></td>
-                            <td>{formData.emp_ID}</td>
-                            <td>
-                              <Avatar src={formData.profilepic} />
-                            </td>
-                            <td>{formData.gender}</td>
-                            <td>{formData.emp_name}</td>
-                            <td>{formData.emp_surname}</td>
-                            <td>{formData.emp_tel}</td>
-                            <td>{formData.session_name}</td>
-                            <td>{formData.pos_name}</td>
-                            <td>{formData.dep_name}</td>
-                            <td>{formData.province}</td>
-                            <td>
-                              <button
-                                onClick={
-                                  () => getRecord(formData)
-                                }
-                                className="btnnn"
-                              >
-                                <label>
-                                  <FaPencilAlt className="up-em" />
-                                </label>
-                              </button>
-                            </td>
-                            <td>
-                              <button
-                                className="btnnn"
-                                onClick={() =>
-                                  MySwal.fire({
-                                    title: "ຢືນຢັນການລົບ",
-                                    html: "ຂໍ້ມູນທີ່ທ່ານລົບຈະບໍ່ສາມາດກູ້ຄືນໄດ້.<br /> ທ່ານແນ່ໃຈທີ່ຈະລົບ ຫຼື ບໍ່?",
-                                    icon: "warning",
-                                    iconColor: "red",
-                                    showCancelButton: true,
-                                    confirmButtonColor: "#3085d6",
-                                    cancelButtonColor: "#d33",
-                                    confirmButtonText: "ຢືນຢັນ",
-                                    cancelButtonText: "ຍົກເລີກ",
-                                  }).then((result) => {
-                                    if (result.isConfirmed) {
-                                      Swal.fire(
-                                        "ລົບຂໍ້ມູນສຳເລັດ!",
-                                        "ທ່ານໄດ້ລົບຂໍ້ມູນພະນັກງານສຳເລັດແລ້ວ.",
-                                        "success"
-                                      ).then(() => {
-                                        DelEmployee(formData.emp_ID);
-                                      });
-                                    } else {
-                                      Swal.fire(
-                                        "ລົບຂໍ້ມູນບໍ່ສຳເລັດ!",
-                                        "ທ່ານໄດ້ລົບຂໍ້ມູນພະນັກງານບໍ່ສຳເລັດແລ້ວ.",
-                                        "error"
-                                      );
-                                    }
-                                  })
-                                }
-                              >
-                                <label>
-                                  <RiDeleteBin6Line className="del-em" />
-                                </label>
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                  </tbody>
-                </table>
-                
-              </div> */}
               <div>
                 <ThemeProvider theme={theme}>
                 <Paper sx={{ width: '100%', }}>
@@ -365,8 +246,8 @@ function Employee() {
                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                           .map((row, i) => {
                             return (
-                              <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
-                                <TableCell>{i+1}</TableCell>
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.name} >
+                                <TableCell>{(rowsPerPage*page)+1+i}</TableCell>
                                 <TableCell>{row.emp_ID}</TableCell>
                                 <TableCell>
                                   <Avatar src={row.profilepic} />
@@ -383,9 +264,6 @@ function Employee() {
                                   <button
                                     onClick={
                                       () => getRecord(row)
-                                      // setOpenModalUp(true)
-                                      // this.close(formData.emp_ID);
-                                      // setSelectData(formData)
                                     }
                                     className="btnnn"
                                   >

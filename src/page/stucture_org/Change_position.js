@@ -177,43 +177,6 @@ function Change_Pos() {
                     </button>
                     </a>
                 </p>
-                <div className='box-tbl-change-pos'>
-                    <table className="tbl-change-pos">
-                    <thead>
-                        <tr>
-                            <th>ລໍາດັບ</th>
-                            <th>ລະຫັດພະນັກງານ</th>
-                            <th>ຮູບພະນັກງານ</th>
-                            <th>ຊື່</th>
-                            <th>ນາມສະກຸນ</th>
-                            <th>ຕໍາແໜ່ງ</th>
-                            <th>ພະແນກ</th>
-                            <th className="column-mov-pos">ຍ້າຍຕຳແໜ່ງ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td className="tbl-row-no-change-pos"></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td className="column-mov-pos">
-                            <button
-                                onClick={() => SwalUpdateDepart()}
-                                className="btnnn-change-pos"
-                            >
-                                <label>
-                                <FaExchangeAlt className="up-change-pos" />
-                                </label>
-                            </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>
                 <div>
                 <ThemeProvider theme={theme}>
                 <Paper sx={{ width: '100%', }}>
@@ -266,7 +229,7 @@ function Change_Pos() {
                                     className="btnnn-change-pos"
                                   >
                                     <label>
-                                      <FaPencilAlt className="up-change-pos" />
+                                      <FaExchangeAlt className="up-change-pos" />
                                     </label>
                                   </button>
                                 </TableCell>

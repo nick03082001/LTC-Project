@@ -245,77 +245,7 @@ fetch("http://192.168.0.171:3000/myproject1/create_position", requestOptions)
                   </label>
                   ເພີ່ມ
                 </button>
-                {/* {openModal && <EmCreate closeModal={setOpenModal} />} */}
               </p>
-              <div className='box-tbl-position'>
-                <table className="tbl-position">
-                  <thead>
-                    <tr>
-                      <th>ລໍາດັບ</th>
-                      <th>ຕຳແໜ່ງ</th>
-                      <th>ແກ້ໄຂ</th>
-                      <th>ລົບ</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {items.map((row) => (
-                      <tr
-                        key={row.name}
-                      >
-                        {/* <td className="tbl-row-no-position"></td> */}
-                        <td>{row.pos_ID}</td>
-                        <td>{row.pos_name}</td>
-                        <td >
-                          <button
-                            onClick={() => SwalUpdatePosition()}
-                            className="btnnn-position"
-                          >
-                            <label>
-                              <FaPencilAlt className="up-position" />
-                            </label>
-                          </button>
-                        </td>
-                        <td>
-                          <button
-                            className="btnnn-position"
-                            onClick={() =>
-                              MySwalDeletePosition.fire({
-                                title: 'ຢືນຢັນການລົບ',
-                                html: "ຂໍ້ມູນທີ່ທ່ານລົບຈະບໍ່ສາມາດກູ້ຄືນໄດ້.<br /> ທ່ານແນ່ໃຈທີ່ຈະລົບ ຫຼື ບໍ່?",
-                                icon: 'warning',
-                                iconColor: 'red',
-                                showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'ຢືນຢັນ',
-                                cancelButtonText: 'ຍົກເລີກ'
-                              }).then((result) => {
-                                if (result.isConfirmed) {
-                                  Swal.fire(
-                                    'ລົບຂໍ້ມູນສຳເລັດ!',
-                                    'ທ່ານໄດ້ລົບຂໍ້ມູນຕຳແໜ່ງສຳເລັດແລ້ວ.',
-                                    'success'
-                                  ).then(() => { DelPositon(row.pos_name) })
-                                }
-                                else {
-                                  Swal.fire(
-                                    'ລົບຂໍ້ມູນບໍ່ສຳເລັດ!',
-                                    'ທ່ານໄດ້ລົບຂໍ້ມູນຕຳແໜ່ງບໍ່ສຳເລັດແລ້ວ.',
-                                    'error'
-                                  )
-                                }
-                              })}
-                          >
-                            <label>
-                              <RiDeleteBin6Line className="del-position" />
-                            </label>
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
               <div>
                 <ThemeProvider theme={theme}>
                 <Paper sx={{ width: '100%', }}>
@@ -345,7 +275,7 @@ fetch("http://192.168.0.171:3000/myproject1/create_position", requestOptions)
                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                           .map((row, i) => {
                             return (
-                              <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.name} >
                                 <TableCell>{i+1}</TableCell>
                                 <TableCell>{row.pos_ID}</TableCell>
                                 <TableCell>{row.pos_name}</TableCell>
