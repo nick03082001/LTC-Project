@@ -60,66 +60,75 @@ function Department() {
       });
   }, []);
 
-  const [depName, setDepName] = useState("");
+
+
+
+
 
   const CreateDepartment = (id) => {
-    var myHeaders = new Headers();
-    myHeaders.append(
-      "Authorization",
-      "Bearer " + sessionStorage.getItem("token")
-    );
-    myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({
-      dep_name: id,
+    var axios = require('axios');
+    var data = JSON.stringify({
+      "dep_name": id
     });
 
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
+    var config = {
+      method: 'post',
+      url: 'http://47.250.49.41/myproject1/department',
+      headers: { 
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        'Content-Type': 'application/json'
+      },
+      data : data,
     };
 
-    fetch("http://47.250.49.41/myproject1/department", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        // alert(result["message"]);
-        if (result["status"] === "ok") {
-          window.location.href = "/department";
-        }
-      })
-      .catch((error) => console.log("error", error));
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      if (response.data["status"] === "ok") {
+        window.location.href = "/department";
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   };
+
+
+
+  
 
   const DelDepartment = (id) => {
-    var myHeaders = new Headers();
-    myHeaders.append(
-      "Authorization",
-      "Bearer " + sessionStorage.getItem("token")
-    );
-    myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({
-      dep_name: id,
+    var axios = require('axios');
+    var data = JSON.stringify({
+      "dep_name": id
     });
 
-    var requestOptions = {
-      method: "DELETE",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
+    var config = {
+      method: 'delete',
+      url: 'http://47.250.49.41/myproject1/department',
+      headers: { 
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        'Content-Type': 'application/json'
+      },
+      data : data
     };
 
-    fetch("http://47.250.49.41/myproject1/department", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result["status"] === "ok") {
-          window.location.href = "/department";
-        }
-      })
-      .catch((error) => console.log("error", error));
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      if (response.data["status"] === "ok") {
+        window.location.href = "/department";
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   };
+
+
+
 
   const UpdateDepartment = (dep_name,id) => {
     var axios = require("axios");
@@ -149,6 +158,8 @@ function Department() {
         console.log(error);
       });
   };
+
+
 
   // ປູ່ມແກ້ໄຂ-ລົບໃຫ້ດືງ api ໃນຟັງຊັນລູ່ມນີ້
 
@@ -182,15 +193,12 @@ function Department() {
   }
 
   async function SwalUpdateDepart(data) {
-
-    console.log({data})
-    // const ipAddress = selectDepartment?.dep_ID;
-    // (async () => {
       
       const { value: ipAddress } = await Swal.fire({
         title: "ຊື່ພະແນກ",
         input: "text",
         inputPlaceholder: "ປ້ອນຊື່ພະແນກ",
+        inputValue: data?.dep_name,
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
@@ -336,7 +344,7 @@ function Department() {
                                     hover
                                     role="checkbox"
                                     tabIndex={-1}
-                                    key={row.name}
+                                    key={row.dep_ID}
                                   >
                                     <TableCell>
                                       {rowsPerPage * page + 1 + i}
@@ -347,10 +355,9 @@ function Department() {
                                     <TableCell>
                                       <button
                                         onClick={() => {
-                                          
-                                          setSelectDepartment(row)
+                                        setSelectDepartment(row)
                                         SwalUpdateDepart(row);
-                                          console.log(row)
+                                          // console.log(row)
                                         }}
                                         className="btnnn-depart"
                                       >

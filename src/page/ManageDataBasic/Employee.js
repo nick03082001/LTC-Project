@@ -246,7 +246,7 @@ function Employee() {
                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                           .map((row, i) => {
                             return (
-                              <TableRow hover role="checkbox" tabIndex={-1} key={row.name} >
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.emp_ID} >
                                 <TableCell>{(rowsPerPage*page)+1+i}</TableCell>
                                 <TableCell>{row.emp_ID}</TableCell>
                                 <TableCell>
