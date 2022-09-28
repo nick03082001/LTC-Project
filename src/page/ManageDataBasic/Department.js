@@ -2,7 +2,7 @@ import "../css/department.css";
 import Menubar from "../components/Menubar.js";
 import { FaSearch, FaPencilAlt, FaPlusCircle } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import axios from "axios";
@@ -46,7 +46,7 @@ function Department() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
-  const [selectDepartment, setSelectDepartment] = useState("");
+  
 
   React.useEffect(() => {
     axios
@@ -166,7 +166,7 @@ function Department() {
   function SwalAddDepart() {
     (async () => {
       const { value: ipAddress } = await Swal.fire({
-        title: "ຊື່ພະແນກ",
+        title: "ເພີ່ມຂໍ້ມູນພະແນກ",
         input: "text",
         inputPlaceholder: "ປ້ອນຊື່ພະແນກ",
         showCancelButton: true,
@@ -182,7 +182,7 @@ function Department() {
       });
 
       if (ipAddress) {
-        Swal.fire(`ເພີ່ມພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
+        Swal.fire(`ເພີ່ມຂໍ້ມູນພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
           () => {
             // console.log(ipAddress);
             CreateDepartment(ipAddress);
@@ -195,7 +195,7 @@ function Department() {
   async function SwalUpdateDepart(data) {
       
       const { value: ipAddress } = await Swal.fire({
-        title: "ຊື່ພະແນກ",
+        title: "ແກ້ໄຂພະແນກ",
         input: "text",
         inputPlaceholder: "ປ້ອນຊື່ພະແນກ",
         inputValue: data?.dep_name,
@@ -212,7 +212,7 @@ function Department() {
       });
 
       if (ipAddress) {
-        Swal.fire(`ແກ້ໄຂພະແນກໄປເປັນ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
+        Swal.fire(`ແກ້ໄຂຂໍ້ມູນພະແນກໄປເປັນ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
           () => {
             UpdateDepartment(ipAddress,data?.dep_ID);
             console.log(ipAddress);
@@ -324,10 +324,10 @@ function Department() {
                                 if (searchTerm === "") {
                                   return val;
                                 } else if (
-                                  val.dep_name
+                                  val.dep_ID.toString()
                                     .toLowerCase()
                                     .includes(searchTerm.toLowerCase()) ||
-                                  val.dep_create_date
+                                  val.dep_name
                                     .toLowerCase()
                                     .includes(searchTerm.toLowerCase())
                                 ) {
@@ -355,7 +355,6 @@ function Department() {
                                     <TableCell>
                                       <button
                                         onClick={() => {
-                                        setSelectDepartment(row)
                                         SwalUpdateDepart(row);
                                           // console.log(row)
                                         }}

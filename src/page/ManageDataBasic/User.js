@@ -1,10 +1,12 @@
 import "../css/User.css";
 import Menubar from "../components/Menubar.js";
-import { FaSearch, FaPencilAlt, FaPlusCircle } from "react-icons/fa";
+import { FaSearch, FaPencilAlt } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import React, { useState, useEffect } from "react";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import axios from "axios";
+
 
 // Mui test
 import Paper from '@mui/material/Paper';
@@ -51,39 +53,103 @@ function User() {
 
 
 
+  // ໂຊຂໍ້ມູນ
 
-
-
+  const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
 
+  const UserGet = () => {
+    axios
+      .get("http://47.250.49.41/myproject1/user", {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("token"),
+        },
+      })
+      .then((res) => {
+        setItems(res?.data?.user);
+      });
+  }
+
+  
   useEffect(() => {
     UserGet()
   }, [])
 
-  const UserGet = () => {
-    var myHeaders = new Headers();
-    myHeaders.append(
-      "x-api-key",
-      sessionStorage.getItem('token')
-    );
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
+
+
+  // ແກໄຂລະຫັດຜ່ານຜູ້ໃຊ້
+
+  const UpdateUsername= (formValues) => {
+    var axios = require("axios");
+    var data = JSON.stringify({
+      username: formValues.username,
+      password: formValues.password
+    });
+
+    var config = {
+      method: "put",
+      url: "http://47.250.49.41/myproject1/user",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        "Content-Type": "application/json",
+      },
+      data: data,
     };
-    fetch("http://192.168.0.171:3000/test/myproject1/users", requestOptions)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setItems(result);
-        },
-      )
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        if (response.data["status"] === "ok") {
+          window.location.href = "/user";
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  function SwalUpdateUser(data) {
+    (async () => {
+
+      const { value: formValues } = await Swal.fire({
+        title: 'ແກ້ໄຂຂໍ້ມູນຜູ້ໃຊ້',
+        html:
+          `<input id="swal-input1" class="swal2-input" value=${data?.username} readonly>
+          <form name='myform' id='myform'>
+          <input id="swal-input2" class="swal2-input" placeholder="ປ້ອນລະຫັດຜ່ານ" autofocus>`,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'ຢືນຢັນ',
+        cancelButtonText: 'ຍົກເລີກ',
+        focusConfirm: false,
+        preConfirm: () => {
+          return {
+            username: document.getElementById('swal-input1').value,
+            password: document.getElementById('swal-input2').value
+          }
+        }
+      })
+
+      if (formValues) {
+        Swal.fire(`ແກ້ໄຂລະຫັດຜ່ານຂອງຜູ້ໃຊ້: ${formValues.username} ສຳເລັດ!`, ``, `success`).then(
+          () => {
+            console.log(formValues);
+            UpdateUsername(formValues)
+          }
+        );
+        
+      }
+
+    })()
 
   }
 
-  // const UpdateDepartment = id => {
-  //   window.location = '/department'
-  // }
+
+
+
+
+
 
   const DelDepartment = id => {
     var myHeaders = new Headers();
@@ -115,71 +181,6 @@ function User() {
 
 
 
-
-
-// ປູ່ມແກ້ໄຂ-ລົບໃຫ້ດືງ api ໃນຟັງຊັນລູ່ມນີ້
-
-  function SwalAddUser() {
-
-    (async () => {
-
-      const { value: formValues } = await Swal.fire({
-        title: 'ເພີ່ມຂໍ້ມູນຜູ້ໃຊ້',
-        html:
-          '<input id="swal-input1" class="swal2-input" placeholder="ຊື່ຜູ້ໃຊ້">' +
-          '<input id="swal-input2" class="swal2-input" placeholder="ລະຫັດຜ່ານ">',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'ຢືນຢັນ',
-        cancelButtonText: 'ຍົກເລີກ',
-        focusConfirm: false,
-        preConfirm: () => {
-          return [
-            document.getElementById('swal-input1').value,
-            document.getElementById('swal-input2').value
-          ]
-        }
-      })
-
-      if (formValues) {
-        Swal.fire(JSON.stringify(formValues))
-      }
-
-    })()
-  }
-
-  function SwalUpdateUser() {
-    (async () => {
-
-      const { value: formValues } = await Swal.fire({
-        title: 'ແກ້ໄຂຂໍ້ມູນຜູ້ໃຊ້',
-        html:
-          '<input id="swal-input1" class="swal2-input" placeholder="ຊື່ຜູ້ໃຊ້">' +
-          '<input id="swal-input2" class="swal2-input" placeholder="ລະຫັດຜ່ານ">',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'ຢືນຢັນ',
-        cancelButtonText: 'ຍົກເລີກ',
-        focusConfirm: false,
-        preConfirm: () => {
-          return [
-            document.getElementById('swal-input1').value,
-            document.getElementById('swal-input2').value
-          ]
-        }
-      })
-
-      if (formValues) {
-        Swal.fire(JSON.stringify(formValues))
-      }
-
-    })()
-
-  }
-
-
   const MySwalDeleteUser = withReactContent(Swal);
 
   return (
@@ -194,6 +195,9 @@ function User() {
                   className="search-inp-user"
                   type="text"
                   placeholder="ຄົ້ນຫາ..."
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                  }}
                 ></input>
                 <FaSearch className="filt-ic-user" />
               </label>
@@ -206,15 +210,6 @@ function User() {
             <div className="con-tbl-user">
               <p className="p-man-user">
                 ຈັດການຂໍ້ມູນຜູ້ໃຊ້
-                <button
-                  className="btn-pherm-user"
-                  onClick={() => SwalAddUser()}
-                >
-                  <label className="lbl-ic-p-user">
-                    <FaPlusCircle />
-                  </label>
-                  ເພີ່ມ
-                </button>
               </p>
               <div>
                 <ThemeProvider theme={theme}>
@@ -244,18 +239,39 @@ function User() {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {items 
+                        {items &&
+                            items
+                              ?.filter((val) => {
+                                if (searchTerm === "") {
+                                  return val;
+                                } else if (
+                                  val.username
+                                    .toLowerCase()
+                                    .includes(searchTerm.toLowerCase()) ||
+                                  val.emp_name
+                                    .toLowerCase()
+                                    .includes(searchTerm.toLowerCase()) ||
+                                  val.pos_name
+                                    .toLowerCase()
+                                    .includes(searchTerm.toLowerCase())
+                                ) {
+                                  return val;
+                                }
+                              })
                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                           .map((row, i) => {
                             return (
-                              <TableRow hover role="checkbox" tabIndex={-1} key={row.name}>
-                                <TableCell>{i+1}</TableCell>
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.username}>
+                                <TableCell>{rowsPerPage * page + 1 + i}</TableCell>
                                 <TableCell>{row.username}</TableCell>
                                 <TableCell>{row.emp_name}</TableCell>
                                 <TableCell>{row.pos_name}</TableCell>
                                 <TableCell >
                                   <button
-                                    onClick={() => SwalUpdateUser()}
+                                    onClick={() => {
+                                      SwalUpdateUser(row)
+                                      console.log('row', row)
+                                    }}
                                     className="btnnn-user"
                                   >
                                     <label>

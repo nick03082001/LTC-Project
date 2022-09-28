@@ -4,6 +4,7 @@ import Employee from "./page/ManageDataBasic/Employee.js";
 import Department from "./page/ManageDataBasic/Department.js";
 import Home from './page/Home.js'
 import './App.css'
+import Session from "./page/ManageDataBasic/Session.js";
 import Position from "./page/ManageDataBasic/Position.js";
 import User from "./page/ManageDataBasic/User.js";
 import OrgMovPos from "./page/stucture_org/Change_position.js";
@@ -25,6 +26,7 @@ function App() {
       <Route element = {< PrivateRoute/>}>
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/employee" element={<Employee />} />
+        <Route exact path="/session" element={<Session />} />
         <Route exact path="/department" element={<Department />} />
         <Route exact path="/position" element={<Position />} />
         <Route exact path="/user" element={<User />} />

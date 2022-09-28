@@ -2,7 +2,6 @@ import "../css/SelectAnswerAssessment.css";
 import Menubar from "../components/Menubar.js";
 import { FaSearch, FaFileSignature } from "react-icons/fa";
 import React, { useState, useEffect } from 'react'
-import Data from "./DataYai.json"
 import SaveAnswerAssessment from "./SaveAnswerAssessment.js";
 import axios from "axios";
 
@@ -60,7 +59,7 @@ function SelectAnswerAssessment() {
 
 
     
-  const [contacts, setContacts] = useState(Data);
+
   const [val,setVal]=useState([]);
 
   const HeaderAssGet = () => {
