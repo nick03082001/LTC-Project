@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import "../css/Menu.css";
 
+import "./Profile.css";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
+
+
+// const [isOpenProfile, setIsOpenProfile] = useState(false);
+
+// function toggleModalProfile() {
+//   setIsOpenProfile(!isOpenProfile);
+// }
 function Mybar() {
+    const [isOpenProfile, setIsOpenProfile] = useState(false);
+
+    function toggleModalProfile() {
+        setIsOpenProfile(!isOpenProfile);
+      }
     return (
+       <>
         <header className='h-navbar'>
             <nav className='aa'>
                 <div className='img-ham'>
@@ -15,7 +32,7 @@ function Mybar() {
                             <img src="avatar.png" alt="Avatar" className="Avatar"></img>
                         </button>
                         <div className="dropdown-content-avatar">
-                        <a href="/setting">ຕັ້ງຄ່າໂປຣຟາຍ</a>
+                        <a onClick={toggleModalProfile}>ຕັ້ງຄ່າໂປຣຟາຍ</a>
                         <hr className='menu-hr'/>
                         <a href="/">ອອກຈາກລະບົບ</a>
                         </div>
@@ -110,8 +127,79 @@ function Mybar() {
                     
                     
                 </div>
+                
             </nav>
+            
         </header>
+        <Modal
+            isOpen={isOpenProfile}
+            onRequestClose={toggleModalProfile}
+            contentLabel="My dialog"
+            className="modal-profile"
+            overlayClassName="myoverlay"
+            >
+            <label className='close-buttom' onClick={toggleModalProfile}> X </label>
+            <div className="profilepic-box">
+                <img src="#" alt="" className='profilepic-img'/>
+                <div className="id-em-profile-container">
+                    <span  className="id-em-profile">E001</span>
+                    <span  className="name">Peesa</span>
+                </div>
+            </div>
+            <div className="container-label">
+                <p className="profile-container">
+                    <label className="id-profile">ເພດ:</label>
+                    <span className="id-profile-box"
+                        value="bor hu day"
+                    >
+                        
+                    </span>
+                </p>
+                <p className="profile-container">
+                    <label className="id-profile">ພະແນກ:</label>
+                    <input className="id-profile-box"
+                        value="bor hu day"
+                    >
+                        
+                    </input>
+                </p>
+                <div className="profile-container">
+                    <label className="id-profile">ເບີໂທ:</label>
+                    <input className="id-profile-box"
+                        value="bor hu day"
+                    >
+                        
+                    </input>
+                </div>
+                <div className="profile-container">
+                    <label className="id-profile">ບ້ານ:</label>
+                    <input className="id-profile-box"
+                        value="bor hu day"
+                    >
+                        
+                    </input>
+                </div>
+                <div className="profile-container">
+                    <label className="id-profile">ເມືອງ:</label>
+                    <input className="id-profile-box"
+                        value="bor hu day"
+                    >
+                        
+                    </input>
+                </div>
+                <div className="profile-container">
+                    <label className="id-profile">ແຂວງ:</label>
+                    <input className="id-profile-box"
+                        value="bor hu day"
+                    >
+                        
+                    </input>
+                </div>
+            </div>
+            
+        </Modal>
+           
+    </>
         
         
       )

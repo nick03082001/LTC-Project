@@ -1,0 +1,131 @@
+.modal-profile {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+
+border: 1px solid #ccc;
+background: #fff;
+overflow: auto;
+border-radius: 4px;
+outline: none;
+padding: 20px;
+height: 80%;
+width: 30%;
+}
+
+.myoverlay {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgba(0, 0, 0, 0.4);
+z-index: 1031;
+}
+.close-buttom{
+    position: relative;
+    float: right;
+    cursor: pointer;
+    font-weight: bold;
+}
+.profilepic-box{
+    background-color: red;
+    margin-top: 10%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+
+}
+.profilepic-img{
+    position: sticky;
+    height: 90%;
+    width: 20%;
+    margin-right: 70px;
+    display: block;
+    border-radius: 50%;
+    background-color: blue;
+    border: 10px;
+    border-color: white;
+}
+
+.id-em-profile-container{
+    font-size: xx-large;
+    font-weight: bold;
+    background-color: blue;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.profile-container{
+    display: flex;
+    width: 90%;
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: right;
+
+}
+
+/* .container-label{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+} */
+
+/* .profile-container{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+} */
+
+.id-profile{
+    min-width: max-content;
+    font-size: clamp(14px, 2.5vw, 16px);
+    font-weight: 500;
+}
+
+.id-profile-box{
+    box-sizing: border-box;
+    border-radius: 9px;
+    width: 80%;
+    margin-left: 10px;
+    padding-left: 10px;
+    border:1px solid rgba(0, 0, 0, 0.5);
+    background-color: #a5a5a538;
+    font-size: clamp(14px, 2.5vw, 16px);
+    font-weight: 500;
+    color: rgb(88, 85, 85);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media all and (max-width: 700px){
+    .modal-profile {
+        width: 80%;
+        }
+}

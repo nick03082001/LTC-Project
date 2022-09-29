@@ -4,7 +4,7 @@ import EmCreate from "./EmCreate.js";
 import EmUpdate from "./EmUpdate.js";
 import { FaSearch, FaPencilAlt, FaPlusCircle } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Avatar } from "@mui/material";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -12,9 +12,14 @@ import axios from "axios";
 
 function Employee() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([]); 
+  const [openModal, setOpenModal] = useState(false);
+  const [openModalUp, setOpenModalUp] = useState(false);
+  const [selectData, setSelectData] = useState("");
+  const MySwal = withReactContent(Swal);
 
-  React.useEffect(() => {
+
+  useEffect(() => {
     axios
       .get("http://47.250.49.41/myproject1/employee", {
         headers: {
@@ -25,6 +30,7 @@ function Employee() {
         setItems(res?.data?.employee);
       });
   }, []);
+
 
   const DelEmployee = (id) => {
     var myHeaders = new Headers();
@@ -62,16 +68,15 @@ function Employee() {
       .catch((error) => console.log("error", error));
   };
 
+
+
   const getRecord = (e) => {
     console.log("My DATA : ", e);
     setOpenModalUp(true);
     setSelectData(e);
   };
 
-  const [openModal, setOpenModal] = useState(false);
-  const [openModalUp, setOpenModalUp] = useState(false);
-  const [selectData, setSelectData] = useState("");
-  const MySwal = withReactContent(Swal);
+
 
   return (
     <div className="box-modal-em">
@@ -181,8 +186,7 @@ function Employee() {
                             <td>{formData.province}</td>
                             <td>
                               <button
-                                onClick={
-                                  () => getRecord(formData)
+                                onClick={ () => getRecord(formData)
                                   // setOpenModalUp(true)
                                   // this.close(formData.emp_ID);
                                   // setSelectData(formData)

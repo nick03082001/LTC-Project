@@ -5,15 +5,8 @@
 // Modal.setAppElement("#root");
 
 // export default function Profile() {
-//   const [isOpenProfile, setIsOpenProfile] = useState(false);
-
-//   function toggleModalProfile() {
-//     setIsOpenProfile(!isOpenProfile);
-//   }
-
 //   return (
 //     <div className="App">
-//       <button onClick={toggleModalProfile}>Open modal</button>
 
 //       <Modal
 //         isOpen={isOpenProfile}
