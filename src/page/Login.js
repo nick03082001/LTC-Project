@@ -79,6 +79,7 @@ function Login() {
               value={inputs.username || ""}
               onChange={handChange}
               placeholder="ປ້ອນຊື່ຜູ້ໃຊ້ຂອງທ່ານ..."
+              required
             ></input>
           </p>
           <p className="lbl-password">
@@ -94,6 +95,7 @@ function Login() {
               value={inputs.password || ""}
               onChange={handChange}
               placeholder="ປ້ອນລະຫັດຜ່ານຂອງທ່ານ..."
+              required
             ></input>
           </p>
           <p className="lbl-btn-login">

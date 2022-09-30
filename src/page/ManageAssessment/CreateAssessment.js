@@ -49,7 +49,7 @@ function CreateAssessment() {
   };
 
   // ເບີີ່ງຂໍ້ມູນໃນ console
-  // console.log(val,"data-")
+  console.log(val,"data-")
 
   //api ບັນທຶກຫົວຂໍ້1
 
@@ -147,6 +147,12 @@ function CreateAssessment() {
                             value={data}
                             placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
                             onChange={(e) => btnHandleChange(e, i)}
+                            onKeyPress={event => {
+                              if(event.key === 'Enter'){
+                                handleAddInp();
+                                // console.log(event)
+                              }
+                            }}
                           ></input>
                           <button
                             className="btn-delete-title-1_1-create-ass"
@@ -194,6 +200,12 @@ function CreateAssessment() {
                             value={data2}
                             placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
                             onChange={(s) => btnHandleChange2(s, j)}
+                            onKeyPress={event => {
+                              if(event.key === 'Enter'){
+                                handleAddInp2();
+                                // console.log(event)
+                              }
+                            }}
                           ></input>
                           <button
                             className="btn-delete-title-2_1-create-ass"

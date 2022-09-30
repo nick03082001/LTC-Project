@@ -269,7 +269,12 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
                 type="tel"
                 value={emp_tel}
                 onChange={(e) => setETel(e.target.value)}
-                pattern="[0-9]*{8}"
+                // pattern="[0-9]*{8}"
+                onKeyPress={(e)=>{
+                  if(!/[0-9]/.test(e.key))
+                  e.preventDefault();
+                }}
+                maxLength={8}
                 placeholder="ປ້ອນເບີໂທ*"
               ></input>
             </p>
@@ -285,7 +290,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
                 </option>
                 {session_name &&
                   session_name?.map((val) => (
-                    <option key={val.session_name} value={val.session_name}>
+                    <option key={val.session_name} value={selectSession}>
                       {val.session_name}
                     </option>
                   ))}

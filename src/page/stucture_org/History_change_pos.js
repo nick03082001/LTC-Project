@@ -2,7 +2,8 @@ import "../css/History_change_pos.css";
 import Menubar from "../components/Menubar.js";
 import { FaSearch} from "react-icons/fa";
 import { AiOutlineFileSearch } from "react-icons/ai";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 // Mui test
 import Paper from '@mui/material/Paper';
@@ -47,7 +48,28 @@ function History_change_pos() {
   
   
   
-    
+// ໂຊຂໍ້ມູນ
+
+const [searchTerm, setSearchTerm] = useState("");
+const [items, setItems] = useState([]);
+
+const HistoryMovingGet = () => {
+  axios
+    .get("http://47.250.49.41/myproject1/moving", {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    })
+    .then((res) => {
+      setItems(res?.data?.moving);
+    });
+}
+
+
+useEffect(() => {
+  HistoryMovingGet()
+}, [])
+
   
   
   
@@ -121,7 +143,7 @@ function History_change_pos() {
                           .map((row, i) => {
                             return ( */}
                               <TableRow hover role="checkbox" tabIndex={-1}>
-                                <TableCell></TableCell>
+                                <TableCell>{rowsPerPage * page + 1 }</TableCell>
                                 <TableCell>ລະຫັດພະນັກງານ</TableCell>
                                 <TableCell></TableCell>
                                 <TableCell></TableCell>

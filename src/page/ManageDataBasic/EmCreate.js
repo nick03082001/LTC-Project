@@ -56,6 +56,7 @@ export default function CreateEmployee({ closeModal }) {
     console.log(gender);
     console.log(selectProvince);
     console.log(selectSession);
+    console.log(profilepic);
     
 
     var requestOptions = {
@@ -146,7 +147,7 @@ export default function CreateEmployee({ closeModal }) {
           <RiCloseLine />
         </button>
         <p className="header-cre-em">
-          <p className="h6-data-cre-em">ປ້ອນຂໍ້ມູນພະນັກງານ</p>
+          <span className="h6-data-cre-em">ປ້ອນຂໍ້ມູນພະນັກງານ</span>
         </p>
         <div className="div-picture-cre-em">
           <p className="p-con-lbl-picture-cre-em">
@@ -156,7 +157,6 @@ export default function CreateEmployee({ closeModal }) {
             >
               <FaUserCircle
                 className="img-click-cre-em"
-                htmlFor="id-img-click-cre-em"
               />
             </label>
           </p>
@@ -170,9 +170,13 @@ export default function CreateEmployee({ closeModal }) {
               onChange={onImageChange}
             />
             {imageURLs.map((imageSrc, idx) => (
-              <img className="img-cre-em" key={idx} src={imageSrc} alt="" />
+              <img className="img-cre-em" key={idx} src={imageSrc} alt=""/>
             ))}
+            <label className="p-click-picture-cre-em" htmlFor="id-img-click-cre-em"> 
+            {/* <label className="label-click-picture-cre-em" htmlFor="id-img-click-cre-em">O</label> */}
+          </label>
           </p>
+          
         </div>
         <div className="box-con-box-inp-cre-em">
           <div className="box-input-cre-em">
@@ -242,7 +246,11 @@ export default function CreateEmployee({ closeModal }) {
                 className="inp-cre-em"
                 onChange={(e) => setETel(e.target.value)}
                 type="tel"
-                pattern="[0-9]*{8}"
+                onKeyPress={(e)=>{
+                  if(!/[0-9]/.test(e.key))
+                  e.preventDefault();
+                }}
+                maxLength={8}
                 placeholder="ປ້ອນເບີໂທ*"
               ></input>
             </p>

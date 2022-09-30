@@ -85,12 +85,12 @@ function Session() {
 
     var axios = require('axios');
     var data = JSON.stringify({
-      "pos_name": id
+      "session_name": id
     });
 
     var config = {
       method: 'post',
-      url: 'http://47.250.49.41/myproject1/position',
+      url: 'http://47.250.49.41/myproject1/session',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'
@@ -144,11 +144,12 @@ function Session() {
 
   // ແກໄຂຂໍ້ມູນພາກສ່ວນ
 
-  const UpdateSession= (session_ID,session_name) => {
+  const UpdateSession= (id,ipAddress) => {
+    // console.log("api",id,ipAddress);
     var axios = require("axios");
     var data = JSON.stringify({
-        session_ID: session_ID,
-        session_name: session_name,
+        session_ID: id,
+        session_name: ipAddress,
     });
 
     var config = {
@@ -195,8 +196,8 @@ function Session() {
     if (ipAddress) {
       Swal.fire(`ແກ້ໄຂຂໍ້ມູນພາກສ່ວນໄປເປັນ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
         () => {
-          UpdateSession(ipAddress,data?.session_ID);
-          console.log(ipAddress);
+          UpdateSession(data?.session_ID,ipAddress);
+          console.log("Swal",ipAddress,data?.session_ID);
         }
       );
     }
@@ -216,7 +217,7 @@ function Session() {
 
     var config = {
       method: 'delete',
-      url: 'http://47.250.49.41/myproject1/position',
+      url: 'http://47.250.49.41/myproject1/session',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'
@@ -294,6 +295,9 @@ function Session() {
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ພາກສ່ວນ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ວັນທີສ້າງ</TableCell>
                             <TableCell
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ແກ້ໄຂ</TableCell>
@@ -326,11 +330,13 @@ function Session() {
                                 <TableCell>{rowsPerPage * page + 1 + i}</TableCell>
                                 <TableCell>{row.session_ID}</TableCell>
                                 <TableCell>{row.session_name}</TableCell>
+                                <TableCell>{row.session_name}</TableCell>
                                 <TableCell >
                                   <button
                                     onClick={() => {
                                       // setSelectDepartment(row)
                                       SwalUpdateSession(row)
+                                      console.log(row)
                                     }}
                                     className="btnnn-Session"
                                   >

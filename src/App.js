@@ -23,7 +23,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-      <Route element = {< PrivateRoute/>}>
+      {/* <Route element = {< PrivateRoute/>}> */}
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/employee" element={<Employee />} />
         <Route exact path="/session" element={<Session />} />
@@ -37,7 +37,7 @@ function App() {
         <Route exact path="/assessment/answer" element={<SelectAnswerAssessment />} />
         <Route exact path="/assessment/save/answer" element={<SaveAnswerAssessment />} />
         <Route exact path="/home" element={<Home/>} />
-        </Route>
+        {/* </Route> */}
         
         <Route exact path="/" element={<Login />} />
         <Route exact path="/login" element={<Login />} />

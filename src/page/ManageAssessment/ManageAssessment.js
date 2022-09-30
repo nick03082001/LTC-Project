@@ -2,9 +2,9 @@ import "../css/ManageAssessment.css";
 import Menubar from "../components/Menubar.js";
 import { FaSearch, FaPlusCircle } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Swal from 'sweetalert2';
-import  { useState, useEffect } from "react";
 import withReactContent from 'sweetalert2-react-content';
 
 // Mui test
@@ -54,31 +54,29 @@ function ManageAssessment() {
   
 
 
+// ໂຊຂໍ້ມູນ
+
+const [searchTerm, setSearchTerm] = useState("");
+const [items, setItems] = useState([]);
+
+const ManageAssGet = () => {
+  axios
+    .get("http://47.250.49.41/myproject1/moving", {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    })
+    .then((res) => {
+      setItems(res?.data?.moving);
+    });
+}
 
 
+useEffect(() => {
+  ManageAssGet()
+}, [])
 
-    const [items, setItems] = useState([]);
 
-    useEffect(() => {
-        AssessmentGet();
-        //DepartmentUpdate();
-      }, []);
-    
-      const AssessmentGet = () => {
-        var myHeaders = new Headers();
-        myHeaders.append("x-api-key", sessionStorage.getItem("token"));
-    
-        var requestOptions = {
-          method: "GET",
-          headers: myHeaders,
-          redirect: "follow",
-        };
-        fetch("http://47.250.49.41/myproject1/departments", requestOptions)
-          .then((res) => res.json())
-          .then((result) => {
-            setItems(result);
-          });
-      };
 
 
   const MySwalDeletePosition = withReactContent(Swal);

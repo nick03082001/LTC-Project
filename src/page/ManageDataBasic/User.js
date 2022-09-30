@@ -77,7 +77,7 @@ function User() {
 
 
 
-  // ແກໄຂລະຫັດຜ່ານຜູ້ໃຊ້
+  // ແກ້ໄຂລະຫັດຜ່ານຜູ້ໃຊ້
 
   const UpdateUsername= (formValues) => {
     var axios = require("axios");
@@ -108,15 +108,16 @@ function User() {
       });
   };
 
+  
+              
   function SwalUpdateUser(data) {
     (async () => {
 
       const { value: formValues } = await Swal.fire({
         title: 'ແກ້ໄຂຂໍ້ມູນຜູ້ໃຊ້',
         html:
-          `<input id="swal-input1" class="swal2-input" value=${data?.username} readonly>
-          <form name='myform' id='myform'>
-          <input id="swal-input2" class="swal2-input" placeholder="ປ້ອນລະຫັດຜ່ານ" autofocus>`,
+          `<input id="swal-input1" class="swal2-input" value=${data?.username} readonly/>
+          <input id="swal-input2" class="swal2-input" placeholder="ປ້ອນລະຫັດຜ່ານ" minLength={8} required/>`,
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
