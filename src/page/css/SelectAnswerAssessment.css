@@ -1,4 +1,4 @@
-.box-manage-ass{
+.box-select-ass{
     margin: 0;
     padding-top: 0;
     width: 100%;
@@ -6,7 +6,7 @@
     box-sizing: border-box;
 }
 
-.bg-manage-ass{
+.bg-select-ass{
     /* position: relative; */
     box-sizing: border-box;
     padding-top: 67px;
@@ -18,7 +18,7 @@
 
 /* Tag search */
 
-.con-search-manage-ass{
+.con-search-select-ass{
     background-color: #f3f3f3;
     width: 100%;
     /* padding-top: 15px;
@@ -27,7 +27,7 @@
     margin: 1px 0px 0px 0px;
 }
 
-.search-manage-ass{
+.search-select-ass{
     /* background-color: rgb(0, 102, 255); */
     /* margin: 0px 20px; */
     display: flex;
@@ -40,7 +40,7 @@
     display: flex;
 }
 
-.search-inp-manage-ass{
+.search-inp-select-ass{
     background: #ffffff;
     padding: 7px 5px;
     border-radius:45px 45px 45px 46px;
@@ -52,18 +52,18 @@
     font-weight: 500;
 }
 
-.search-inp-manage-ass:focus{
+.search-inp-select-ass:focus{
     outline: none;
 }
 
-.filt-ic-manage-ass{
+.filt-ic-select-ass{
     position: relative;
     right: 35px;
     top: 9px;
     font-size: 20px;
 }
 
-.btn-search-manage-ass{
+.btn-search-select-ass{
     font-size: clamp(14px, 2.5vw, 16px);
     font-weight: 500;
     padding: 7px 25px 7px 25px;
@@ -74,7 +74,7 @@
     background-color: #ffffff;
 }
 
-.btn-search-manage-ass:hover{
+.btn-search-select-ass:hover{
     background-color: #ce452a;
     color: #ffffff;
 }
@@ -92,7 +92,7 @@
 /* Tap Table */
 
 
-.tb-manage-ass{
+.tb-select-ass{
 
     /* padding-top: 30px; */
     position: relative;
@@ -104,7 +104,7 @@
     
 }
 
-.con-tbl-manage-ass {
+.con-tbl-select-ass {
     box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
     border: 2px solid #ddd;
     font-size: clamp(14px, 2.5vw, 16px);
@@ -115,7 +115,7 @@
 
 }
 
-.box-tbl-manage-ass{
+.box-tbl-select-ass{
     /* background-color: #e2bdb6; */
     height: 530px;
     overflow: scroll;
@@ -124,7 +124,7 @@
     padding-top: 0.5%;
 }
 
-.p-man-manage-ass{
+.p-man-select-ass{
     /* background-color: #51b3f0; */
     text-align: center;
     font-size: clamp(16px, 2.5vw, 28px);
@@ -145,7 +145,7 @@
 
 /* In tap table */
 
-.tbl-manage-ass{
+.tbl-select-ass{
     /* background-color: #ce452a; */
     width: 100%;
     border-collapse: collapse;
@@ -156,7 +156,7 @@
 }
 
 
-.tbl-manage-ass thead tr{
+.tbl-select-ass thead tr{
     text-align: left;
     /* padding: 8px; */
     font-weight: 500;
@@ -167,25 +167,25 @@
     z-index: 1;
 }
 
-.tbl-manage-ass thead tr{
+.tbl-select-ass thead tr{
     font-weight: 700;
     font-size: clamp(14px, 2.5vw, 16px);
 }
 
 
-.tbl-manage-ass th, .tb-manage-ass td{
+.tbl-select-ass th, .tb-select-ass td{
     padding: 12px 15px;
 }
 
-.tb-manage-ass tbody tr{
+.tb-select-ass tbody tr{
     border-bottom: 1px solid #dddddd;
 }
 
-.tb-manage-ass tbody tr:nth-of-type(even){
+.tb-select-ass tbody tr:nth-of-type(even){
     background-color: #f3f3f3f3;
 }
 
-.tbl-row-no-manage-ass:first-child::before{
+.tbl-row-no-select-ass:first-child::before{
     counter-increment: Serial;
     content: counter(Serial);
 }
@@ -201,63 +201,63 @@
 /* Design for Ipad */
 
 @media all and (max-height: 1450px){
-    .box-tbl-manage-ass{
+    .box-tbl-select-ass{
         height: 950px;
     }
 }
 
 
 @media all and (max-height: 1300px){
-    .box-tbl-manage-ass{
+    .box-tbl-select-ass{
         height: 900px;
     }
 }
 
 
 @media all and (max-height: 1200px){
-    .box-tbl-manage-ass{
+    .box-tbl-select-ass{
         height: 800px;
     }
 }
 
 @media all and (max-height: 1100px){
-    .box-tbl-manage-ass{
+    .box-tbl-select-ass{
         height: 700px;
     }
 }
 
 @media all and (max-height: 1000px){
-    .box-tbl-manage-ass{
+    .box-tbl-select-ass{
         height: 600px;
     }
 }
 
 @media all and (max-height: 900px){
-    .box-tbl-manage-ass{
+    .box-tbl-select-ass{
         height: 500px;
     }
 }
 
 @media all and (max-height: 800px){
-    .box-tbl-manage-ass{
+    .box-tbl-select-ass{
         height: 400px;
     }
 }
 
 @media all and (max-height: 700px){
-    .box-tbl-manage-ass{
+    .box-tbl-select-ass{
         height: 350px;
     }
 }
 
 @media all and (max-height: 600px){
-    .box-tbl-manage-ass{
+    .box-tbl-select-ass{
         height: 300px;
     }
 }
 
 @media all and (max-height: 500px){
-    .box-tbl-manage-ass{
+    .box-tbl-select-ass{
         height: 250px;
     }
 }

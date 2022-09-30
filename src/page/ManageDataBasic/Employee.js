@@ -10,7 +10,62 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import axios from "axios";
 
+// Mui test
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+
+const theme = createTheme({
+  typography: {
+    allVariants: {
+      fontFamily: 'Noto Serif Lao',
+      textTransform: 'none',
+      fontSize: 'clamp(14px, 2.5vw, 16px)',
+      fontWeight: '400',
+    },
+  },
+});
+
+
+
 function Employee() {
+
+  // Mui test
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  // Serial number table
+  const [serial, setSerial] = React.useState([]);
+
+  const handleChangeSerial = (event, newserial) => {
+    setSerial(newserial);
+  };
+
+
+
+  
+
+
+
+
+
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
 
@@ -33,10 +88,6 @@ function Employee() {
       "Authorization",
       "Bearer " + sessionStorage.getItem("token")
     );
-
-    // var raw = JSON.stringify({
-    //   emp_ID: id,
-    // });
 
     var requestOptions = {
       method: "DELETE",
@@ -112,26 +163,56 @@ function Employee() {
                 </button>
                 {openModal && <EmCreate closeModal={setOpenModal} />}
               </p>
-              <div className="box-tbl-em">
-                <table className="tbl-em">
-                  <thead>
-                    <tr>
-                      <th>ລະຫັດພະນັກງານ</th>
-                      <th>ຮູບພະນັກງານ</th>
-                      <th>ເພດ</th>
-                      <th>ຊື່</th>
-                      <th>ນາມສະກຸນ</th>
-                      <th>ເບີໂທ</th>
-                      <th>ພາກສ່ວນ</th>
-                      <th>ຕໍາແໜ່ງ</th>
-                      <th>ພະແນກ</th>
-                      <th>ແຂວງ</th>
-                      <th>ແກ້ໄຂ</th>
-                      <th>ລົບ</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {items &&
+              <div>
+                <ThemeProvider theme={theme}>
+                <Paper sx={{ width: '100%', }}>
+                  <TableContainer sx={{ maxHeight: 440 }}>
+                    <Table stickyHeader aria-label="sticky table">
+                      <TableHead sx={{backgroundColor: "#51b3f0"}}>
+                        <TableRow sx={{backgroundColor: "#51b3f0"}}>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລໍາດັບ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລະຫັດພະນັກງານ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຮູບພະນັກງານ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ເພດ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຊື່</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ນາມສະກຸນ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ເບີໂທ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ພາກສ່ວນ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຕໍາແໜ່ງ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ພະແນກ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ແຂວງ</TableCell>
+                            <TableCell
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ແກ້ໄຂ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລົບ</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {items &&
                       items
                         ?.filter((val) => {
                           if (searchTerm === "") {
@@ -152,9 +233,6 @@ function Employee() {
                             val.emp_tel
                               .toLowerCase()
                               .includes(searchTerm.toLowerCase()) ||
-                            // val.session_name
-                            //   .toLowerCase()
-                            //   .includes(searchTerm.toLowerCase()) ||
                             val.pos_name
                               .toLowerCase()
                               .includes(searchTerm.toLowerCase()) ||
@@ -165,83 +243,90 @@ function Employee() {
                             return val;
                           }
                         })
-                        .map((formData) => (
-                          <tr key={formData.name}>
-                            <td>{formData.emp_ID}</td>
-                            <td>
-                              <Avatar src={formData.profilepic} />
-                            </td>
-                            <td>{formData.gender}</td>
-                            <td>{formData.emp_name}</td>
-                            <td>{formData.emp_surname}</td>
-                            <td>{formData.emp_tel}</td>
-                            <td>{formData.session_name}</td>
-                            <td>{formData.pos_name}</td>
-                            <td>{formData.dep_name}</td>
-                            <td>{formData.province}</td>
-                            <td>
-                              <button
-                                onClick={
-                                  () => getRecord(formData)
-                                  // setOpenModalUp(true)
-                                  // this.close(formData.emp_ID);
-                                  // setSelectData(formData)
-                                }
-                                className="btnnn"
-                              >
-                                <label>
-                                  <FaPencilAlt className="up-em" />
-                                </label>
-                              </button>
-                              {/* {openModalUp && (
-                                <EmUpdate
-                                  closeModalUp={setOpenModalUp}
-                                  data={selectData}
-                                />
-                              )} */}
-                            </td>
-                            <td>
-                              <button
-                                className="btnnn"
-                                onClick={() =>
-                                  MySwal.fire({
-                                    title: "ຢືນຢັນການລົບ",
-                                    html: "ຂໍ້ມູນທີ່ທ່ານລົບຈະບໍ່ສາມາດກູ້ຄືນໄດ້.<br /> ທ່ານແນ່ໃຈທີ່ຈະລົບ ຫຼື ບໍ່?",
-                                    icon: "warning",
-                                    iconColor: "red",
-                                    showCancelButton: true,
-                                    confirmButtonColor: "#3085d6",
-                                    cancelButtonColor: "#d33",
-                                    confirmButtonText: "ຢືນຢັນ",
-                                    cancelButtonText: "ຍົກເລີກ",
-                                  }).then((result) => {
-                                    if (result.isConfirmed) {
-                                      Swal.fire(
-                                        "ລົບຂໍ້ມູນສຳເລັດ!",
-                                        "ທ່ານໄດ້ລົບຂໍ້ມູນພະນັກງານສຳເລັດແລ້ວ.",
-                                        "success"
-                                      ).then(() => {
-                                        DelEmployee(formData.emp_ID);
-                                      });
-                                    } else {
-                                      Swal.fire(
-                                        "ລົບຂໍ້ມູນບໍ່ສຳເລັດ!",
-                                        "ທ່ານໄດ້ລົບຂໍ້ມູນພະນັກງານບໍ່ສຳເລັດແລ້ວ.",
-                                        "error"
-                                      );
+                          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                          .map((row, i) => {
+                            return (
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.emp_ID} >
+                                <TableCell>{(rowsPerPage*page)+1+i}</TableCell>
+                                <TableCell>{row.emp_ID}</TableCell>
+                                <TableCell>
+                                  <Avatar src={row.profilepic} />
+                                </TableCell>
+                                <TableCell>{row.gender}</TableCell>
+                                <TableCell>{row.emp_name}</TableCell>
+                                <TableCell>{row.emp_surname}</TableCell>
+                                <TableCell>{row.emp_tel}</TableCell>
+                                <TableCell>{row.session_name}</TableCell>
+                                <TableCell>{row.pos_name}</TableCell>
+                                <TableCell>{row.dep_name}</TableCell>
+                                <TableCell>{row.province} </TableCell>
+                                <TableCell >
+                                  <button
+                                    onClick={
+                                      () => getRecord(row)
                                     }
-                                  })
-                                }
-                              >
-                                <label>
-                                  <RiDeleteBin6Line className="del-em" />
-                                </label>
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                  </tbody>
-                </table>
+                                    className="btnnn"
+                                  >
+                                    <label>
+                                      <FaPencilAlt className="up-em" />
+                                    </label>
+                                  </button>
+                                </TableCell>
+                                <TableCell >
+                                  <button
+                                    className="btnnn"
+                                    onClick={() =>
+                                      MySwal.fire({
+                                        title: "ຢືນຢັນການລົບ",
+                                        html: "ຂໍ້ມູນທີ່ທ່ານລົບຈະບໍ່ສາມາດກູ້ຄືນໄດ້.<br /> ທ່ານແນ່ໃຈທີ່ຈະລົບ ຫຼື ບໍ່?",
+                                        icon: "warning",
+                                        iconColor: "red",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#3085d6",
+                                        cancelButtonColor: "#d33",
+                                        confirmButtonText: "ຢືນຢັນ",
+                                        cancelButtonText: "ຍົກເລີກ",
+                                      }).then((result) => {
+                                        if (result.isConfirmed) {
+                                          Swal.fire(
+                                            "ລົບຂໍ້ມູນສຳເລັດ!",
+                                            "ທ່ານໄດ້ລົບຂໍ້ມູນພະນັກງານສຳເລັດແລ້ວ.",
+                                            "success"
+                                          ).then(() => {
+                                            DelEmployee(row.emp_ID);
+                                          });
+                                        } else {
+                                          Swal.fire(
+                                            "ລົບຂໍ້ມູນບໍ່ສຳເລັດ!",
+                                            "ທ່ານໄດ້ລົບຂໍ້ມູນພະນັກງານບໍ່ສຳເລັດ.",
+                                            "error"
+                                          );
+                                        }
+                                      })
+                                    }
+                                  >
+                                    <label>
+                                      <RiDeleteBin6Line className="del-em" />
+                                    </label>
+                                  </button>
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={items.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                  />
+                </Paper>
+                </ThemeProvider>
               </div>
             </div>
           </div>

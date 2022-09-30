@@ -1,4 +1,4 @@
-import "../css/Position.css";
+import "../css/Session.css";
 import Menubar from "../components/Menubar.js";
 import { FaSearch, FaPencilAlt, FaPlusCircle } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -35,7 +35,7 @@ const theme = createTheme({
 
 
 
-function Position() {
+function Session() {
 
   // Mui test
 
@@ -61,36 +61,36 @@ function Position() {
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
 
-  const PositionGet = () => {
+  const SessionGet = () => {
     axios
-      .get("http://47.250.49.41/myproject1/position", {
+      .get("http://47.250.49.41/myproject1/session", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
       })
       .then((res) => {
-        setItems(res?.data?.position);
+        setItems(res?.data?.session);
       });
   }
 
   useEffect(() => {
-    PositionGet()
+    SessionGet()
   }, [])
 
 
 
-  // ເພີ່ມຂໍ້ມູນຕຳແໜ່ງ
+  // ເພີ່ມຂໍ້ມູນພາກສ່ວນ
 
-  const CreatePosition = (id) => {
+  const CreateSession = (id) => {
 
     var axios = require('axios');
     var data = JSON.stringify({
-      "pos_name": id
+      "session_name": id
     });
 
     var config = {
       method: 'post',
-      url: 'http://47.250.49.41/myproject1/position',
+      url: 'http://47.250.49.41/myproject1/session',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'
@@ -102,7 +102,7 @@ function Position() {
         .then(function (response) {
           console.log(JSON.stringify(response.data));
           if (response.data["status"] === "ok") {
-            window.location.href = "/position";
+            window.location.href = "/session";
           }
         })
         .catch(function (error) {
@@ -110,12 +110,12 @@ function Position() {
         });
   };
 
-  function SwalAddPosition() {
+  function SwalAddSession() {
     (async () => {
       const { value: ipAddress } = await Swal.fire({
-        title: "ເພີ່ມຂໍ້ມູນຕຳແໜ່ງ",
+        title: "ເພີ່ມຂໍ້ມູນພາກສ່ວນ",
         input: "text",
-        inputPlaceholder: "ປ້ອນຊື່ຕຳແໜ່ງ",
+        inputPlaceholder: "ປ້ອນຊື່ພາກສ່ວນ",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
@@ -129,10 +129,10 @@ function Position() {
       });
 
       if (ipAddress) {
-        Swal.fire(`ເພີ່ມຂໍ້ມູນຕຳແໜ່ງ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
+        Swal.fire(`ເພີ່ມຂໍ້ມູນພາກສ່ວນ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
           () => {
             // console.log(ipAddress);
-            CreatePosition(ipAddress);
+            CreateSession(ipAddress);
           }
         );
       }
@@ -142,18 +142,19 @@ function Position() {
   
 
 
-  // ແກໄຂຂໍ້ມູນຕຳແໜ່ງ
+  // ແກໄຂຂໍ້ມູນພາກສ່ວນ
 
-  const UpdatePosition= (pos_name,id) => {
+  const UpdateSession= (id,ipAddress) => {
+    // console.log("api",id,ipAddress);
     var axios = require("axios");
     var data = JSON.stringify({
-      pos_ID: id,
-      pos_name: pos_name,
+        session_ID: id,
+        session_name: ipAddress,
     });
 
     var config = {
       method: "put",
-      url: "http://47.250.49.41/myproject1/position",
+      url: "http://47.250.49.41/myproject1/session",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -165,7 +166,7 @@ function Position() {
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         if (response.data["status"] === "ok") {
-          window.location.href = "/position";
+          window.location.href = "/session";
         }
       })
       .catch(function (error) {
@@ -173,13 +174,13 @@ function Position() {
       });
   };
 
-  async function SwalUpdatePosition(data) {
+  async function SwalUpdateSession(data) {
       
     const { value: ipAddress } = await Swal.fire({
-      title: "ແກ້ໄຂຂໍ້ມູນຕຳແໜ່ງ",
+      title: "ແກ້ໄຂຂໍ້ມູນພາກສ່ວນ",
       input: "text",
-      inputPlaceholder: "ປ້ອນຊື່ຕຳແໜ່ງ",
-      inputValue: data?.pos_name,
+      inputPlaceholder: "ປ້ອນຊື່ພາກສ່ວນ",
+      inputValue: data?.session_name,
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
@@ -193,10 +194,10 @@ function Position() {
     });
 
     if (ipAddress) {
-      Swal.fire(`ແກ້ໄຂຂໍ້ມູນຕຳແໜ່ງໄປເປັນ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
+      Swal.fire(`ແກ້ໄຂຂໍ້ມູນພາກສ່ວນໄປເປັນ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
         () => {
-          UpdatePosition(ipAddress,data?.pos_ID);
-          console.log(ipAddress);
+          UpdateSession(data?.session_ID,ipAddress);
+          console.log("Swal",ipAddress,data?.session_ID);
         }
       );
     }
@@ -205,18 +206,18 @@ function Position() {
 
 
 
-  // ລົບຂໍ້ມູນຕຳແໜ່ງ
+  // ລົບຂໍ້ມູນພາກສ່ວນ
 
-  const DelPositon = (id) => {
+  const DelSession = (id) => {
 
     var axios = require('axios');
     var data = JSON.stringify({
-      pos_name: id
+        session_name: id
     });
 
     var config = {
       method: 'delete',
-      url: 'http://47.250.49.41/myproject1/position',
+      url: 'http://47.250.49.41/myproject1/session',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'
@@ -228,7 +229,7 @@ function Position() {
     .then(function (response) {
       console.log(JSON.stringify(response.data));
       if (response.data["status"] === "ok") {
-        window.location.href = "/position";
+        window.location.href = "/session";
       }
     })
     .catch(function (error) {
@@ -236,43 +237,43 @@ function Position() {
     });
   };
 
-  const MySwalDeletePosition = withReactContent(Swal);
+  const MySwalDeleteSession = withReactContent(Swal);
 
 
 
 
   return (
-    <div className="box-modal-position">
-      <div className="box-position">
+    <div className="box-modal-Session">
+      <div className="box-Session">
         <Menubar />
-        <div className="bg-position">
-          <div className="con-search-position">
-            <div className="search-position">
+        <div className="bg-Session">
+          <div className="con-search-Session">
+            <div className="search-Session">
               <label className="lbl-search">
                 <input
-                  className="search-inp-position"
+                  className="search-inp-Session"
                   type="text"
                   placeholder="ຄົ້ນຫາ..."
                   onChange={(e) => {
                     setSearchTerm(e.target.value);
                   }}
                 ></input>
-                <FaSearch className="filt-ic-position" />
+                <FaSearch className="filt-ic-Session" />
               </label>
-              <button className="btn-search-position">
+              <button className="btn-search-Session">
                 ຄົ້ນຫາ
               </button>
             </div>
           </div>
-          <div className="tb-position">
-            <div className="con-tbl-position">
-              <p className="p-man-position">
-                ຈັດການຂໍ້ມູນຕຳແໜ່ງ
+          <div className="tb-Session">
+            <div className="con-tbl-Session">
+              <p className="p-man-Session">
+                ຈັດການຂໍ້ມູນພາກສ່ວນ
                 <button
-                  className="btn-pherm-position"
-                  onClick={() => SwalAddPosition()}
+                  className="btn-pherm-Session"
+                  onClick={() => SwalAddSession()}
                 >
-                  <label className="lbl-ic-p-position">
+                  <label className="lbl-ic-p-Session">
                     <FaPlusCircle />
                   </label>
                   ເພີ່ມ
@@ -290,10 +291,13 @@ function Position() {
                             >ລໍາດັບ</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
-                            >ລະຫັດຕຳແໜ່ງ</TableCell>
+                            >ລະຫັດພາກສ່ວນ</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
-                            >ຕຳແໜ່ງ</TableCell>
+                            >ພາກສ່ວນ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ວັນທີສ້າງ</TableCell>
                             <TableCell
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ແກ້ໄຂ</TableCell>
@@ -322,28 +326,30 @@ function Position() {
                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                           .map((row, i) => {
                             return (
-                              <TableRow hover role="checkbox" tabIndex={-1} key={row.pos_ID} >
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.session_ID} >
                                 <TableCell>{rowsPerPage * page + 1 + i}</TableCell>
-                                <TableCell>{row.pos_ID}</TableCell>
-                                <TableCell>{row.pos_name}</TableCell>
+                                <TableCell>{row.session_ID}</TableCell>
+                                <TableCell>{row.session_name}</TableCell>
+                                <TableCell>{row.session_name}</TableCell>
                                 <TableCell >
                                   <button
                                     onClick={() => {
                                       // setSelectDepartment(row)
-                                      SwalUpdatePosition(row)
+                                      SwalUpdateSession(row)
+                                      console.log(row)
                                     }}
-                                    className="btnnn-position"
+                                    className="btnnn-Session"
                                   >
                                     <label>
-                                      <FaPencilAlt className="up-position" />
+                                      <FaPencilAlt className="up-Session" />
                                     </label>
                                   </button>
                                 </TableCell>
                                 <TableCell >
                                   <button
-                                    className="btnnn-position"
+                                    className="btnnn-Session"
                                     onClick={() =>
-                                      MySwalDeletePosition.fire({
+                                      MySwalDeleteSession.fire({
                                         title: 'ຢືນຢັນການລົບ',
                                         html: "ຂໍ້ມູນທີ່ທ່ານລົບຈະບໍ່ສາມາດກູ້ຄືນໄດ້.<br /> ທ່ານແນ່ໃຈທີ່ຈະລົບ ຫຼື ບໍ່?",
                                         icon: 'warning',
@@ -357,21 +363,21 @@ function Position() {
                                         if (result.isConfirmed) {
                                           Swal.fire(
                                             'ລົບຂໍ້ມູນສຳເລັດ!',
-                                            'ທ່ານໄດ້ລົບຂໍ້ມູນຕຳແໜ່ງສຳເລັດແລ້ວ.',
+                                            'ທ່ານໄດ້ລົບຂໍ້ມູນພາກສ່ວນສຳເລັດແລ້ວ.',
                                             'success'
-                                          ).then(() => { DelPositon(row.pos_name) })
+                                          ).then(() => { DelSession(row.pos_name) })
                                         }
                                         else {
                                           Swal.fire(
                                             'ລົບຂໍ້ມູນບໍ່ສຳເລັດ!',
-                                            'ທ່ານໄດ້ລົບຂໍ້ມູນຕຳແໜ່ງບໍ່ສຳເລັດ.',
+                                            'ທ່ານໄດ້ລົບຂໍ້ມູນພາກສ່ວນບໍ່ສຳເລັດ.',
                                             'error'
                                           )
                                         }
                                       })}
                                   >
                                     <label>
-                                      <RiDeleteBin6Line className="del-position" />
+                                      <RiDeleteBin6Line className="del-Session" />
                                     </label>
                                   </button>
                                 </TableCell>
@@ -401,4 +407,4 @@ function Position() {
   );
 }
 
-export default Position;
+export default Session;
