@@ -63,7 +63,7 @@ function Session() {
 
   const SessionGet = () => {
     axios
-      .get("http://47.250.49.41/myproject1/session", {
+      .get("https://tookcomsci.live/myproject1/session", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -90,7 +90,7 @@ function Session() {
 
     var config = {
       method: 'post',
-      url: 'http://47.250.49.41/myproject1/session',
+      url: 'https://tookcomsci.live/myproject1/session',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'
@@ -154,7 +154,7 @@ function Session() {
 
     var config = {
       method: "put",
-      url: "http://47.250.49.41/myproject1/session",
+      url: "https://tookcomsci.live/myproject1/session",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -217,7 +217,7 @@ function Session() {
 
     var config = {
       method: 'delete',
-      url: 'http://47.250.49.41/myproject1/session',
+      url: 'https://tookcomsci.live/myproject1/session',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'
@@ -313,10 +313,10 @@ function Session() {
                                 if (searchTerm === "") {
                                   return val;
                                 } else if (
-                                  val.pos_ID.toString()
+                                  val.session_ID.toString()
                                     .toLowerCase()
                                     .includes(searchTerm.toLowerCase()) ||
-                                  val.pos_name
+                                  val.session_name
                                     .toLowerCase()
                                     .includes(searchTerm.toLowerCase())
                                 ) {
@@ -330,7 +330,7 @@ function Session() {
                                 <TableCell>{rowsPerPage * page + 1 + i}</TableCell>
                                 <TableCell>{row.session_ID}</TableCell>
                                 <TableCell>{row.session_name}</TableCell>
-                                <TableCell>{row.session_name}</TableCell>
+                                <TableCell>{row.session_create_date}</TableCell>
                                 <TableCell >
                                   <button
                                     onClick={() => {
@@ -365,7 +365,7 @@ function Session() {
                                             'ລົບຂໍ້ມູນສຳເລັດ!',
                                             'ທ່ານໄດ້ລົບຂໍ້ມູນພາກສ່ວນສຳເລັດແລ້ວ.',
                                             'success'
-                                          ).then(() => { DelSession(row.pos_name) })
+                                          ).then(() => { DelSession(row.session_name) })
                                         }
                                         else {
                                           Swal.fire(

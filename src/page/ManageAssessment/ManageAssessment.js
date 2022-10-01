@@ -61,7 +61,7 @@ const [items, setItems] = useState([]);
 
 const ManageAssGet = () => {
   axios
-    .get("http://47.250.49.41/myproject1/moving", {
+    .get("https://tookcomsci.live/myproject1/moving", {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },

@@ -60,7 +60,7 @@ function User() {
 
   const UserGet = () => {
     axios
-      .get("http://47.250.49.41/myproject1/user", {
+      .get("https://tookcomsci.live/myproject1/user", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -88,7 +88,7 @@ function User() {
 
     var config = {
       method: "put",
-      url: "http://47.250.49.41/myproject1/user",
+      url: "https://tookcomsci.live/myproject1/user",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -150,37 +150,36 @@ function User() {
 
 
 
+  // ລົບຂໍ້ມູນພາກສ່ວນ
 
+  const DelUser= (id) => {
 
-  const DelDepartment = id => {
-    var myHeaders = new Headers();
-    myHeaders.append(
-      "x-api-key",
-      sessionStorage.getItem('token')
-    );
-
-    var raw = JSON.stringify({
-      "dep_name": id
+    var axios = require('axios');
+    var data = JSON.stringify({
+        username: id
     });
 
-    var requestOptions = {
-      method: 'DELETE',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
+    var config = {
+      method: 'delete',
+      url: 'https://tookcomsci.live/myproject1/user',
+      headers: { 
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        'Content-Type': 'application/json'
+      },
+      data : data
     };
 
-    fetch("http://192.168.0.171:3000/myproject1/delete_department", requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        if (result['status'] === 'ok') {
-          UserGet()
-        }
-      })
-      .catch(error => console.log('error', error));
-  }
-
-
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      if (response.data["status"] === "ok") {
+        window.location.href = "/user";
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  };
 
   const MySwalDeleteUser = withReactContent(Swal);
 
@@ -300,7 +299,7 @@ function User() {
                                             'ລົບຂໍ້ມູນສຳເລັດ!',
                                             'ທ່ານໄດ້ລົບຂໍ້ມູນຜູ້ໃຊ້ສຳເລັດແລ້ວ.',
                                             'success'
-                                          ).then(() => { DelDepartment(row.dep_name) })
+                                          ).then(() => { DelUser(row.username) })
                                         }
                                         else {
                                           Swal.fire(
