@@ -1,0 +1,30 @@
+.contener-home{
+    box-sizing: border-box;
+    padding-top: 67px;
+    width: 100%;
+    /* background-color: aqua; */
+}
+
+.box-home{
+    /* display: flex;
+    padding: 15px; */
+    margin-top: 40px;
+    box-sizing: border-box;
+    padding: 10px;
+    /* background-color: #f3f3f3; */
+    /* height: 100vh; */
+}
+
+
+
+
+
+
+
+
+.numberic-home{
+    font-size: clamp(28px, 2.5vw, 56px);
+    /* font-weight: 500; */
+    color: #0263FF;
+}
+    

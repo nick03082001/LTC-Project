@@ -15,6 +15,9 @@ function Login() {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
+  const [data, setData] = useState()
+  // console.log("yai",data)
+
   const handSubmit = (event) => {
     event.preventDefault();
 
@@ -33,10 +36,13 @@ function Login() {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/myproject1/login", requestOptions)
+    fetch("https://tookcomsci.live/myproject1/login", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        // console.log(result);
+        setData(result?.user);
+        // console.log(result?.user);
+        
         if (result?.status === "ok") {
           MySwal.fire({
             html: <i>{result?.message}</i>,
