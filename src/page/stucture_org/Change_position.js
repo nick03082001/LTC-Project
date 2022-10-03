@@ -69,7 +69,7 @@ const [items, setItems] = useState([]);
 
 const MovingGet = () => {
   axios
-    .get("https://tookcomsci.live/myproject1/moving", {
+    .get("https://38ac-103-43-79-200.ap.ngrok.io/myproject1/moving", {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
@@ -94,7 +94,7 @@ const [session_name, setSession] = useState([]);
 React.useEffect(() => {
 
   axios
-    .get("https://tookcomsci.live/myproject1/session", {
+    .get("https://38ac-103-43-79-200.ap.ngrok.io/myproject1/session", {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
@@ -104,7 +104,7 @@ React.useEffect(() => {
     });
 
   axios
-    .get("https://tookcomsci.live/myproject1/department", {
+    .get("https://38ac-103-43-79-200.ap.ngrok.io/myproject1/department", {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
@@ -114,7 +114,7 @@ React.useEffect(() => {
     });
 
   axios
-    .get("https://tookcomsci.live/myproject1/position", {
+    .get("https://38ac-103-43-79-200.ap.ngrok.io/myproject1/position", {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
@@ -144,7 +144,7 @@ const ChagePosition = (emp_ID) => {
 
   var config = {
     method: 'put',
-    url: 'https://tookcomsci.live/myproject1/moving',
+    url: 'https://38ac-103-43-79-200.ap.ngrok.io/myproject1/moving',
     headers: { 
       Authorization: "Bearer " + sessionStorage.getItem("token"),
       'Content-Type': 'application/json'

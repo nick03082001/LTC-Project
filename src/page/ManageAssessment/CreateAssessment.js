@@ -17,8 +17,8 @@ function CreateAssessment() {
   };
 
   const btnHandleChange = (onChangeValueTitleOne, i) => {
-    const inputDataTitleOne = [...val];
-    inputDataTitleOne[i] = onChangeValueTitleOne.target.value;
+    const inputDataTitleOne = val;
+    inputDataTitleOne[i] = {title2_name:onChangeValueTitleOne.target.value}
     setVal(inputDataTitleOne);
   };
 
@@ -38,7 +38,7 @@ function CreateAssessment() {
 
   const btnHandleChange2 = (onChangeValueTitleTwo, j) => {
     const inputDataTitleTwo = [...val2];
-    inputDataTitleTwo[j] = onChangeValueTitleTwo.target.value;
+    inputDataTitleTwo[j] = {title2_name:onChangeValueTitleTwo.target.value}
     setVal2(inputDataTitleTwo);
   };
 
@@ -49,26 +49,100 @@ function CreateAssessment() {
   };
 
   // ເບີີ່ງຂໍ້ມູນໃນ console
-  console.log(val,"data-")
+  console.log(val, "data-");
 
   //api ບັນທຶກຫົວຂໍ້1
 
   const [head_name, setHead_name] = useState("");
   const [title1_name1, setTitle1_name1] = useState("");
+  const [title2_name2, setTitle2_name2] = useState("");
   const em = "E01";
 
   const addAssessment = (e) => {
+
+    var axios = require("axios");
+    var data = {
+      head_name: head_name,
+      emp_ID: "E01",
+      title1: [
+        {
+          title1_name: title1_name1,
+          title2: val
+        },
+        {
+          title1_name: title2_name2,
+          title2: val2
+        }
+      ],
+    };
+
+
+    console.log({data})
+
+    var config = {
+      method: "POST",
+      url: "http://192.168.0.174:3000/myproject1/header_form",
+      headers: { 
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+        'Content-Type': 'application/json'
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        if (response.data["status"] === "ok") {
+          window.location.href = "/assessment/create";
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
+    // var axios = require("axios");
+    // var data = JSON.stringify({
+    //   head_name: head_name,
+    //   emp_ID: em,
+    //   title1_name: title1_name1,
+    //   title2_name: val,
+    // });
+
+    // var config = {
+    //   method: "post",
+    //   url: "http://192.168.0.174:3000/myproject1/header_form",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   data: data,
+    // };
+    // e.preventDefault();
+    // axios(config)
+    //   .then((res) => console.log("Posting Data", res))
+    //   .catch((err) => console.log(err));
+    // console.log("head_name", head_name);
+    // console.log("em", em);
+    // console.log("Title", title1_name1);
+    // console.log("valv", val);
+
+    
+  };
+
+  //api ບັນທຶກຫົວຂໍ້2
+
+  const addAssessment2 = (e) => {
     var axios = require("axios");
     var data = JSON.stringify({
       head_name: head_name,
       emp_ID: em,
-      title1_name: title1_name1,
-      title2_name: val,
+      title2_name: title2_name2,
+      title1_name: val2,
     });
-  
+
     var config = {
       method: "post",
-      url: "http://192.168.0.193:5000/test/myproject1/header_form",
+      url: "http://192.168.0.174:3000/myproject1/header_form",
       headers: {
         "Content-Type": "application/json",
       },
@@ -80,15 +154,9 @@ function CreateAssessment() {
       .catch((err) => console.log(err));
     console.log("head_name", head_name);
     console.log("em", em);
-    console.log("Title", title1_name1);
-    console.log("valv", val);
+    console.log("Title", title2_name2);
+    console.log("valv", val2);
   };
-
-
-
-  //api ບັນທຶກຫົວຂໍ້2
-  
-
 
   return (
     <div className="box-modal-create-ass">
@@ -114,6 +182,7 @@ function CreateAssessment() {
                     className="btn-save-create-ass"
                     onClick={(e) => {
                       addAssessment(e);
+                      addAssessment2(e);
                       alert("yai");
                     }}
                   >
@@ -144,11 +213,11 @@ function CreateAssessment() {
                           <input
                             className="inp-title-1_1-create-ass"
                             type="text"
-                            value={data}
+                            value={data.title2_name}
                             placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
                             onChange={(e) => btnHandleChange(e, i)}
-                            onKeyPress={event => {
-                              if(event.key === 'Enter'){
+                            onKeyPress={(event) => {
+                              if (event.key === "Enter") {
                                 handleAddInp();
                                 // console.log(event)
                               }
@@ -185,6 +254,8 @@ function CreateAssessment() {
                       className="inp-title-2-create-ass"
                       type="text"
                       placeholder="ປ້ອນຊື່ຫົວຂໍ້ໃຫຍ່ແບບປະເມີນ..."
+                      value={title2_name2}
+                      onChange={(e) => setTitle2_name2(e.target.value)}
                     ></input>
                   </div>
                   <div className="title-2_1-create-ass">
@@ -197,11 +268,11 @@ function CreateAssessment() {
                           <input
                             className="inp-title-2_1-create-ass"
                             type="text"
-                            value={data2}
+                            value={data2.title2_name}
                             placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
                             onChange={(s) => btnHandleChange2(s, j)}
-                            onKeyPress={event => {
-                              if(event.key === 'Enter'){
+                            onKeyPress={(event) => {
+                              if (event.key === "Enter") {
                                 handleAddInp2();
                                 // console.log(event)
                               }

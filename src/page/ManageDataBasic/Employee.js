@@ -71,7 +71,7 @@ function Employee() {
 
   React.useEffect(() => {
     axios
-      .get("https://tookcomsci.live/myproject1/employee", {
+      .get("http://192.168.0.174:3000/myproject1/employee", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -95,12 +95,12 @@ function Employee() {
       redirect: "follow",
     };
 
-    fetch("https://tookcomsci.live/myproject1/employee?emp_ID="+id, requestOptions)
+    fetch("http://192.168.0.174:3000/myproject1/employee?emp_ID="+id, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result["status"] === "ok") {
           axios
-            .get("https://tookcomsci.live/myproject1/employee", {
+            .get("http://192.168.0.174:3000/myproject1/employee", {
               headers: {
                 Authorization: "Bearer " + sessionStorage.getItem("token"),
               },

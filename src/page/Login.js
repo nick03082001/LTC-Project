@@ -36,7 +36,7 @@ function Login() {
       redirect: "follow",
     };
 
-    fetch("https://tookcomsci.live/myproject1/login", requestOptions)
+    fetch("http://192.168.0.174:3000/myproject1/login", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         // console.log(result);

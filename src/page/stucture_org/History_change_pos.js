@@ -55,7 +55,7 @@ const [items, setItems] = useState([]);
 
 const HistoryMovingGet = () => {
   axios
-    .get("https://tookcomsci.live/myproject1/moving", {
+    .get("https://38ac-103-43-79-200.ap.ngrok.io/myproject1/moving", {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
