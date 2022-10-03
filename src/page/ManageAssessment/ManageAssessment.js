@@ -50,6 +50,12 @@ function ManageAssessment() {
   };
 
 
+// Serial number table
+const [serial, setSerial] = React.useState([]);
+
+const handleChangeSerial = (event, newserial) => {
+  setSerial(newserial);
+};
 
   
 
@@ -61,13 +67,13 @@ const [items, setItems] = useState([]);
 
 const ManageAssGet = () => {
   axios
-    .get("http://192.168.0.174:3000/myproject1/moving", {
+    .get("http://192.168.0.174:3000/myproject1/header_form", {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     })
     .then((res) => {
-      setItems(res?.data?.moving);
+      setItems(res?.data?.form);
     });
 }
 
@@ -77,6 +83,68 @@ useEffect(() => {
 }, [])
 
 
+//ລົບຂໍ້ມູນແບບປະເມີນ
+
+const DelAssessment = (id) => {
+
+  var axios = require('axios');
+  var data = JSON.stringify({
+    head_ID: id
+  });
+
+  var config = {
+    method: 'delete',
+    url: 'http://192.168.0.174:3000/myproject1/header_form',
+    headers: { 
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+
+  axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+    if (response.data["status"] === "ok") {
+      window.location.href = "/assessment/manage";
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
+// const DelAssessment = (id) => {
+//   var myHeaders = new Headers();
+//   myHeaders.append("Content-Type", "application/json");
+//   myHeaders.append(
+//     "Authorization",
+//     "Bearer " + sessionStorage.getItem("token")
+//   );
+
+//   var requestOptions = {
+//     method: "DELETE",
+//     headers: myHeaders,
+//     redirect: "follow",
+//   };
+
+//   fetch("http://192.168.0.174:3000/myproject1/header_form", requestOptions)
+//     .then((response) => response.json())
+//     .then((result) => {
+//       if (result["status"] === "ok") {
+//         axios
+//           .get("http://192.168.0.174:3000/myproject1/header_form", {
+//             headers: {
+//               Authorization: "Bearer " + sessionStorage.getItem("token"),
+//             },
+//           })
+//           .then((res) => {
+//             setItems(res?.data?.form);
+//           });
+//       }
+//     })
+//     .catch((error) => console.log("error", error));
+// };
 
 
   const MySwalDeletePosition = withReactContent(Swal);
@@ -142,14 +210,14 @@ useEffect(() => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {/* {items
+                        {items
                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                           .map((row, i) => {
-                            return ( */}
-                              <TableRow hover role="checkbox" tabIndex={-1}>
-                                <TableCell>ລໍາດັບ</TableCell>
-                                <TableCell>ຊື່ແບບປະເມີນ</TableCell>
-                                <TableCell>ວັນທີສ້າງ</TableCell>
+                            return (
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.head_ID}>
+                                 <TableCell>{(rowsPerPage*page)+1+i}</TableCell>
+                                <TableCell>{row.head_name}</TableCell>
+                                <TableCell>{row.create_date}</TableCell>
                                 <TableCell >
                                 <button
                                 className="btnnn-manage-ass"
@@ -170,7 +238,7 @@ useEffect(() => {
                                         'ລົບຂໍ້ມູນສຳເລັດ!',
                                         'ທ່ານໄດ້ລົບຂໍ້ມູນແບບປະເມີນສຳເລັດແລ້ວ.',
                                         'success'
-                                      ) //.then(() => { DelDepartment(row.dep_name) })
+                                      ) .then(() => { DelAssessment(row.head_ID) })
                                     }
                                     else {
                                       Swal.fire(
@@ -188,9 +256,9 @@ useEffect(() => {
                             </button>
                                 </TableCell>
                               </TableRow>
-                             {/* );
+                             );
                            })
-                          } */}
+                          } 
                       </TableBody>
                     </Table>
                   </TableContainer>
