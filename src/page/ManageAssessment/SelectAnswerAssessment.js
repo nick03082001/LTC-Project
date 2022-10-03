@@ -60,29 +60,36 @@ function SelectAnswerAssessment() {
 
     
 
-  const [val,setVal]=useState([]);
+  // ໂຊຂໍ້ມູນ
 
-  const HeaderAssGet = () => {
-      axios.get("http://192.168.0.174:3000/myproject1/header_form")
-      .then((result) => {
-          // console.log(result.data.form)
-          setVal(result.data.form);
-        });
-        
-    };
+const [searchTerm, setSearchTerm] = useState("");
+const [items, setItems] = useState([]);
 
-  useEffect(() => {
-      HeaderAssGet();
-  }, []);
+const ManageAssGet = () => {
+  axios
+    .get("http://192.168.0.174:3000/myproject1/header_form", {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    })
+    .then((res) => {
+      setItems(res?.data?.form);
+    });
+}
+
+
+useEffect(() => {
+  ManageAssGet()
+}, [])
 
 
 
     
-    // const [selectTitle, setSelectTitle] = useState("");
-    // const getTitle = (e) => {
-    //     console.log("My DATA : " ,e);
-    //     setSelectTitle(e);
-    //   }
+    const [selectTitle, setSelectTitle] = useState("");
+    const getTitle = (e) => {
+        console.log("My DATA : " ,e);
+        setSelectTitle(e);
+      }
 
     return (
         
@@ -134,19 +141,19 @@ function SelectAnswerAssessment() {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {val
+                        {items
                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                           .map((row, i) => {
                             return (
-                              <TableRow hover role="checkbox" tabIndex={-1}>
-                                <TableCell>ລໍາດັບ</TableCell>
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.head_ID}>
+                                 <TableCell>{(rowsPerPage*page)+1+i}</TableCell>
                                 <TableCell>{row.head_name}</TableCell>
-                                <TableCell>{row.date_create}</TableCell>
+                                <TableCell>{row.create_date}</TableCell>
                                 <TableCell>{row.head_ID}</TableCell>
                                 <TableCell >
                                   <button
                                     onClick={() => {
-                                      // getTitle(row); 
+                                      getTitle(row); 
                                       alert( row.head_ID)
                                     }}
                                     className="btnnn"
@@ -166,7 +173,7 @@ function SelectAnswerAssessment() {
                   <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    count={val.length}
+                    count={items.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
