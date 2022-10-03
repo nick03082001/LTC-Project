@@ -69,7 +69,7 @@ export default function CreateEmployee({ closeModal }) {
     fetch("http://192.168.0.174:3000/myproject1/employee", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        alert(result["message"]);
+        // alert(result["message"]);
         if (result["status"] === "ok") {
           window.location.href = "/employee";
         }
