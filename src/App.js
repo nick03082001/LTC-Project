@@ -13,6 +13,8 @@ import ManageAssessment from "./page/ManageAssessment/ManageAssessment.js";
 import CreateAssessment from "./page/ManageAssessment/CreateAssessment.js";
 import SelectAnswerAssessment from "./page/ManageAssessment/SelectAnswerAssessment.js";
 import SaveAnswerAssessment from "./page/ManageAssessment/SaveAnswerAssessment.js";
+import ReportScoreAss from "./page/Report/ReportScoreAss.js";
+import ReportScoreAssDetial from "./page/Report/ReportScoreAssDetial.js";
 
 
 import PrivateRoute from "./utils/PrivateRoute";
@@ -23,7 +25,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-      <Route element = {< PrivateRoute/>}>
+      {/* <Route element = {< PrivateRoute/>}> */}
         <Route exact path="/home" element={<Home />} />
         <Route exact path="/employee" element={<Employee />} />
         <Route exact path="/session" element={<Session />} />
@@ -36,8 +38,10 @@ function App() {
         <Route exact path="/assessment/create" element={<CreateAssessment />} />
         <Route exact path="/assessment/answer" element={<SelectAnswerAssessment />} />
         <Route exact path="/assessment/save/answer" element={<SaveAnswerAssessment />} />
+        <Route exact path="/report/score_assessment" element={<ReportScoreAss />} />
+        <Route exact path="/report/ReportScoreAssDetial" element={<ReportScoreAssDetial />} />
         <Route exact path="/home" element={<Home/>} />
-        </Route>
+        {/* </Route> */}
         
         <Route exact path="/" element={<Login />} />
         <Route exact path="/login" element={<Login />} />

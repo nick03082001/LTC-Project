@@ -2,7 +2,7 @@ import "../css/Employee.css";
 import Menubar from "../components/Menubar.js";
 import EmCreate from "./EmCreate.js";
 import EmUpdate from "./EmUpdate.js";
-import { FaSearch, FaPencilAlt, FaPlusCircle } from "react-icons/fa";
+import { FaSearch, FaPencilAlt, FaPlusCircle, FaFilter } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import React, { useState } from "react";
 import { Avatar } from "@mui/material";
@@ -143,8 +143,22 @@ function Employee() {
                 ></input>
                 <FaSearch className="filt-ic-em" />
               </label>
-              <button className="btn-search-em">ຄົ້ນຫາ</button>
+              {/* <button className="btn-search-em">ຄົ້ນຫາ</button> */}
+              <label className="ic-filter-toggle" htmlFor="toggle-filter">
+                  <FaFilter className="icon-prosition"/>
+              </label>
             </div>
+            <input type="checkbox" id="toggle-filter" className='checkb-filter'/>
+            <div className="div-filter">
+                <button className="btn-select-depart">
+                  <label className="ic-filter" htmlFor="toggle-filter-depart">ເລືອກພະແນກ</label>
+                </button>
+                <input type="checkbox" id="toggle-filter-depart" className='checkb-filtera' />
+                <button className="btn-select-province">
+                  <label className="ic-filter" htmlFor="toggle-filter-province">ເລືອກແຂວງ</label>
+                </button>
+                <input type="checkbox" id="toggle-filter-province" className='checkb-filterb' />
+              </div>
           </div>
           <div className="tb-em">
             <div className="con-tbl-em">

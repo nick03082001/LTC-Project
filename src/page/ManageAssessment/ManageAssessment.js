@@ -1,6 +1,6 @@
 import "../css/ManageAssessment.css";
 import Menubar from "../components/Menubar.js";
-import { FaSearch, FaPlusCircle } from "react-icons/fa";
+import { FaSearch, FaPlusCircle, FaPencilAlt } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -48,14 +48,6 @@ function ManageAssessment() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-
-// Serial number table
-const [serial, setSerial] = React.useState([]);
-
-const handleChangeSerial = (event, newserial) => {
-  setSerial(newserial);
-};
 
   
 
@@ -114,37 +106,11 @@ const DelAssessment = (id) => {
   });
 };
 
-// const DelAssessment = (id) => {
-//   var myHeaders = new Headers();
-//   myHeaders.append("Content-Type", "application/json");
-//   myHeaders.append(
-//     "Authorization",
-//     "Bearer " + sessionStorage.getItem("token")
-//   );
 
-//   var requestOptions = {
-//     method: "DELETE",
-//     headers: myHeaders,
-//     redirect: "follow",
-//   };
+//ແກ້ໄຂ້ແບບປະເມີນ
 
-//   fetch("http://192.168.0.174:3000/myproject1/header_form", requestOptions)
-//     .then((response) => response.json())
-//     .then((result) => {
-//       if (result["status"] === "ok") {
-//         axios
-//           .get("http://192.168.0.174:3000/myproject1/header_form", {
-//             headers: {
-//               Authorization: "Bearer " + sessionStorage.getItem("token"),
-//             },
-//           })
-//           .then((res) => {
-//             setItems(res?.data?.form);
-//           });
-//       }
-//     })
-//     .catch((error) => console.log("error", error));
-// };
+
+
 
 
   const MySwalDeletePosition = withReactContent(Swal);
@@ -204,6 +170,9 @@ const DelAssessment = (id) => {
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ວັນທີສ້າງ</TableCell>
+                            <TableCell
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ແກ້ໄຂ</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ລົບ</TableCell>
@@ -218,6 +187,20 @@ const DelAssessment = (id) => {
                                  <TableCell>{(rowsPerPage*page)+1+i}</TableCell>
                                 <TableCell>{row.head_name}</TableCell>
                                 <TableCell>{row.create_date}</TableCell>
+                                <TableCell >
+                                  <button
+                                    onClick={() => {
+                                      // setSelectDepartment(row)
+                                      // SwalUpdateSession(row)
+                                      // console.log(row)
+                                    }}
+                                    className="btnnn-Session"
+                                  >
+                                    <label>
+                                      <FaPencilAlt className="up-Session" />
+                                    </label>
+                                  </button>
+                                </TableCell>
                                 <TableCell >
                                 <button
                                 className="btnnn-manage-ass"

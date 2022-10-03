@@ -354,3 +354,66 @@
         height: 330px;
     }
 } */
+
+
+
+
+
+
+.ic-filter-toggle{
+    background-color: #fff;
+    cursor: pointer;
+    padding: 0px 10px;
+    border-radius: 100px;
+    border: 1.5px solid rgba(0, 0, 0, 0.5);
+    font-size: clamp(18px, 2.5vw, 22px);
+    font-weight: 500;
+    /* margin-left: 40px */
+}
+
+.ic-filter-toggle:hover .div-filter{
+    display: block;
+}
+
+.icon-prosition{
+    position: relative;
+    top: 6px;
+}
+
+
+.div-filter{
+    box-sizing: border-box;
+    display: none;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.checkb-filter:checked ~ .div-filter{
+    display: flex;
+}
+
+.btn-select-depart{
+    background-color: #fff;
+    border-radius: 4px;
+    box-sizing: border-box;
+    border: 1.5px solid rgba(0, 0, 0, 0.5);
+    font-size: clamp(14px, 2.5vw, 16px);
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.btn-select-province{
+    background-color: #fff;
+    border-radius: 4px;
+    box-sizing: border-box;
+    border: 1.5px solid rgba(0, 0, 0, 0.5);
+    font-size: clamp(14px, 2.5vw, 16px);
+    font-weight: 500;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.ic-filter{
+    cursor: pointer;
+}

@@ -7,7 +7,6 @@ import axios from "axios";
 function SaveAnswerAssessment() {
 
     const [val,setVal]=useState([]);
-    const [val2,setVal2]=useState([]);
 
     const btnHandleChange=(onChangeValueTitleOne,i)=>{
         const inputDataTitleOne=[...val]
@@ -182,7 +181,7 @@ function SaveAnswerAssessment() {
                           </div>
                         </div>
                         <div className='title-1_1-save-ass'>
-                        {val2.map((row,j)=>{
+                        {val.map((row,j)=>{
                           
                           return(
                             <div className="box-inp-title-1_1-save-ass" key={j}>

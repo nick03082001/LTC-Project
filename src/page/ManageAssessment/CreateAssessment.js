@@ -131,32 +131,32 @@ function CreateAssessment() {
 
   //api ບັນທຶກຫົວຂໍ້2
 
-  const addAssessment2 = (e) => {
-    var axios = require("axios");
-    var data = JSON.stringify({
-      head_name: head_name,
-      emp_ID: em,
-      title2_name: title2_name2,
-      title1_name: val2,
-    });
+  // const addAssessment2 = (e) => {
+  //   var axios = require("axios");
+  //   var data = JSON.stringify({
+  //     head_name: head_name,
+  //     emp_ID: em,
+  //     title2_name: title2_name2,
+  //     title1_name: val2,
+  //   });
 
-    var config = {
-      method: "post",
-      url: "http://192.168.0.174:3000/myproject1/header_form",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-    e.preventDefault();
-    axios(config)
-      .then((res) => console.log("Posting Data", res))
-      .catch((err) => console.log(err));
-    console.log("head_name", head_name);
-    console.log("em", em);
-    console.log("Title", title2_name2);
-    console.log("valv", val2);
-  };
+  //   var config = {
+  //     method: "post",
+  //     url: "http://192.168.0.174:3000/myproject1/header_form",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     data: data,
+  //   };
+  //   e.preventDefault();
+  //   axios(config)
+  //     .then((res) => console.log("Posting Data", res))
+  //     .catch((err) => console.log(err));
+  //   console.log("head_name", head_name);
+  //   console.log("em", em);
+  //   console.log("Title", title2_name2);
+  //   console.log("valv", val2);
+  // };
 
   return (
     <div className="box-modal-create-ass">
@@ -182,8 +182,8 @@ function CreateAssessment() {
                     className="btn-save-create-ass"
                     onClick={(e) => {
                       addAssessment(e);
-                      addAssessment2(e);
-                      alert("yai");
+                      // addAssessment2(e);
+                      // alert("yai");
                     }}
                   >
                     <label className="lbl-ic-p-create-ass">
