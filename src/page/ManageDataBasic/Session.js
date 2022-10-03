@@ -63,7 +63,7 @@ function Session() {
 
   const SessionGet = () => {
     axios
-      .get("https://tookcomsci.live/myproject1/session", {
+      .get("http://192.168.0.174:3000/myproject1/session", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -90,7 +90,7 @@ function Session() {
 
     var config = {
       method: 'post',
-      url: 'https://tookcomsci.live/myproject1/session',
+      url: 'http://192.168.0.174:3000/myproject1/session',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'
@@ -154,7 +154,7 @@ function Session() {
 
     var config = {
       method: "put",
-      url: "https://tookcomsci.live/myproject1/session",
+      url: "http://192.168.0.174:3000/myproject1/session",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -217,7 +217,7 @@ function Session() {
 
     var config = {
       method: 'delete',
-      url: 'https://tookcomsci.live/myproject1/session',
+      url: 'http://192.168.0.174:3000/myproject1/session',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'

@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { Avatar } from "@mui/material";
 
 
 // Mui test
@@ -69,13 +70,13 @@ const [items, setItems] = useState([]);
 
 const MovingGet = () => {
   axios
-    .get("https://tookcomsci.live/myproject1/moving", {
+    .get("http://192.168.0.174:3000/myproject1/employee", {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
     })
     .then((res) => {
-      setItems(res?.data?.moving);
+      setItems(res?.data?.employee);
     });
 }
 
@@ -94,7 +95,7 @@ const [session_name, setSession] = useState([]);
 React.useEffect(() => {
 
   axios
-    .get("https://tookcomsci.live/myproject1/session", {
+    .get("http://192.168.0.174:3000/myproject1/session", {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
@@ -104,7 +105,7 @@ React.useEffect(() => {
     });
 
   axios
-    .get("https://tookcomsci.live/myproject1/department", {
+    .get("http://192.168.0.174:3000/myproject1/department", {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
@@ -114,7 +115,7 @@ React.useEffect(() => {
     });
 
   axios
-    .get("https://tookcomsci.live/myproject1/position", {
+    .get("http://192.168.0.174:3000/myproject1/position", {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
@@ -125,6 +126,11 @@ React.useEffect(() => {
 }, []);
 
 
+const [selectData, setSelectData] = useState("");
+
+
+
+
 // ບັນທຶກການຍ້າຍຕຳແໜ່ງ
 
 const [selectEmId, setSelectEmId] = useState("");
@@ -132,19 +138,31 @@ const [selectSession, setSelectSession] = useState("");
 const [selectPosition, setselectPosition] = useState("");
 const [selectDepartment, setselectDepartment] = useState("");
 
-const ChagePosition = (emp_ID) => {
+React.useEffect(() => {
+  setSelectSession(selectData.session_name);
+  setselectDepartment(selectData.dep_name);
+  setselectPosition(selectData.pos_name);
+  setSelectEmId(selectData.emp_ID);
+}, [selectData]);
+
+const ChagePosition = () => {
 
   var axios = require('axios');
   var data = JSON.stringify({
-    "emp_ID": emp_ID,
+    "emp_ID": selectEmId,
     "dep_name": selectDepartment,
     "pos_name": selectPosition,
     "session_name": selectSession
   });
 
+  // console.log(selectEmId)
+  // console.log(selectDepartment)
+  // console.log(selectPosition)
+  // console.log(selectSession)
+
   var config = {
-    method: 'put',
-    url: 'https://tookcomsci.live/myproject1/moving',
+    method: 'post',
+    url: 'http://192.168.0.174:3000/myproject1/moving',
     headers: { 
       Authorization: "Bearer " + sessionStorage.getItem("token"),
       'Content-Type': 'application/json'
@@ -231,34 +249,65 @@ const MySwalDeleteDepart = withReactContent(Swal);
                             >ນາມສະກຸນ</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
-                            >ຕໍາແໜ່ງ</TableCell>
+                            >ພາກສ່ວນ</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ພະແນກ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຕໍາແໜ່ງ</TableCell>
                             <TableCell
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ຍ້າຍຕຳແໜ່ງ</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {/* {items
+                        {items&&
+                            items
+                              ?.filter((val) => {
+                                if (searchTerm === "") {
+                                  return val;
+                                } else if (
+                                  val.emp_ID
+                                    .toLowerCase()
+                                    .includes(searchTerm.toLowerCase()) ||
+                                  val.emp_name
+                                    .toLowerCase()
+                                    .includes(searchTerm.toLowerCase()) ||
+                                  val.emp_surname
+                                    .toLowerCase()
+                                    .includes(searchTerm.toLowerCase()) ||
+                                  val.session_name
+                                    .toLowerCase()
+                                    .includes(searchTerm.toLowerCase()) ||
+                                  val.dep_name
+                                    .toLowerCase()
+                                    .includes(searchTerm.toLowerCase()) ||
+                                  val.pos_name
+                                    .toLowerCase()
+                                    .includes(searchTerm.toLowerCase())
+                                ) {
+                                  return val;
+                                }
+                              })
                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                           .map((row, i) => {
-                            return ( */}
-                              <TableRow hover role="checkbox" tabIndex={-1}>
-                                <TableCell>{rowsPerPage * page + 1 }</TableCell>
-                                <TableCell>ລະຫັດພະນັກງານ</TableCell>
-                                <TableCell>ຮູບພະນັກງານ</TableCell>
-                                <TableCell>ຊື່</TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
+                            return (
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.emp_ID}>
+                                <TableCell>{rowsPerPage * page + 1 + i}</TableCell>
+                                <TableCell>{row.emp_ID}</TableCell>
+                                <TableCell><Avatar src={row.profilepic} /></TableCell>
+                                <TableCell>{row.emp_name}</TableCell>
+                                <TableCell>{row.emp_surname}</TableCell>
+                                <TableCell>{row.session_name}</TableCell>
+                                <TableCell>{row.dep_name}</TableCell>
+                                <TableCell>{row.pos_name}</TableCell>
                                 <TableCell >
                                   <button
                                     onClick={()=>{
                                       ModalChage();
-                                      setSelectEmId();
-
+                                      setSelectData(row);
+                                      // console.log(row)
                                     }}
                                     className="btnnn-change-pos"
                                   >
@@ -268,16 +317,16 @@ const MySwalDeleteDepart = withReactContent(Swal);
                                   </button>
                                 </TableCell>
                               </TableRow>
-                             {/* );
+                              );
                            })
-                          } */}
+                          } 
                       </TableBody>
                     </Table>
                   </TableContainer>
                   <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    // count={items.length}
+                    count={items.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
@@ -301,13 +350,19 @@ const MySwalDeleteDepart = withReactContent(Swal);
           <div className="contener-Modal">
             <p className="p-contener">
             <label className="label-input-modal-chag-pos">ລະຫັດພະນັກງານ:</label>
-              <input className="input-modal-chage-pos" placeholder="ລະຫັດພະນັກງານ" readOnly/>
+              <input className="input-modal-chage-pos" 
+                placeholder="ລະຫັດພະນັກງານ" 
+                value={selectData.emp_ID}
+                // onChange={(e) => setEID(e.target.value)}
+                type="text"
+                readOnly/>  
             </p>
             <p className="p-contener">
               <label className="label-input-modal-chag-pos">ຕຳແໜ່ງ:</label>
               <select
                 className="input-modal-chage-pos"
                 onChange={(e) => setselectPosition(e.target.value)}
+                value={selectPosition}
               >
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
@@ -325,6 +380,7 @@ const MySwalDeleteDepart = withReactContent(Swal);
               <select
                 className="input-modal-chage-pos"
                 onChange={(e) => setselectDepartment(e.target.value)}
+                value={selectDepartment}
               >
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
@@ -341,6 +397,7 @@ const MySwalDeleteDepart = withReactContent(Swal);
               <label className="label-input-modal-chag-pos">ພາກສ່ວນ:</label>
               <select
                 className="input-modal-chage-pos"
+                value={selectSession}
                 onChange={(e) => setSelectSession(e.target.value)}
               >
                 <option selected disabled>

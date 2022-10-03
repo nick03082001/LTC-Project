@@ -55,10 +55,10 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
       redirect: "follow",
     };
 
-    fetch("https://tookcomsci.live/myproject1/employee", requestOptions)
+    fetch("http://192.168.0.174:3000/myproject1/employee", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        alert(result["message"]);
+        // alert(result["message"]);
         if (result["status"] === "ok") {
           window.location.href = "/employee";
         }
@@ -73,7 +73,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
     setESurname(data.emp_surname);
     setETel(data.emp_tel);
     setImageURLs(data?.profilepic);
-    setSelectSession(data.session_ID);
+    setSelectSession(data.session_name);
     setselectDepartment(data.dep_name);
     setDistrict(data.district);
     setVillage(data.village);
@@ -83,7 +83,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
 
   React.useEffect(() => {
     axios
-      .get("https://tookcomsci.live/myproject1/provinces", {
+      .get("http://192.168.0.174:3000/myproject1/provinces", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -94,7 +94,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
       });
 
     axios
-      .get("https://tookcomsci.live/myproject1/session", {
+      .get("http://192.168.0.174:3000/myproject1/session", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -105,7 +105,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
       });
 
     axios
-      .get("https://tookcomsci.live/myproject1/department", {
+      .get("http://192.168.0.174:3000/myproject1/department", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -116,7 +116,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
       });
 
     axios
-      .get("https://tookcomsci.live/myproject1/position", {
+      .get("http://192.168.0.174:3000/myproject1/position", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -283,14 +283,14 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
               <select
                 className="sel-up-em"
                 value={selectSession}
-                onChange={(e) => setSelectSession(e.target.value)}
+                // onChange={(e) => setSelectSession(e.target.value)}
               >
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
                 </option>
                 {session_name &&
                   session_name?.map((val) => (
-                    <option key={val.session_name} value={selectSession}>
+                    <option key={val.session_name} value={val.session_name}>
                       {val.session_name}
                     </option>
                   ))}
@@ -301,7 +301,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
               <select
                 className="sel-up-em"
                 value={selectPosition}
-                onChange={(e) => setselectPosition(e.target.value)}
+                // onChange={(e) => setselectPosition(e.target.value)}
               >
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
@@ -319,7 +319,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
               <select
                 className="sel-up-em"
                 value={selectDepartment}
-                onChange={(e) => setselectDepartment(e.target.value)}
+                // onChange={(e) => setselectDepartment(e.target.value)}
               >
                 <option selected disabled>
                   ກະລຸນາເລືອກ*

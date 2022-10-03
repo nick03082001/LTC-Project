@@ -15,6 +15,14 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+const Item2 = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
+
 function Home() {
  
   return (
@@ -29,7 +37,8 @@ function Home() {
                 <Item sx={{fontSize: 'clamp(16px, 2.5vw, 22px)', 
                   color:"black", 
                   fontFamily: 'Noto Serif Lao',
-                  fontWeight: '600'}}
+                  fontWeight: '600',
+                  height:"130px"}}
                 >ຈຳນວນແບບຟອມປະເມີນ
                   <label className="numberic-home"><br />45</label>
                 </Item>
@@ -39,7 +48,8 @@ function Home() {
                 <Item sx={{fontSize: 'clamp(16px, 2.5vw, 22px)', 
                   color:"black", 
                   fontFamily: 'Noto Serif Lao',
-                  fontWeight: '600'}}
+                  fontWeight: '600',
+                  height:"130px"}}
                 >ພະນັກງານທັງໝົດ
                   <label className="numberic-home"><br />Grap</label>
                 </Item>
@@ -49,25 +59,40 @@ function Home() {
                 <Item sx={{fontSize: 'clamp(16px, 2.5vw, 22px)', 
                   color:"black", 
                   fontFamily: 'Noto Serif Lao',
-                  fontWeight: '600'}}
+                  fontWeight: '600',
+                  height:"130px"}}
                 >ຈຳນວນພະນັກງານທັງໝົດ 
                   <label className="numberic-home"><br />10255</label>
                 </Item>
-                {/* <Item sx={{fontSize: 'clamp(18px, 2.5vw, 38px)', 
-                  color:"red",}}
-                >10340</Item> */}
               </Grid>
             </Grid>
-            <Grid xs={6} textAlign='center' backgroundColor="green">
-              <span>ຈຳນວນຄົນຕອບແບບຟອມທັງໝົດ</span>
-              <Grid xs={12} textAlign='center' backgroundColor="red">
-                <span>ຈຳນວນຄົນຕອບແລ້ວ</span><br/>
-                <span>xs=4</span>
-              </Grid>
-              <Grid xs={12} textAlign='center'>
-                <span>ຈຳນວນຍັງບໍ່ຕອບ</span><br/>
-                <span>xs=4</span>
-              </Grid>
+            <Grid xs={6} textAlign='center'>
+              <div className="div-in-grid">
+                <span className="span-grid-right">ຈຳນວນຄົນຕອບແບບຟອມປະເມີນທັງໝົດ</span>
+                <Grid xs={12} textAlign='center'>
+                  <Item2 sx={{fontSize: 'clamp(16px, 2.5vw, 22px)', 
+                    color:"black", 
+                    paddingTop: "20px",
+                    paddingBottom: "60px",
+                    fontFamily: 'Noto Serif Lao',
+                    fontWeight: '600'}}
+                  >ຈຳນວນຄົນຕອບແລ້ວ 
+                    <label className="numberic-home"><br />255</label>
+                  </Item2>
+                </Grid>
+                <Grid xs={12} textAlign='center'>
+                  <Item2 sx={{fontSize: 'clamp(16px, 2.5vw, 22px)', 
+                    color:"black", 
+                    paddingTop: "20px",
+                    fontFamily: 'Noto Serif Lao',
+                    fontWeight: '600',
+                    height:"140px"}}
+                  >ຈຳນວນຍັງບໍ່ຕອບ 
+                    <label className="numberic-home"><br />55</label>
+                  </Item2>
+                </Grid>
+              </div>
+              
             </Grid>
           </Grid>
         </div>

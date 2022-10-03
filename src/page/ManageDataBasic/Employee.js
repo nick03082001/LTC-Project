@@ -71,7 +71,7 @@ function Employee() {
 
   React.useEffect(() => {
     axios
-      .get("https://tookcomsci.live/myproject1/employee", {
+      .get("http://192.168.0.174:3000/myproject1/employee", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -95,12 +95,12 @@ function Employee() {
       redirect: "follow",
     };
 
-    fetch("https://tookcomsci.live/myproject1/employee?emp_ID="+id, requestOptions)
+    fetch("http://192.168.0.174:3000/myproject1/employee?emp_ID="+id, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result["status"] === "ok") {
           axios
-            .get("https://tookcomsci.live/myproject1/employee", {
+            .get("http://192.168.0.174:3000/myproject1/employee", {
               headers: {
                 Authorization: "Bearer " + sessionStorage.getItem("token"),
               },
@@ -114,7 +114,7 @@ function Employee() {
   };
 
   const getRecord = (e) => {
-    console.log("My DATA : ", e);
+    // console.log("My DATA : ", e);
     setOpenModalUp(true);
     setSelectData(e);
   };
@@ -202,6 +202,12 @@ function Employee() {
                             >ພະແນກ</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ບ້ານ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ເມືອງ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ແຂວງ</TableCell>
                             <TableCell
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
@@ -238,7 +244,17 @@ function Employee() {
                               .includes(searchTerm.toLowerCase()) ||
                             val.dep_name
                               .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            val.village
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            val.district
+                              .toLowerCase()
+                              .includes(searchTerm.toLowerCase()) ||
+                            val.province
+                              .toLowerCase()
                               .includes(searchTerm.toLowerCase())
+                              
                           ) {
                             return val;
                           }
@@ -259,6 +275,8 @@ function Employee() {
                                 <TableCell>{row.session_name}</TableCell>
                                 <TableCell>{row.pos_name}</TableCell>
                                 <TableCell>{row.dep_name}</TableCell>
+                                <TableCell>{row.village} </TableCell>
+                                <TableCell>{row.district} </TableCell>
                                 <TableCell>{row.province} </TableCell>
                                 <TableCell >
                                   <button

@@ -50,7 +50,7 @@ function Department() {
 
   React.useEffect(() => {
     axios
-      .get("https://tookcomsci.live/myproject1/department", {
+      .get("http://192.168.0.174:3000/myproject1/department", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -74,7 +74,7 @@ function Department() {
 
     var config = {
       method: 'post',
-      url: 'https://tookcomsci.live/myproject1/department',
+      url: 'http://192.168.0.174:3000/myproject1/department',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'
@@ -107,7 +107,7 @@ function Department() {
 
     var config = {
       method: 'delete',
-      url: 'https://tookcomsci.live/myproject1/department',
+      url: 'http://192.168.0.174:3000/myproject1/department',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'
@@ -139,7 +139,7 @@ function Department() {
 
     var config = {
       method: "put",
-      url: "https://tookcomsci.live/myproject1/department",
+      url: "http://192.168.0.174:3000/myproject1/department",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         "Content-Type": "application/json",

@@ -49,12 +49,13 @@ function CreateAssessment() {
   };
 
   // ເບີີ່ງຂໍ້ມູນໃນ console
-  console.log(val,"data-")
+  console.log(val, "data-");
 
   //api ບັນທຶກຫົວຂໍ້1
 
   const [head_name, setHead_name] = useState("");
   const [title1_name1, setTitle1_name1] = useState("");
+  const [title2_name, setTitle2_name2] = useState("");
   const em = "E01";
 
   const addAssessment = (e) => {
@@ -65,7 +66,7 @@ function CreateAssessment() {
       title1_name: title1_name1,
       title2_name: val,
     });
-  
+
     var config = {
       method: "post",
       url: "http://192.168.0.193:5000/test/myproject1/header_form",
@@ -84,11 +85,7 @@ function CreateAssessment() {
     console.log("valv", val);
   };
 
-
-
   //api ບັນທຶກຫົວຂໍ້2
-  
-
 
   return (
     <div className="box-modal-create-ass">
@@ -147,8 +144,8 @@ function CreateAssessment() {
                             value={data}
                             placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
                             onChange={(e) => btnHandleChange(e, i)}
-                            onKeyPress={event => {
-                              if(event.key === 'Enter'){
+                            onKeyPress={(event) => {
+                              if (event.key === "Enter") {
                                 handleAddInp();
                                 // console.log(event)
                               }
@@ -200,8 +197,8 @@ function CreateAssessment() {
                             value={data2}
                             placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
                             onChange={(s) => btnHandleChange2(s, j)}
-                            onKeyPress={event => {
-                              if(event.key === 'Enter'){
+                            onKeyPress={(event) => {
+                              if (event.key === "Enter") {
                                 handleAddInp2();
                                 // console.log(event)
                               }
