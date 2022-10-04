@@ -56,7 +56,7 @@ const [items, setItems] = useState([]);
 
 const HistoryMovingGet = () => {
   axios
-    .get("http://192.168.0.174:3000/myproject1/moving", {
+    .get("https://www.tookcomsci.live/myproject1/moving", {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
@@ -89,6 +89,9 @@ useEffect(() => {
                     className="search-inp-change-pos-history"
                     type="text"
                     placeholder="ຄົ້ນຫາ..."
+                    onChange={(e) => {
+                      setSearchTerm(e.target.value);
+                    }}
                     ></input>
                     <FaSearch className="filt-ic-change-pos-history" />
                 </label>
@@ -170,7 +173,7 @@ useEffect(() => {
                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                           .map((row, i) => {
                             return (
-                              <TableRow hover role="checkbox" tabIndex={-1}>
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.emp_ID}>
                                 <TableCell>{rowsPerPage * page + 1 +i}</TableCell>
                                 <TableCell>{row.emp_ID}</TableCell>
                                 <TableCell>{row.emp_name}</TableCell>

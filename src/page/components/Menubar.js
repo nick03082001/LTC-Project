@@ -103,9 +103,7 @@ function Mybar() {
                         <div className="dropdown-content">
                         <a href="/report/assessment_data">ຂໍ້ມູນການປະເມີນ</a>
                         <hr className='menu-hr'/>
-                        <a href="/report/score_assessment">ຄະແນນການຕອບປະເມີນ</a>
-                        <hr className='menu-hr'/>
-                        <a href="/report/employee">ພະນັກງານອົງກອນ</a>
+                        <a href="/report/score_assessment">ການຕອບປະເມີນ</a>
                         </div>
                     </div>
                     

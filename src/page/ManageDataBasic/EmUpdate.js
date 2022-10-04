@@ -55,7 +55,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
       redirect: "follow",
     };
 
-    fetch("http://192.168.0.174:3000/myproject1/employee", requestOptions)
+    fetch("https://www.tookcomsci.live/myproject1/employee", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         // alert(result["message"]);
@@ -83,7 +83,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
 
   React.useEffect(() => {
     axios
-      .get("http://192.168.0.174:3000/myproject1/provinces", {
+      .get("https://www.tookcomsci.live/myproject1/provinces", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -94,7 +94,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
       });
 
     axios
-      .get("http://192.168.0.174:3000/myproject1/session", {
+      .get("https://www.tookcomsci.live/myproject1/session", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -105,7 +105,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
       });
 
     axios
-      .get("http://192.168.0.174:3000/myproject1/department", {
+      .get("https://www.tookcomsci.live/myproject1/department", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -116,7 +116,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
       });
 
     axios
-      .get("http://192.168.0.174:3000/myproject1/position", {
+      .get("https://www.tookcomsci.live/myproject1/position", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },

@@ -7,7 +7,7 @@ import { IoIosSave } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import axios from "axios";
 
-function CreateAssessment() {
+function UpdateAssesment() {
   // ສ້າງຫົວຂໍ້ໃຫຍ່ທີ 1
 
   const [val, setVal] = useState([]);
@@ -80,7 +80,7 @@ function CreateAssessment() {
     console.log({data})
 
     var config = {
-      method: "POST",
+      method: "PUT",
       url: "https://www.tookcomsci.live/myproject1/header_form",
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
@@ -102,7 +102,7 @@ function CreateAssessment() {
 
   };
 
-
+  
 
   return (
     <div className="box-modal-create-ass">
@@ -111,7 +111,7 @@ function CreateAssessment() {
         <div className="bg-create-ass">
           <div className="box-tag-create-ass">
             <div className="box-tag-create-ass">
-              <p className="p-man-create-ass">ສ້າງແບບປະເມີນ</p>
+              <p className="p-man-create-ass">ແກ້ໄຂແບບປະເມີນ</p>
               <div className="con-title-create-ass">
                 <div className="box-title-create-ass">
                   <IoDocumentText className="file-ic-create-ass" />
@@ -257,4 +257,4 @@ function CreateAssessment() {
   );
 }
 
-export default CreateAssessment;
+export default UpdateAssesment;
