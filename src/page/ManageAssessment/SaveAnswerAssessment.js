@@ -3,8 +3,13 @@ import "../css/SaveAnswerAssessment.css";
 import Menubar from "../components/Menubar.js";
 import { IoIosSave } from "react-icons/io";
 import axios from "axios";
+import {useLocation} from "react-router-dom"
 
 function SaveAnswerAssessment() {
+
+  const {state} = useLocation();
+  console.log("state",state);
+
 
     const [val,setVal]=useState([]);
 
@@ -16,7 +21,7 @@ function SaveAnswerAssessment() {
 
 
     const HeaderAssGet = () => {
-      axios.get("https://www.tookcomsci.live/myproject1/header_form")
+      axios.get("https://www.tookcomsci.live/myproject1/header_form_detail")
       .then((result) => {
           // console.log(result.data.form)
           setVal(result.data.form);
@@ -28,7 +33,7 @@ function SaveAnswerAssessment() {
       HeaderAssGet();
   }, []);
     
-    console.log(val.head_name)
+    // console.log("yai",val.head_name)
 
   return (
         <div className="box-save-ass">
@@ -37,7 +42,7 @@ function SaveAnswerAssessment() {
               <div className='box-tag-save-ass'>
               <div className="box-tag-save-ass">
                   <p className="p-man-save-ass">
-                    ຫົວຂໍ້ການປະເມີນ:&nbsp;{val.head_name}
+                    ຫົວຂໍ້ການປະເມີນ:&nbsp;{state.head_name}
                   </p>
                   <div className="con-save-ass">
                     <div className="box-btn-save-save-ass">
@@ -55,7 +60,7 @@ function SaveAnswerAssessment() {
                         <div className='title-1-save-ass'>
                           <div className='aabb'>
                             <label className='lbl-big-title-save-ass'>1.</label>
-                            <label className='lbl-string-big-title-save-ass'>ການພະຈົນໄພເກາະມະນຸດເງືອກ</label>
+                            <label className='lbl-string-big-title-save-ass'>{state.title1_name}</label>
                           </div>
                           <div className='box-score-1-save-ass'>
                             <label>0</label><label>1</label><label>2</label><label>3</label><label>4</label>
@@ -64,7 +69,7 @@ function SaveAnswerAssessment() {
                           </div>
                         </div>
                         <div className='title-1_1-save-ass'>
-                        <div className="box-inp-title-1_1-save-ass" key={1}>
+                        {/* <div className="box-inp-title-1_1-save-ass" key={1}>
                                 <div className='aabbddcc'>
                                   <span className='num-title-1_1-save-ass'>1.{1+1}</span>
                                   <label className='lbl-string-title-1_1-save-ass'>
@@ -106,7 +111,7 @@ function SaveAnswerAssessment() {
                                       value={10}
                                     /></label>
                                 </div>
-                        </div>
+                        </div> */}
 
 
 

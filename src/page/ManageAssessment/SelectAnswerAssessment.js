@@ -4,6 +4,7 @@ import { FaSearch, FaFileSignature } from "react-icons/fa";
 import React, { useState, useEffect } from 'react'
 import SaveAnswerAssessment from "./SaveAnswerAssessment.js";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // Mui test
 import Paper from '@mui/material/Paper';
@@ -36,6 +37,8 @@ const theme = createTheme({
 
 function SelectAnswerAssessment() {
 
+  const navigate=useNavigate();
+
   // Mui test
 
   const [page, setPage] = React.useState(0);
@@ -56,27 +59,35 @@ function SelectAnswerAssessment() {
 
 
 
+// ໂຊຂໍ້ມູນ
+
+const [searchTerm, setSearchTerm] = useState("");
+const [items, setItems] = useState([]);
+
+const HeaderAssGet = () => {
+  axios
+    .get("https://www.tookcomsci.live/myproject1/header_form", {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    })
+    .then((res) => {
+      setItems(res?.data?.form);
+    });
+}
 
 
-    
-
-  const [val,setVal]=useState([]);
-
-  const HeaderAssGet = () => {
-      axios.get("https://www.tookcomsci.live/myproject1/header_form")
-      .then((result) => {
-          // console.log(result.data.form)
-          setVal(result.data.form);
-        });
-        
-    };
-
-  useEffect(() => {
-      HeaderAssGet();
-  }, []);
+useEffect(() => {
+  HeaderAssGet()
+}, [])
 
 
-
+function AnswerAss(data){
+  navigate(
+    '/assessment/save/answer',
+     { state: data} // your data array of objects
+  )
+}
     
     // const [selectTitle, setSelectTitle] = useState("");
     // const getTitle = (e) => {
@@ -134,25 +145,26 @@ function SelectAnswerAssessment() {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {val
+                        {items
                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                           .map((row, i) => {
                             return (
-                              <TableRow hover role="checkbox" tabIndex={-1}>
-                                <TableCell>ລໍາດັບ</TableCell>
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.head_ID}>
+                                <TableCell>{(rowsPerPage*page)+1+i}</TableCell>
                                 <TableCell>{row.head_name}</TableCell>
-                                <TableCell>{row.date_create}</TableCell>
+                                <TableCell>{row.create_date}</TableCell>
                                 <TableCell>{row.head_ID}</TableCell>
                                 <TableCell >
                                   <button
                                     onClick={() => {
                                       // getTitle(row); 
-                                      alert( row.head_ID)
+                                      // alert( row.head_ID)
+                                      AnswerAss(row);
                                     }}
-                                    className="btnnn"
+                                    className="btn-answer"
                                   >
                                     <label>
-                                      <FaFileSignature className="up-em" />
+                                      <FaFileSignature className="answer-ass" />
                                     </label>
                                   </button>
                                 </TableCell>
@@ -166,7 +178,7 @@ function SelectAnswerAssessment() {
                   <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    count={val.length}
+                    count={items.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
