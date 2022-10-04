@@ -60,7 +60,7 @@ function User() {
 
   const UserGet = () => {
     axios
-      .get("http://192.168.0.174:3000/myproject1/user", {
+      .get("https://www.tookcomsci.live/myproject1/user", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -88,7 +88,7 @@ function User() {
 
     var config = {
       method: "put",
-      url: "http://192.168.0.174:3000/myproject1/user",
+      url: "https://www.tookcomsci.live/myproject1/user",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -161,7 +161,7 @@ function User() {
 
     var config = {
       method: 'delete',
-      url: 'http://192.168.0.174:3000/myproject1/user',
+      url: 'https://www.tookcomsci.live/myproject1/user',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'

@@ -49,7 +49,7 @@ function ReportScoreAss() {
 
   const ManageAssGet = () => {
     axios
-      .get("http://192.168.0.174:3000/myproject1/header_form", {
+      .get("https://www.tookcomsci.live/myproject1/header_form", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },

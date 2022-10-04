@@ -16,7 +16,7 @@ function ReportScoreAssDetial() {
 
 
     const HeaderAssGet = () => {
-      axios.get("http://192.168.0.174:3000/myproject1/header_form")
+      axios.get("https://www.tookcomsci.live/myproject1/header_form")
       .then((result) => {
           // console.log(result.data.form)
           setVal(result.data.form);
