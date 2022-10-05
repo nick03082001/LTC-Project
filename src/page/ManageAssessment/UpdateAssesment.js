@@ -117,8 +117,8 @@ function UpdateAssesment() {
     // console.log("title",val)
     const [title1, setTitle1]=useState([]);
     const [title2, setTitle2]=useState([]);
-    console.log("title",title1);
-    console.log("title",title2);
+    // console.log("title",title1);
+    // console.log("title",title2);
 
 
   const HeaderAssGet = () => {
