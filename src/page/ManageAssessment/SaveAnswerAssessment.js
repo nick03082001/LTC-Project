@@ -27,14 +27,6 @@ function SaveAnswerAssessment() {
 
 
     const HeaderAssGet = () => {
-<<<<<<< HEAD
-      axios.get("https://tookcomsci.live/test/myproject1/header_form")
-      .then((result) => {
-          // console.log(result.data.form)
-          setVal(result.data.form);
-        });
-        
-=======
       axios.get(`https://www.tookcomsci.live/myproject1/header_form_detail?header_name=${state?.head_name}`, {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
@@ -47,7 +39,6 @@ function SaveAnswerAssessment() {
       setTitle1(res?.data?.form?.title[0]?.title1_name);
       setTitle2(res?.data?.form?.title[1]?.title1_name);
     });
->>>>>>> face-detection
     };
 
   useEffect(() => {

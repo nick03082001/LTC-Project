@@ -44,7 +44,6 @@ function ManageAssessment() {
     )
   }
 
-<<<<<<< HEAD
     useEffect(() => {
         AssessmentGet();
         //DepartmentUpdate();
@@ -65,9 +64,6 @@ function ManageAssessment() {
             setItems(result);
           });
       };
-=======
-  // Mui test
->>>>>>> face-detection
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);

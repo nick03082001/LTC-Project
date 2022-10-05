@@ -30,7 +30,7 @@ z-index: 1031;
 .profilepic-box{
     /* background-color: red; */
     margin-top: 10%;
-    height: 20%;
+    height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,7 +42,7 @@ z-index: 1031;
     position: sticky;
     height: 100%;
     width: 25%;
-    margin-right: 70px;
+    margin-right: 100px;
     display: block;
     border-radius: 50%;
     /* background-color: blue; */

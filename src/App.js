@@ -45,10 +45,6 @@ function App() {
         <Route exact path="/report/score_assessment" element={<ReportScoreAss />} />
         <Route exact path="/report/ReportScoreAssDetial" element={<ReportScoreAssDetial />} />
         <Route exact path="/home" element={<Home/>} />
-<<<<<<< HEAD
-        <Route exact path="/profile" element={<Profile/>} />
-=======
->>>>>>> face-detection
         {/* </Route> */}
         
         <Route exact path="/" element={<Login />} />
