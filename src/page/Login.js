@@ -20,12 +20,8 @@ function Login() {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-<<<<<<< HEAD
-
-=======
   const [data, setData] = useState()
   // console.log("yai",data)
->>>>>>> face-detection
 
   const handSubmit = (event) => {
     event.preventDefault();
@@ -48,18 +44,15 @@ function Login() {
     fetch("https://www.tookcomsci.live/myproject1/login", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-<<<<<<< HEAD
         console.log("hhhhhhh",result?.user)
         setUserdate(result?.user);
         localStorage.setItem("userdata",JSON.stringify(result?.user))
         localStorage.setItem("password",inputs?.password)
         // console.log(result);
-=======
         // console.log(result);
         setData(result?.user);
         // console.log(result?.user);
         
->>>>>>> face-detection
         if (result?.status === "ok") {
           MySwal.fire({
             html: <i>{result?.message}</i>,

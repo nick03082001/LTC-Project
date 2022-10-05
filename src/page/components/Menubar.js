@@ -482,18 +482,6 @@ function Mybar() {
                     >
                         ຍົກເລີກ
                     </button>
-<<<<<<< HEAD
-                </div>
-
-            </Modal>
-
-
-
-        </>
-
-
-    )
-=======
                     <div className='dropdown-avatar'>
                         <button className="drop-btn-avatar">
                             <img src="avatar.png" alt="Avatar" className="Avatar"></img>
@@ -593,13 +581,10 @@ function Mybar() {
                     
                     
                     
-                </div>
-            </nav>
-        </header>
-        
-        
-      )
->>>>>>> face-detection
+                </div> 
+                </Modal>
+                </>      
+                )
 }
 
 export default Mybar
