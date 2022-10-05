@@ -63,7 +63,7 @@ export default function CreateEmployee({ closeModal }) {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/myproject1/employee", requestOptions)
+    fetch("https://tookcomsci.live/myproject1/employee", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         alert(result["message"]);
@@ -76,7 +76,7 @@ export default function CreateEmployee({ closeModal }) {
 
   React.useEffect(() => {
     axios
-      .get("http://47.250.49.41/myproject1/provinces", {
+      .get("https://tookcomsci.live/myproject1/provinces", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -86,7 +86,7 @@ export default function CreateEmployee({ closeModal }) {
       });
 
     axios
-      .get("http://47.250.49.41/myproject1/session", {
+      .get("https://tookcomsci.live/myproject1/session", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -96,7 +96,7 @@ export default function CreateEmployee({ closeModal }) {
       });
 
     axios
-      .get("http://47.250.49.41/myproject1/department", {
+      .get("https://tookcomsci.live/myproject1/department", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -106,7 +106,7 @@ export default function CreateEmployee({ closeModal }) {
       });
 
     axios
-      .get("http://47.250.49.41/myproject1/position", {
+      .get("https://tookcomsci.live/myproject1/position", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },

@@ -21,7 +21,7 @@ function Employee() {
 
   useEffect(() => {
     axios
-      .get("http://47.250.49.41/myproject1/employee", {
+      .get("https://tookcomsci.live/myproject1/employee", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -50,12 +50,12 @@ function Employee() {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/myproject1/employee?emp_ID="+id, requestOptions)
+    fetch("https://tookcomsci.live/myproject1/employee?emp_ID="+id, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result["status"] === "ok") {
           axios
-            .get("http://47.250.49.41/myproject1/employee", {
+            .get("https://tookcomsci.live/myproject1/employee", {
               headers: {
                 Authorization: "Bearer " + sessionStorage.getItem("token"),
               },
@@ -261,3 +261,4 @@ function Employee() {
 }
 
 export default Employee;
+

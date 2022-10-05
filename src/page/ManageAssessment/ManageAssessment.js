@@ -25,7 +25,7 @@ function ManageAssessment() {
           headers: myHeaders,
           redirect: "follow",
         };
-        fetch("http://47.250.49.41/myproject1/departments", requestOptions)
+        fetch("https://tookcomsci.live/myproject1/departments", requestOptions)
           .then((res) => res.json())
           .then((result) => {
             setItems(result);

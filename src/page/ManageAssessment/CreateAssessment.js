@@ -68,7 +68,7 @@ function CreateAssessment() {
   
     var config = {
       method: "post",
-      url: "http://192.168.0.193:5000/test/myproject1/header_form",
+      url: "https://tookcomsci.live/test/myproject1/header_form",
       headers: {
         "Content-Type": "application/json",
       },

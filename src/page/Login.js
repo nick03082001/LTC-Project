@@ -4,16 +4,23 @@ import withReactContent from "sweetalert2-react-content";
 import { useNavigate } from "react-router-dom";
 import { FaUser, FaLock } from "react-icons/fa";
 import "./css/Login.css";
+import Menubar from "../page/components/Menubar.js"
 
 function Login() {
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
+  const [userdata,setUserdate] = useState();
+  console.log("Yai",userdata)
+  const [openModal, setOpenModal] = useState(false);
+
   const [inputs, setInputs] = useState({});
   const handChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
   };
+
+
 
   const handSubmit = (event) => {
     event.preventDefault();
@@ -33,10 +40,14 @@ function Login() {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/myproject1/login", requestOptions)
+    fetch("https://www.tookcomsci.live/myproject1/login", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
+        console.log("hhhhhhh",result?.user)
+        setUserdate(result?.user);
+        localStorage.setItem("userdata",JSON.stringify(result?.user))
+        localStorage.setItem("password",inputs?.password)
+        // console.log(result);
         if (result?.status === "ok") {
           MySwal.fire({
             html: <i>{result?.message}</i>,
@@ -97,12 +108,14 @@ function Login() {
             ></input>
           </p>
           <p className="lbl-btn-login">
-            <button className="btn-login" type="submit">
+            <button className="btn-login" type="submit" >
               ເຂົ້າສູ່ລະບົບ
             </button>
+            {/* {openModal && <Menubar data={userdata} />} */}
           </p>
         </div>
       </form>
+  
     </div>
   );
 }

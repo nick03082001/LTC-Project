@@ -30,21 +30,24 @@ z-index: 1031;
     font-weight: bold;
 }
 .profilepic-box{
-    background-color: red;
+    /* background-color: red; */
     margin-top: 10%;
     height: 20%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    text-align: center;
+
 
 }
 .profilepic-img{
     position: sticky;
-    height: 90%;
-    width: 20%;
+    height: 100%;
+    width: 25%;
     margin-right: 70px;
     display: block;
     border-radius: 50%;
-    background-color: blue;
+    /* background-color: blue; */
     border: 10px;
     border-color: white;
 }
@@ -52,13 +55,27 @@ z-index: 1031;
 .id-em-profile-container{
     font-size: xx-large;
     font-weight: bold;
-    background-color: blue;
-    justify-content: space-around;
+    /* background-color: blue; */
     display: flex;
     flex-direction: column;
+    margin-left: -10%;
+    margin-right: 10%;
 }
 
+.change-password{
+    display: flex;
+    justify-content: center;
+    background-color: #FF3333;
+    border-radius: 5px;
+    border: none;
+    width: 100px;
+    margin: auto;
+}
 
+.change-password-text{
+    color: white;
+    cursor: pointer;
+}
 
 .profile-container{
     display: flex;
@@ -81,6 +98,13 @@ z-index: 1031;
     display: flex;
     justify-content: right;
 } */
+.container-label{
+    margin-top: 40px;
+}
+
+.profile-container{
+    margin-top: 10px;
+}
 
 .id-profile{
     min-width: max-content;
@@ -100,6 +124,273 @@ z-index: 1031;
     font-weight: 500;
     color: rgb(88, 85, 85);
 }
+
+
+
+
+
+
+
+/*change password part*/
+
+.modal-profile-changePass {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+
+border: 1px solid #ccc;
+background: #fff;
+overflow: auto;
+border-radius: 4px;
+outline: none;
+
+
+width: 40%;
+/* height: 95%; */
+}
+
+.myoverlay-changePass {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgba(0, 0, 0, 0.4);
+z-index: 1031;
+}
+
+
+.h11{
+    font-size: clamp(20px, 2.5vw, 50px);
+    padding-top: 3%;
+    padding-bottom: 3%;
+    text-align: center;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    
+}
+.line-1 {
+    height: 1px;
+    background: #C5C5C5;
+  }
+
+.closeContainer{
+    display: flex;
+    align-items: center;
+    /* justify-content:; */
+}
+
+.starRequire{
+    position: relative;
+    left: 5px;
+    color: #FF3333;
+}
+
+
+.change-old-password-text{
+    box-sizing: border-box;
+    text-align: left;
+    padding-top: 7%;
+    padding-left: 10%;
+    font-size: clamp(10px, 2.5vw, 23px);
+    font-weight: 700;
+    position: relative;
+    top: -15px;
+    margin-top: 20px;
+    margin-bottom: -10px;  
+}
+.ContainerInput-old-pwd{
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.types-old-password{
+    
+    font-size: clamp(12px, 2.5vw, 24px);
+    font-weight: 700;
+    width: 100%;
+    border: 0;
+    border-bottom: 3px solid #6A6A6A ;
+    outline: none;
+    background: #e4e0e0;
+    padding-left: 3%;
+    padding-top: 0.7%;
+    padding-bottom: 0.7%;
+}
+.type-old-password:hover{
+    border-color: #FF3333;
+}
+
+.type-old-password:focus{
+    border-color: #FF3333;
+    outline: none;
+}
+
+
+.change-new-password-text{
+    padding-top: 5%;
+    box-sizing: border-box;
+    text-align: left;
+    padding-left: 10%;
+    font-size: clamp(10px, 2.5vw, 23px);
+    font-weight: 700;
+    position: relative;
+    top: -15px;
+    margin-top: 20px;
+    margin-bottom: -10px;   
+}
+.ContainerInput-new-pwd{
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.Typenewpwd{
+    font-size: clamp(12px, 2.5vw, 24px);
+    font-weight: 700;
+    width: 100%;
+    border: 0;
+    border-bottom: 3px solid #6A6A6A ;
+    outline: none;
+    background: #e4e0e0;
+    padding-left: 3%;
+    padding-top: 0.7%;
+    padding-bottom: 0.7%;
+}
+.Typenewpwd:hover{
+    border-color: #FF3333;
+}
+
+.Typenewpwd:focus{
+    border-color: #FF3333;
+    outline: none;
+}
+
+
+
+.confirm-new-password-text{
+    box-sizing: border-box;
+    text-align: left;
+    padding-top:  3%;
+    padding-left: 10%;
+    font-size: clamp(10px, 2.5vw, 23px);
+    font-weight: 700;
+    position: relative;
+    top: -15px;
+    margin-top: 20px;
+    margin-bottom: -10px;   
+}
+.ContainerInput-confirm-pwd{
+    padding-left: 10%;
+    padding-right: 10%;
+}
+.type-confirm-password{
+    
+    font-size: clamp(12px, 2.5vw, 24px);
+    font-weight: 700;
+    width: 100%;
+    border: 0;
+    border-bottom: 3px solid #6A6A6A ;
+    outline: none;
+    background: #e4e0e0;
+    padding-top: 0.7%;
+    padding-left: 3%;
+    padding-bottom: 0.7%;
+}
+.type-confirm-password:hover{
+    border-color: #FF3333;
+}
+
+.type-confirm-password:focus{
+    border-color: #FF3333;
+    outline: none;
+}
+
+
+.descriseChgPwd{
+    font-size: clamp(12px, 2.5vw, 24px);
+    padding-left:15%;
+    padding-top: 1%;
+    color: #6A6A6A;
+}
+.descriseChgPwd1{
+    font-size: clamp(12px, 2.5vw, 24px);
+    padding-left:18%;
+    color: #6A6A6A;
+}
+
+.NewPwd{
+    padding-left: 10%;
+}
+
+.p-button-confirm-pwd{
+    text-align: center;
+    font-size: clamp(16px, 2.5vw, 28px);
+    font-weight: 700;
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 40px;
+   
+}
+.btn-save-chage-pwd{
+    font-size: clamp(14px, 2.5vw, 24px);
+    font-weight: 500;
+    padding: 5px 20px 5px 20px;
+    border-radius:10px;
+    border: 1px solid #0076FF;
+    background-color: #0076FF;
+    color: #f3f3f3;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.btn-cencle-chage-pwd{
+    font-size: clamp(14px, 2.5vw, 24px);
+    font-weight: 500;
+    padding: 5px 20px 5px 20px;
+    border-radius:10px;
+    border: 1px solid #ff3333;
+    background-color: #ff3333;
+    color: #ffffff;
+    cursor: pointer;
+    margin-left: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+/* .container-label{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+} */
+
+/* .profile-container{
+    width: 100%;
+    display: flex;
+    justify-content: right;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

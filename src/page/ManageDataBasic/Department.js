@@ -17,7 +17,7 @@ function Department() {
 
   React.useEffect(() => {
     axios
-      .get("http://47.250.49.41/myproject1/department", {
+      .get("https://tookcomsci.live/myproject1/department", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -46,7 +46,7 @@ function Department() {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/myproject1/department", requestOptions)
+    fetch("https://tookcomsci.live/myproject1/department", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         alert(result["message"]);
@@ -78,7 +78,7 @@ function Department() {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/myproject1/department", requestOptions)
+    fetch("https://tookcomsci.live/myproject1/department", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result["status"] === "ok") {
@@ -107,7 +107,7 @@ function Department() {
       redirect: "follow",
     };
 
-    fetch("http://47.250.49.41/myproject1/department", requestOptions)
+    fetch("https://tookcomsci.live/myproject1/department", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         alert(result["message"]);
