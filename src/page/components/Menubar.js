@@ -100,9 +100,9 @@ function Mybar() {
         e.preventDefault();
         if (!validMatch || !validMatchOld || !validPwd) {
             MySwalConfirm.fire({
-                title: 'Password ',
+                title: 'ກະລຸນາກວດສອບລະຫັດຜ່ານຄືນໃຫມ່ ',
                 icon: "warning",
-                confirmButtonText: "ກະລຸນາກວດສອບລະຫັດຜ່ານຄືນໃຫມ່",
+                confirmButtonText: "ຢືນຢັນ",
 
             }).then((result) => {
                 toggleModalalertpwdnotmatch()
