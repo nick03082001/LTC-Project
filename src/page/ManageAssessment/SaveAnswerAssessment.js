@@ -8,10 +8,16 @@ import {useLocation} from "react-router-dom"
 function SaveAnswerAssessment() {
 
   const {state} = useLocation();
-  console.log("state",state);
+  // console.log("state",state?.head_name);
 
 
     const [val,setVal]=useState([]);
+    // console.log("yai",val?.title[0]?.title1_name)
+    // console.log("title",val)
+    const [title1, setTitle1]=useState([]);
+    const [title2, setTitle2]=useState([]);
+    console.log("title",title1);
+    console.log("title",title2);
 
     const btnHandleChange=(onChangeValueTitleOne,i)=>{
         const inputDataTitleOne=[...val]
@@ -21,19 +27,26 @@ function SaveAnswerAssessment() {
 
 
     const HeaderAssGet = () => {
-      axios.get("https://www.tookcomsci.live/myproject1/header_form_detail")
-      .then((result) => {
-          // console.log(result.data.form)
-          setVal(result.data.form);
-        });
-        
+      axios.get(`https://www.tookcomsci.live/myproject1/header_form_detail?header_name=${state?.head_name}`, {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    })
+    .then((res) => {
+      
+      console.log({res})
+      setVal(res?.data?.form);
+      setTitle1(res?.data?.form?.title[0]?.title1_name);
+      setTitle2(res?.data?.form?.title[1]?.title1_name);
+    });
     };
 
   useEffect(() => {
-      HeaderAssGet();
-  }, []);
+
+    HeaderAssGet()
+  }, [state]);
     
-    // console.log("yai",val.head_name)
+    
 
   return (
         <div className="box-save-ass">
@@ -42,7 +55,7 @@ function SaveAnswerAssessment() {
               <div className='box-tag-save-ass'>
               <div className="box-tag-save-ass">
                   <p className="p-man-save-ass">
-                    ຫົວຂໍ້ການປະເມີນ:&nbsp;{state.head_name}
+                    ຫົວຂໍ້:&nbsp;{state.head_name}
                   </p>
                   <div className="con-save-ass">
                     <div className="box-btn-save-save-ass">
@@ -60,7 +73,9 @@ function SaveAnswerAssessment() {
                         <div className='title-1-save-ass'>
                           <div className='aabb'>
                             <label className='lbl-big-title-save-ass'>1.</label>
-                            <label className='lbl-string-big-title-save-ass'>{state.title1_name}</label>
+                            <label className='lbl-string-big-title-save-ass'>
+                              {title1}
+                              </label>
                           </div>
                           <div className='box-score-1-save-ass'>
                             <label>0</label><label>1</label><label>2</label><label>3</label><label>4</label>
@@ -116,14 +131,14 @@ function SaveAnswerAssessment() {
 
 
 
-                        {val.map((row,i)=>{
+                        {val?.title?.length >0 && val?.title[0]?.title2?.map((row,i)=>{
                           
                           return(
                             <div className="box-inp-title-1_1-save-ass" key={i}>
                                 <div className='aabbddcc'>
                                   <span className='num-title-1_1-save-ass'>1.{i+1}</span>
                                   <label className='lbl-string-title-1_1-save-ass'>
-                                  ການພະຈົນໄພເກາະມະນຸດເງືອກ{row.title2_name}
+                                  {row.title2_name}
                                   </label>
                                 </div>
                                 <div className='box-score-1_1-save-ass'>
@@ -177,7 +192,9 @@ function SaveAnswerAssessment() {
                         <div className='title-1-save-ass'>
                           <div className='aabb'>
                             <label className='lbl-big-title-save-ass'>2.</label>
-                            <label className='lbl-string-big-title-save-ass'>ການພະຈົນໄພເກາະແຫ່ງເມືອງທອງຄຳ</label>
+                            <label className='lbl-string-big-title-save-ass'>
+                              {title2}
+                              </label>
                           </div>
                           <div className='box-score-1-save-ass'>
                             <label>0</label><label>1</label><label>2</label><label>3</label><label>4</label>
@@ -186,48 +203,48 @@ function SaveAnswerAssessment() {
                           </div>
                         </div>
                         <div className='title-1_1-save-ass'>
-                        {val.map((row,j)=>{
+                        {val?.title?.length >1 && val?.title[1]?.title2?.map((row,j)=>{
                           
                           return(
                             <div className="box-inp-title-1_1-save-ass" key={j}>
                                 <div className='aabbddcc'>
                                   <span className='num-title-1_1-save-ass'>2.{j+1}</span>
                                   <label className='lbl-string-title-1_1-save-ass'>
-                                  ການພະຈົນໄພເກາະມະນຸດເງືອກ{row.title2_name}
+                                  {row?.title2_name}
                                   </label>
                                 </div>
                                 <div className='box-score-1_1-save-ass'>
-                                    <label><input className="inp-radio-score-1_1-save-ass" name={j} type="radio"
+                                    <label><input className="inp-radio-score-1_1-save-ass" name={j+1000} type="radio"
                                       value={0}
                                     /></label>
-                                    <label><input className="inp-radio-score-1_1-save-ass" name={j} type="radio"
+                                    <label><input className="inp-radio-score-1_1-save-ass" name={j+1000} type="radio"
                                       value={1}
                                     /></label>
-                                    <label><input className="inp-radio-score-1_1-save-ass" name={j} type="radio"
+                                    <label><input className="inp-radio-score-1_1-save-ass" name={j+1000} type="radio"
                                       value={2}
                                     /></label>
-                                    <label><input className="inp-radio-score-1_1-save-ass" name={j} type="radio"
+                                    <label><input className="inp-radio-score-1_1-save-ass" name={j+1000} type="radio"
                                       value={3}
                                     /></label>
-                                    <label><input className="inp-radio-score-1_1-save-ass" name={j} type="radio"
+                                    <label><input className="inp-radio-score-1_1-save-ass" name={j+1000} type="radio"
                                       value={4}
                                     /></label>
-                                    <label><input className="inp-radio-score-1_1-save-ass" name={j} type="radio"
+                                    <label><input className="inp-radio-score-1_1-save-ass" name={j+1000} type="radio"
                                       value={5}
                                     /></label>
-                                    <label><input className="inp-radio-score-1_1-save-ass" name={j} type="radio"
+                                    <label><input className="inp-radio-score-1_1-save-ass" name={j+1000} type="radio"
                                       value={6}
                                     /></label>
-                                    <label><input className="inp-radio-score-1_1-save-ass" name={j} type="radio"
+                                    <label><input className="inp-radio-score-1_1-save-ass" name={j+1000} type="radio"
                                       value={7}
                                     /></label>
-                                    <label><input className="inp-radio-score-1_1-save-ass" name={j} type="radio"
+                                    <label><input className="inp-radio-score-1_1-save-ass" name={j+1000} type="radio"
                                       value={8}
                                     /></label>
-                                    <label><input className="inp-radio-score-1_1-save-ass" name={j} type="radio"
+                                    <label><input className="inp-radio-score-1_1-save-ass" name={j+1000} type="radio"
                                       value={9}
                                     /></label>
-                                    <label><input className="inp-radio-score-1_1-save-ass" name={j} type="radio"
+                                    <label><input className="inp-radio-score-1_1-save-ass" name={j+1000} type="radio"
                                       value={10}
                                     /></label>
                                 </div>
