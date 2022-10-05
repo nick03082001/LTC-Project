@@ -80,11 +80,18 @@ function CreateAssessment() {
     console.log({data})
 
     var config = {
+<<<<<<< HEAD
+      method: "post",
+      url: "https://tookcomsci.live/test/myproject1/header_form",
+      headers: {
+        "Content-Type": "application/json",
+=======
       method: "POST",
       url: "https://www.tookcomsci.live/myproject1/header_form",
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'
+>>>>>>> face-detection
       },
       data: data,
     };

@@ -44,7 +44,30 @@ function ManageAssessment() {
     )
   }
 
+<<<<<<< HEAD
+    useEffect(() => {
+        AssessmentGet();
+        //DepartmentUpdate();
+      }, []);
+    
+      const AssessmentGet = () => {
+        var myHeaders = new Headers();
+        myHeaders.append("x-api-key", sessionStorage.getItem("token"));
+    
+        var requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow",
+        };
+        fetch("https://tookcomsci.live/myproject1/departments", requestOptions)
+          .then((res) => res.json())
+          .then((result) => {
+            setItems(result);
+          });
+      };
+=======
   // Mui test
+>>>>>>> face-detection
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
