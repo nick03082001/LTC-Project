@@ -4,6 +4,7 @@ import { FaSearch} from "react-icons/fa";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Avatar } from "@mui/material";
 
 // Mui test
 import Paper from '@mui/material/Paper';
@@ -55,7 +56,7 @@ const [items, setItems] = useState([]);
 
 const HistoryMovingGet = () => {
   axios
-    .get("https://38ac-103-43-79-200.ap.ngrok.io/myproject1/moving", {
+    .get("https://www.tookcomsci.live/myproject1/moving", {
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
       },
@@ -88,6 +89,9 @@ useEffect(() => {
                     className="search-inp-change-pos-history"
                     type="text"
                     placeholder="ຄົ້ນຫາ..."
+                    onChange={(e) => {
+                      setSearchTerm(e.target.value);
+                    }}
                     ></input>
                     <FaSearch className="filt-ic-change-pos-history" />
                 </label>
@@ -116,21 +120,30 @@ useEffect(() => {
                             >ລະຫັດພະນັກງານ</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
-                            >ຮູບພະນັກງານ</TableCell>
-                            <TableCell 
-                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ຊື່</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ນາມສະກຸນ</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
-                            >ພະແນກ</TableCell>
+                            >ພາກສ່ວນໃໝ່</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
-                            >ຕໍາແໜ່ງ</TableCell>
-                            <TableCell
+                            >ພະແນກໃໝ່</TableCell>
+                            <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຕໍາແໜ່ງໃໝ່</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ພາກສ່ວນເກົ່າ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ພະແນກເກົ່າ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຕໍາແໜ່ງເກົ່າ</TableCell>
+                            <TableCell
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold',minWidth: "90px"}}
                             >ວັນທີຍ້າຍ</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
@@ -138,19 +151,40 @@ useEffect(() => {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {/* {items
+                        {items &&
+                            items
+                              ?.filter((val) => {
+                                if (searchTerm === "") {
+                                  return val;
+                                } else if (
+                                  val.emp_ID
+                                    .toLowerCase()
+                                    .includes(searchTerm.toLowerCase()) ||
+                                  val.emp_name
+                                    .toLowerCase()
+                                    .includes(searchTerm.toLowerCase()) ||
+                                  val.emp_surname
+                                    .toLowerCase()
+                                    .includes(searchTerm.toLowerCase())
+                                ) {
+                                  return val;
+                                }
+                              })
                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                           .map((row, i) => {
-                            return ( */}
-                              <TableRow hover role="checkbox" tabIndex={-1}>
-                                <TableCell>{rowsPerPage * page + 1 }</TableCell>
-                                <TableCell>ລະຫັດພະນັກງານ</TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
+                            return (
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.emp_ID}>
+                                <TableCell>{rowsPerPage * page + 1 +i}</TableCell>
+                                <TableCell>{row.emp_ID}</TableCell>
+                                <TableCell>{row.emp_name}</TableCell>
+                                <TableCell>{row.emp_surname}</TableCell>
+                                <TableCell>{row.session_name}</TableCell>
+                                <TableCell>{row.dep_name}</TableCell>
+                                <TableCell>{row.pos_name}</TableCell>
+                                <TableCell>{row.session_name_new}</TableCell>
+                                <TableCell>{row.dep_name_new}</TableCell>
+                                <TableCell>{row.pos_name_new}</TableCell>
+                                <TableCell >{row.moving_date}</TableCell>
                                 <TableCell>
                                   <button
                                     // onClick={() => SwalUpdateDepart()}
@@ -162,16 +196,16 @@ useEffect(() => {
                                   </button>
                                 </TableCell>
                               </TableRow>
-                             {/* );
+                             );
                            })
-                          } */}
+                          } 
                       </TableBody>
                     </Table>
                   </TableContainer>
                   <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    // count={items.length}
+                    count={items.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

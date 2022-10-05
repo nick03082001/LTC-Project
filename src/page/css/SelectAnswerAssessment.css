@@ -190,8 +190,22 @@
     content: counter(Serial);
 }
 
+.btn-answer{
+    box-sizing: border-box;
+    border: 0;
+    background: no-repeat;
+    padding-top: 5px;
+}
 
+.btn-answer:hover{
+    background-color: #fadbdb;
+}
 
+.answer-ass{
+    color: #f05171;
+    font-size: 20px;
+    cursor: pointer;
+}
 
 
 

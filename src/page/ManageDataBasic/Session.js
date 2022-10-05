@@ -63,7 +63,7 @@ function Session() {
 
   const SessionGet = () => {
     axios
-      .get("http://192.168.0.174:3000/myproject1/session", {
+      .get("https://www.tookcomsci.live/myproject1/session", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -90,7 +90,7 @@ function Session() {
 
     var config = {
       method: 'post',
-      url: 'http://192.168.0.174:3000/myproject1/session',
+      url: 'https://www.tookcomsci.live/myproject1/session',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'
@@ -101,6 +101,7 @@ function Session() {
     axios(config)
         .then(function (response) {
           console.log(JSON.stringify(response.data));
+          console.log(response?.message);
           if (response.data["status"] === "ok") {
             window.location.href = "/session";
           }
@@ -129,13 +130,21 @@ function Session() {
       });
 
       if (ipAddress) {
-        Swal.fire(`ເພີ່ມຂໍ້ມູນພາກສ່ວນ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
-          () => {
-            // console.log(ipAddress);
-            CreateSession(ipAddress);
-          }
-        );
+        // console.log("jj",items[0]?.session_name)
+        if(items.some((e)=>e.session_name === ipAddress)){
+          Swal.fire(`ເພີ່ມຂໍ້ມູນພາກສ່ວນບໍ່ສຳເລັດ!`, `ຂໍ້ມູນ ${ipAddress} ມີຢູ່ແລ້ວ`, `error`)
+        }
+        else {
+          Swal.fire(`ເພີ່ມຂໍ້ມູນພາກສ່ວນ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
+            () => {
+              // console.log(ipAddress);
+              CreateSession(ipAddress);
+            }
+          );
+        }
+        
       }
+
     })();
   }
 
@@ -154,7 +163,7 @@ function Session() {
 
     var config = {
       method: "put",
-      url: "http://192.168.0.174:3000/myproject1/session",
+      url: "https://www.tookcomsci.live/myproject1/session",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -168,6 +177,7 @@ function Session() {
         if (response.data["status"] === "ok") {
           window.location.href = "/session";
         }
+
       })
       .catch(function (error) {
         console.log(error);
@@ -194,12 +204,18 @@ function Session() {
     });
 
     if (ipAddress) {
-      Swal.fire(`ແກ້ໄຂຂໍ້ມູນພາກສ່ວນໄປເປັນ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
-        () => {
-          UpdateSession(data?.session_ID,ipAddress);
-          console.log("Swal",ipAddress,data?.session_ID);
-        }
-      );
+      if(items.some((e)=>e.session_name === ipAddress)){
+        Swal.fire(`ແກ້ໄຂຂໍ້ມູນພາກສ່ວນບໍ່ສຳເລັດ!`, `ຂໍ້ມູນ ${ipAddress} ມີຢູ່ແລ້ວ`, `error`)
+      }
+      else {
+        Swal.fire(`ແກ້ໄຂຂໍ້ມູນພາກສ່ວນໄປເປັນ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
+          () => {
+            UpdateSession(data?.session_ID,ipAddress);
+            // console.log("Swal",ipAddress,data?.session_ID);
+          }
+        );
+      }
+      
     }
 }
 
@@ -217,7 +233,7 @@ function Session() {
 
     var config = {
       method: 'delete',
-      url: 'http://192.168.0.174:3000/myproject1/session',
+      url: 'https://www.tookcomsci.live/myproject1/session',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'

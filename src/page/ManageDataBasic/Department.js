@@ -50,7 +50,7 @@ function Department() {
 
   React.useEffect(() => {
     axios
-      .get("http://192.168.0.174:3000/myproject1/department", {
+      .get("https://www.tookcomsci.live/myproject1/department", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -74,7 +74,7 @@ function Department() {
 
     var config = {
       method: 'post',
-      url: 'http://192.168.0.174:3000/myproject1/department',
+      url: 'https://www.tookcomsci.live/myproject1/department',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'
@@ -107,7 +107,7 @@ function Department() {
 
     var config = {
       method: 'delete',
-      url: 'http://192.168.0.174:3000/myproject1/department',
+      url: 'https://www.tookcomsci.live/myproject1/department',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'
@@ -139,7 +139,7 @@ function Department() {
 
     var config = {
       method: "put",
-      url: "http://192.168.0.174:3000/myproject1/department",
+      url: "https://www.tookcomsci.live/myproject1/department",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -182,15 +182,23 @@ function Department() {
       });
 
       if (ipAddress) {
-        Swal.fire(`ເພີ່ມຂໍ້ມູນພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
-          () => {
-            // console.log(ipAddress);
-            CreateDepartment(ipAddress);
-          }
-        );
+        if(items.some((e)=>e.dep_name === ipAddress)){
+          Swal.fire(`ເພີ່ມຂໍ້ມູນພະແນກບໍ່ສຳເລັດ!`, `ຂໍ້ມູນ ${ipAddress} ມີຢູ່ແລ້ວ`, `error`)
+        }
+        else {
+          Swal.fire(`ເພີ່ມຂໍ້ມູນພະແນກ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
+            () => {
+              // console.log(ipAddress);
+              CreateDepartment(ipAddress);
+            }
+          );
+        }
       }
     })();
   }
+
+
+
 
   async function SwalUpdateDepart(data) {
       
@@ -212,14 +220,18 @@ function Department() {
       });
 
       if (ipAddress) {
-        Swal.fire(`ແກ້ໄຂຂໍ້ມູນພະແນກໄປເປັນ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
-          () => {
-            UpdateDepartment(ipAddress,data?.dep_ID);
-            console.log(ipAddress);
-          }
-        );
+        if(items.some((e)=>e.dep_name === ipAddress)){
+          Swal.fire(`ແກ້ໄຂຂໍ້ມູນພະແນກບໍ່ສຳເລັດ!`, `ຂໍ້ມູນ ${ipAddress} ມີຢູ່ແລ້ວ`, `error`)
+        }
+        else {
+          Swal.fire(`ແກ້ໄຂຂໍ້ມູນພະແນກໄປເປັນ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
+            () => {
+              UpdateDepartment(ipAddress,data?.dep_ID);
+              // console.log("Swal",ipAddress,data?.session_ID);
+            }
+          );
+        }
       }
-    // })();
   }
 
   const MySwalDeleteDepart = withReactContent(Swal);

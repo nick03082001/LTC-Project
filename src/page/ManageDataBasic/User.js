@@ -60,7 +60,7 @@ function User() {
 
   const UserGet = () => {
     axios
-      .get("http://192.168.0.174:3000/myproject1/user", {
+      .get("https://www.tookcomsci.live/myproject1/user", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -88,7 +88,7 @@ function User() {
 
     var config = {
       method: "put",
-      url: "http://192.168.0.174:3000/myproject1/user",
+      url: "https://www.tookcomsci.live/myproject1/user",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -150,38 +150,38 @@ function User() {
 
 
 
-  // ລົບຂໍ້ມູນພາກສ່ວນ
+  // ລົບຂໍ້ມູນຜູ້ໃຊ້
 
-  const DelUser= (id) => {
+  // const DelUser= (id) => {
 
-    var axios = require('axios');
-    var data = JSON.stringify({
-        username: id
-    });
+  //   var axios = require('axios');
+  //   var data = JSON.stringify({
+  //       username: id
+  //   });
 
-    var config = {
-      method: 'delete',
-      url: 'http://192.168.0.174:3000/myproject1/user',
-      headers: { 
-        Authorization: "Bearer " + sessionStorage.getItem("token"),
-        'Content-Type': 'application/json'
-      },
-      data : data
-    };
+  //   var config = {
+  //     method: 'delete',
+  //     url: 'https://www.tookcomsci.live/myproject1/user',
+  //     headers: { 
+  //       Authorization: "Bearer " + sessionStorage.getItem("token"),
+  //       'Content-Type': 'application/json'
+  //     },
+  //     data : data
+  //   };
 
-    axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-      if (response.data["status"] === "ok") {
-        window.location.href = "/user";
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  };
+  //   axios(config)
+  //   .then(function (response) {
+  //     console.log(JSON.stringify(response.data));
+  //     if (response.data["status"] === "ok") {
+  //       window.location.href = "/user";
+  //     }
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
+  // };
 
-  const MySwalDeleteUser = withReactContent(Swal);
+  //const MySwalDeleteUser = withReactContent(Swal);
 
   return (
     <div className="box-modal-user">
@@ -233,9 +233,6 @@ function User() {
                             <TableCell
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ແກ້ໄຂ</TableCell>
-                            <TableCell 
-                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
-                            >ລົບ</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -279,7 +276,7 @@ function User() {
                                     </label>
                                   </button>
                                 </TableCell>
-                                <TableCell >
+                                {/* <TableCell >
                                   <button
                                     className="btnnn-user"
                                     onClick={() =>
@@ -314,7 +311,7 @@ function User() {
                                       <RiDeleteBin6Line className="del-user" />
                                     </label>
                                   </button>
-                                </TableCell>
+                                </TableCell> */}
                               </TableRow>
                             );
                           })}

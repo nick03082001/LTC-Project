@@ -63,7 +63,7 @@ function Position() {
 
   const PositionGet = () => {
     axios
-      .get("http://192.168.0.174:3000/myproject1/position", {
+      .get("https://www.tookcomsci.live/myproject1/position", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -90,7 +90,7 @@ function Position() {
 
     var config = {
       method: 'post',
-      url: 'http://192.168.0.174:3000/myproject1/position',
+      url: 'https://www.tookcomsci.live/myproject1/position',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'
@@ -129,12 +129,17 @@ function Position() {
       });
 
       if (ipAddress) {
-        Swal.fire(`ເພີ່ມຂໍ້ມູນຕຳແໜ່ງ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
-          () => {
-            // console.log(ipAddress);
-            CreatePosition(ipAddress);
-          }
-        );
+        if(items.some((e)=>e.pos_name === ipAddress)){
+          Swal.fire(`ເພີ່ມຂໍ້ມູນຕໍາແໜ່ງບໍ່ສຳເລັດ!`, `ຂໍ້ມູນ ${ipAddress} ມີຢູ່ແລ້ວ`, `error`)
+        }
+        else {
+          Swal.fire(`ເພີ່ມຂໍ້ມູນຕໍາແໜ່ງ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
+            () => {
+              // console.log(ipAddress);
+              CreatePosition(ipAddress);
+            }
+          );
+        }
       }
     })();
   }
@@ -153,7 +158,7 @@ function Position() {
 
     var config = {
       method: "put",
-      url: "http://192.168.0.174:3000/myproject1/position",
+      url: "https://www.tookcomsci.live/myproject1/position",
       headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         "Content-Type": "application/json",
@@ -193,12 +198,17 @@ function Position() {
     });
 
     if (ipAddress) {
-      Swal.fire(`ແກ້ໄຂຂໍ້ມູນຕຳແໜ່ງໄປເປັນ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
-        () => {
-          UpdatePosition(ipAddress,data?.pos_ID);
-          console.log(ipAddress);
-        }
-      );
+      if(items.some((e)=>e.pos_name === ipAddress)){
+        Swal.fire(`ແກ້ໄຂຂໍ້ມູນຕໍາແໜ່ງບໍ່ສຳເລັດ!`, `ຂໍ້ມູນ ${ipAddress} ມີຢູ່ແລ້ວ`, `error`)
+      }
+      else {
+        Swal.fire(`ແກ້ໄຂຂໍ້ມູນຕໍາແໜ່ງໄປເປັນ: ${ipAddress} ສຳເລັດ!`, ``, `success`).then(
+          () => {
+            UpdatePosition(ipAddress,data?.pos_ID);
+            // console.log("Swal",ipAddress,data?.session_ID);
+          }
+        );
+      }
     }
 }
 
@@ -216,7 +226,7 @@ function Position() {
 
     var config = {
       method: 'delete',
-      url: 'http://192.168.0.174:3000/myproject1/position',
+      url: 'https://www.tookcomsci.live/myproject1/position',
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
         'Content-Type': 'application/json'
@@ -233,6 +243,7 @@ function Position() {
     })
     .catch(function (error) {
       console.log(error);
+      Swal.fire(`ຂໍ້ມູນທີ່ທ່ານເລືອກຖືກໃຊ້ງານຢູ່!`, `ບໍ່ສາມາດລົບໄດ້!`, `error`)
     });
   };
 

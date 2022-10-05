@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Menubar from "../components/Menubar.js";
 import "../css/CreateAssessment.css";
 import { FaPlusCircle } from "react-icons/fa";
 import { IoDocumentText } from "react-icons/io5";
 import { IoIosSave } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import {useLocation} from "react-router-dom"
 import axios from "axios";
 
-function CreateAssessment() {
+function UpdateAssesment() {
+
+  const {state} = useLocation();
+  console.log("state",state);
+
+
   // ສ້າງຫົວຂໍ້ໃຫຍ່ທີ 1
 
   const [val, setVal] = useState([]);
@@ -80,7 +86,7 @@ function CreateAssessment() {
     console.log({data})
 
     var config = {
-      method: "POST",
+      method: "PUT",
       url: "https://www.tookcomsci.live/myproject1/header_form",
       headers: { 
         Authorization: "Bearer " + sessionStorage.getItem("token"),
@@ -104,6 +110,39 @@ function CreateAssessment() {
 
 
 
+
+
+  const [val1,setVal1]=useState([]);
+    // console.log("yai",val?.title[0]?.title1_name)
+    // console.log("title",val)
+    const [title1, setTitle1]=useState([]);
+    const [title2, setTitle2]=useState([]);
+    console.log("title",title1);
+    console.log("title",title2);
+
+
+  const HeaderAssGet = () => {
+    axios.get(`https://www.tookcomsci.live/myproject1/header_form_detail?header_name=${state?.head_name}`, {
+    headers: {
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
+    },
+  })
+  .then((res) => {
+    
+    console.log({res})
+    setVal1(res?.data?.form);
+    setTitle1(res?.data?.form?.title[0]?.title1_name);
+    setTitle2(res?.data?.form?.title[1]?.title1_name);
+  });
+  };
+
+useEffect(() => {
+
+  HeaderAssGet()
+}, [state]);
+
+  
+
   return (
     <div className="box-modal-create-ass">
       <div className="box-create-ass">
@@ -111,7 +150,7 @@ function CreateAssessment() {
         <div className="bg-create-ass">
           <div className="box-tag-create-ass">
             <div className="box-tag-create-ass">
-              <p className="p-man-create-ass">ສ້າງແບບປະເມີນ</p>
+              <p className="p-man-create-ass">ແກ້ໄຂແບບປະເມີນ</p>
               <div className="con-title-create-ass">
                 <div className="box-title-create-ass">
                   <IoDocumentText className="file-ic-create-ass" />
@@ -119,8 +158,8 @@ function CreateAssessment() {
                     className="title-inp-create-ass"
                     type="text"
                     placeholder="ປ້ອນຊື່ແບບປະເມີນ..."
-                    value={head_name}
-                    onChange={(e) => setHead_name(e.target.value)}
+                    value={state?.head_name}
+                    // onChange={(e) => setHead_name(e.target.value)}
                   ></input>
                 </div>
                 <div className="box-btn-save-create-ass">
@@ -145,12 +184,12 @@ function CreateAssessment() {
                       className="inp-title-1-create-ass"
                       type="text"
                       placeholder="ປ້ອນຊື່ຫົວຂໍ້ໃຫຍ່ແບບປະເມີນ..."
-                      value={title1_name1}
-                      onChange={(e) => setTitle1_name1(e.target.value)}
+                      value={title1}
+                      // onChange={(e) => setTitle1_name1(e.target.value)}
                     ></input>
                   </div>
                   <div className="title-1_1-create-ass">
-                    {val.map((data, i) => {
+                  {val1?.title?.length >0 && val1?.title[0]?.title2?.map((data,i)=>{
                       return (
                         <div className="box-inp-title-1_1-create-ass" key={i}>
                           <span className="num-title-2_1-create-ass">
@@ -161,13 +200,13 @@ function CreateAssessment() {
                             type="text"
                             value={data.title2_name}
                             placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
-                            onChange={(e) => btnHandleChange(e, i)}
-                            onKeyPress={(event) => {
-                              if (event.key === "Enter") {
-                                handleAddInp();
-                                // console.log(event)
-                              }
-                            }}
+                            // onChange={(e) => btnHandleChange(e, i)}
+                            // onKeyPress={(event) => {
+                            //   if (event.key === "Enter") {
+                            //     handleAddInp();
+                            //     // console.log(event)
+                            //   }
+                            // }}
                           ></input>
                           <button
                             className="btn-delete-title-1_1-create-ass"
@@ -200,12 +239,12 @@ function CreateAssessment() {
                       className="inp-title-2-create-ass"
                       type="text"
                       placeholder="ປ້ອນຊື່ຫົວຂໍ້ໃຫຍ່ແບບປະເມີນ..."
-                      value={title2_name2}
-                      onChange={(e) => setTitle2_name2(e.target.value)}
+                      value={title2}
+                      // onChange={(e) => setTitle2_name2(e.target.value)}
                     ></input>
                   </div>
                   <div className="title-2_1-create-ass">
-                    {val2.map((data2, j) => {
+                  {val1?.title?.length >1 && val1?.title[1]?.title2?.map((data,j)=>{
                       return (
                         <div className="box-inp-title-2_1-create-ass" key={j}>
                           <span className="num-title-2_1-create-ass">
@@ -214,15 +253,15 @@ function CreateAssessment() {
                           <input
                             className="inp-title-2_1-create-ass"
                             type="text"
-                            value={data2.title2_name}
+                            value={data.title2_name}
                             placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
-                            onChange={(s) => btnHandleChange2(s, j)}
-                            onKeyPress={(event) => {
-                              if (event.key === "Enter") {
-                                handleAddInp2();
-                                // console.log(event)
-                              }
-                            }}
+                            // onChange={(s) => btnHandleChange2(s, j)}
+                            // onKeyPress={(event) => {
+                            //   if (event.key === "Enter") {
+                            //     handleAddInp2();
+                            //     // console.log(event)
+                            //   }
+                            // }}
                           ></input>
                           <button
                             className="btn-delete-title-2_1-create-ass"
@@ -257,4 +296,4 @@ function CreateAssessment() {
   );
 }
 
-export default CreateAssessment;
+export default UpdateAssesment;
