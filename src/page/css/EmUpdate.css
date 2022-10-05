@@ -1,20 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Lao:wght@100;200;300;400;500;600;700;800&display=swap');
-
-*{
-    font-family: 'Noto Serif Lao', serif;
-}
-
 
 .myModal-up-em{
     /* display: none;  */
     position: absolute; 
-    z-index: 2;
-    padding-top: 100px; 
+    z-index: 1032;
+    padding-top: 100px;
+    padding-bottom: 50px; 
     left: 0;
-    top: -100px;
+    top: -140px;
     width: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.04); 
+    background-color: rgba(0,0,0,0.4); 
 }
 
 /* Modal Content */
@@ -24,6 +19,7 @@
     padding: 0 20px 20px 20px;
     border: 1px solid #888;
     width: 80%;
+    border-radius: 4px;
 }
 
 .close-up-em {

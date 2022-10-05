@@ -10,8 +10,11 @@ overflow: auto;
 border-radius: 4px;
 outline: none;
 padding: 20px;
+<<<<<<< HEAD
 height: 80%;
 width: 30%;
+=======
+>>>>>>> face-detection
 }
 
 .myoverlay {
@@ -21,6 +24,7 @@ left: 0;
 right: 0;
 bottom: 0;
 background-color: rgba(0, 0, 0, 0.4);
+<<<<<<< HEAD
 z-index: 1031;
 }
 .close-buttom{
@@ -420,3 +424,6 @@ z-index: 1031;
         width: 80%;
         }
 }
+=======
+}
+>>>>>>> face-detection

@@ -1,0 +1,155 @@
+.box-report-score-ass{
+    margin: 0;
+    padding-top: 0;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+}
+
+.bg-report-score-ass{
+    /* position: relative; */
+    box-sizing: border-box;
+    padding-top: 67px;
+    width: 100%;
+    /* background-color: rgb(0, 255, 30); */
+}
+
+.p-man-report-score-ass{
+    text-align: center;
+    font-size: clamp(16px, 2.5vw, 26px);
+    font-weight: 900;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+.tb-report-score-ass{
+
+    /* padding-top: 30px; */
+    position: relative;
+    width: 100%;
+    /* background-color: #f05171; */
+    box-sizing: border-box;
+    padding: 40px 15px 15px 15px;
+    margin: 0;
+    
+}
+
+.con-tbl-report-score-ass {
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    border: 2px solid #ddd;
+    font-size: clamp(14px, 2.5vw, 16px);
+    font-weight: 400;
+    /* background-color: #f0e351; */
+    width: 100%;
+    padding-top: 10px;
+    box-sizing: border-box;
+}
+
+
+.btnnn-detail{
+    box-sizing: border-box;
+    border: 0;
+    background: no-repeat;
+    padding-top: 5px;
+}
+
+.btnnn-detail:hover{
+    background-color: #fadbdb;
+}
+
+.ic-detail{
+    color: #ff3333;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+
+
+/* Div contener filter */
+
+.div-control-report-score-ass{
+    box-sizing: border-box;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    /* background-color: #ff3333; */
+
+}
+
+.label-filter-report-score-ass{
+    font-size: clamp(14px, 2.5vw, 16px);
+    font-weight: 400;
+}
+
+.select-filter-report-score-ass{
+    margin-left: 5px;
+    box-sizing: border-box;
+    width: 200px;
+    border-radius: 4px;
+    padding: 2px 0px 2px 0px;
+    font-size: clamp(14px, 2.5vw, 16px);
+    font-weight: 400;
+}
+
+.search-inp-report-score-ass{
+    box-sizing: border-box;
+    width: 200px;
+    border-radius: 4px;
+    border: 1.5px solid rgba(0, 0, 0, 0.5);
+    padding: 2px 25px 2px 7px;
+    font-size: clamp(14px, 2.5vw, 16px);
+    font-weight: 400;
+    position: relative;
+    left: 23px;
+}
+
+.filter-ic-report-score-ass{
+    position: relative;
+    top: 1px;
+    /* right: 23px; */
+}
+
+
+
+
+
+
+
+
+
+@media all and (max-width: 600px){
+    
+    .select-filter-report-score-ass{
+        width: 150px;
+    }
+
+    .search-inp-report-score-ass{
+        width: 150px;
+    }
+}
+
+
+@media all and (max-width: 500px){
+    
+    .select-filter-report-score-ass{
+        width: 100px;
+    }
+
+    .search-inp-report-score-ass{
+        width: 100px;
+    }
+}
+
+@media all and (max-width: 400px){
+    
+    .select-filter-report-score-ass{
+        width: 80px;
+    }
+
+    .search-inp-report-score-ass{
+        width: 80px;
+    }
+}

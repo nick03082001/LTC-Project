@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import "../css/EmCreate.css";
 import { RiCloseLine } from "react-icons/ri";
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function CreateEmployee({ closeModal }) {
   const [emp_ID, setEID] = useState("");
@@ -54,6 +56,7 @@ export default function CreateEmployee({ closeModal }) {
     console.log(gender);
     console.log(selectProvince);
     console.log(selectSession);
+    console.log(profilepic);
     
 
     var requestOptions = {
@@ -63,10 +66,10 @@ export default function CreateEmployee({ closeModal }) {
       redirect: "follow",
     };
 
-    fetch("https://tookcomsci.live/myproject1/employee", requestOptions)
+    fetch("https://www.tookcomsci.live/myproject1/employee", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        alert(result["message"]);
+        // alert(result["message"]);
         if (result["status"] === "ok") {
           window.location.href = "/employee";
         }
@@ -76,7 +79,7 @@ export default function CreateEmployee({ closeModal }) {
 
   React.useEffect(() => {
     axios
-      .get("https://tookcomsci.live/myproject1/provinces", {
+      .get("https://www.tookcomsci.live/myproject1/provinces", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -86,7 +89,7 @@ export default function CreateEmployee({ closeModal }) {
       });
 
     axios
-      .get("https://tookcomsci.live/myproject1/session", {
+      .get("https://www.tookcomsci.live/myproject1/session", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -96,7 +99,7 @@ export default function CreateEmployee({ closeModal }) {
       });
 
     axios
-      .get("https://tookcomsci.live/myproject1/department", {
+      .get("https://www.tookcomsci.live/myproject1/department", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -106,7 +109,7 @@ export default function CreateEmployee({ closeModal }) {
       });
 
     axios
-      .get("https://tookcomsci.live/myproject1/position", {
+      .get("https://www.tookcomsci.live/myproject1/position", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -124,10 +127,20 @@ export default function CreateEmployee({ closeModal }) {
     );
     setImageURLs(newImageUrls);
   }, [profilepic]);
+  
 
   function onImageChange(e) {
     setProfilepic([e.target.files[0]]);
+    // console.log("gg",e.target.files[0]);
   }
+
+
+
+
+  // sweetalert button
+
+  const MySwalDeleteDepart = withReactContent(Swal);
+
 
   return (
     <div className="myModal-cre-em">
@@ -136,7 +149,7 @@ export default function CreateEmployee({ closeModal }) {
           <RiCloseLine />
         </button>
         <p className="header-cre-em">
-          <p className="h6-data-cre-em">ປ້ອນຂໍ້ມູນພະນັກງານ</p>
+          <span className="h6-data-cre-em">ປ້ອນຂໍ້ມູນພະນັກງານ</span>
         </p>
         <div className="div-picture-cre-em">
           <p className="p-con-lbl-picture-cre-em">
@@ -146,7 +159,6 @@ export default function CreateEmployee({ closeModal }) {
             >
               <FaUserCircle
                 className="img-click-cre-em"
-                htmlFor="id-img-click-cre-em"
               />
             </label>
           </p>
@@ -160,9 +172,13 @@ export default function CreateEmployee({ closeModal }) {
               onChange={onImageChange}
             />
             {imageURLs.map((imageSrc, idx) => (
-              <img className="img-cre-em" key={idx} src={imageSrc} alt="" />
+              <img className="img-cre-em" key={idx} src={imageSrc} alt=""/>
             ))}
+            <label className="p-click-picture-cre-em" htmlFor="id-img-click-cre-em"> 
+            {/* <label className="label-click-picture-cre-em" htmlFor="id-img-click-cre-em">O</label> */}
+          </label>
           </p>
+          
         </div>
         <div className="box-con-box-inp-cre-em">
           <div className="box-input-cre-em">
@@ -232,7 +248,11 @@ export default function CreateEmployee({ closeModal }) {
                 className="inp-cre-em"
                 onChange={(e) => setETel(e.target.value)}
                 type="tel"
-                pattern="[0-9]*{8}"
+                onKeyPress={(e)=>{
+                  if(!/[0-9]/.test(e.key))
+                  e.preventDefault();
+                }}
+                maxLength={8}
                 placeholder="ປ້ອນເບີໂທ*"
               ></input>
             </p>
@@ -326,12 +346,45 @@ export default function CreateEmployee({ closeModal }) {
             </p>
             <p className="p-btn-save-cancle-cre-em">
               <button
-                onClick={() => closeModal(false)}
+                onClick={() => 
+                  MySwalDeleteDepart.fire({
+                    title: "ຢືນຢັນການຍົກເລີກ",
+                    icon: "warning",
+                    iconColor: "red",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "ຢືນຢັນ",
+                    cancelButtonText: "ຍົກເລີກ",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      closeModal(false)
+                    }
+                  })
+                  }
                 className="btn-cancle-cre-em"
               >
                 ຍົກເລີກ
               </button>
-              <button onClick={handleSubmit} className="btn-save-cre-em">
+              <button 
+                onClick={()=>
+                  MySwalDeleteDepart.fire({
+                      title: "ຢືນຢັນການເພີ່ມຂໍ້ມູນ",
+                      icon: "warning",
+                      iconColor: "#3085d6",
+                      showCancelButton: true,
+                      confirmButtonColor: "#3085d6",
+                      cancelButtonColor: "#d33",
+                      confirmButtonText: "ຢືນຢັນ",
+                      cancelButtonText: "ຍົກເລີກ",
+                    }).then((result) => {
+                      if (result.isConfirmed){
+                        Swal.fire(`ເພີ່ມຂໍ້ມູນພະນັກງານສຳເລັດ!`, ``, `success`)
+                        handleSubmit();
+                        closeModal(false);
+                      }
+                    })} 
+                    className="btn-save-cre-em">
                 ບັນທຶກ
               </button>
             </p>

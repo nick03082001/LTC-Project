@@ -3,6 +3,8 @@ import React, { useState, useRef } from "react";
 import "../css/EmUpdate.css";
 import { RiCloseLine } from "react-icons/ri";
 import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function EmUpdate({ closeModalUp, data, isOpen }) {
   const [emp_ID, setEID] = useState(data.emp_ID);
@@ -25,8 +27,21 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
   const [selectGender, setselectGender] = useState("ຍິງ");
 
   const imageRef = useRef();
+  
 
   const handleSubmitUpdate = async (e) => {
+    // console.log(emp_ID);
+    // console.log(emp_name);
+    // console.log(emp_surname);
+    // console.log(emp_tel);
+    // console.log(selectDepartment);
+    // console.log(district);
+    // console.log(village);
+    // console.log(selectPosition);
+    // //console.log(gender);
+    // console.log(selectProvince);
+    // console.log(selectSession);
+    // console.log("jj",profilepic , profilepic?.name);
     var myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
@@ -44,7 +59,11 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
     formdata.append("gender", selectGender);
     formdata.append("prov_name", selectProvince);
     formdata.append("sessions_name", selectSession);
-    formdata.append("files", profilepic, profilepic?.name);
+    if(profilepic){
+      formdata.append("files", profilepic, profilepic?.name);
+    }
+    console.log({formdata})
+    
 
     var requestOptions = {
       method: "PUT",
@@ -53,10 +72,10 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
       redirect: "follow",
     };
 
-    fetch("https://tookcomsci.live/myproject1/employee", requestOptions)
+    fetch("https://www.tookcomsci.live/myproject1/employee", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        alert(result["message"]);
+        // alert(result["message"]);
         if (result["status"] === "ok") {
           window.location.href = "/employee";
         }
@@ -71,7 +90,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
     setESurname(data.emp_surname);
     setETel(data.emp_tel);
     setImageURLs(data?.profilepic);
-    setSelectSession(data.session_ID);
+    setSelectSession(data.session_name);
     setselectDepartment(data.dep_name);
     setDistrict(data.district);
     setVillage(data.village);
@@ -81,7 +100,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
 
   React.useEffect(() => {
     axios
-      .get("https://tookcomsci.live/myproject1/provinces", {
+      .get("https://www.tookcomsci.live/myproject1/provinces", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -92,7 +111,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
       });
 
     axios
-      .get("https://tookcomsci.live/myproject1/session", {
+      .get("https://www.tookcomsci.live/myproject1/session", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -103,7 +122,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
       });
 
     axios
-      .get("https://tookcomsci.live/myproject1/department", {
+      .get("https://www.tookcomsci.live/myproject1/department", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -114,7 +133,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
       });
 
     axios
-      .get("https://tookcomsci.live/myproject1/position", {
+      .get("https://www.tookcomsci.live/myproject1/position", {
         headers: {
           Authorization: "Bearer " + sessionStorage.getItem("token"),
         },
@@ -137,10 +156,19 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
   // }, [profilepic]);
 
   function onImageChangeUp(e) {
-    // console.log(e.target.files)
+    
     setProfilepic(e.target.files[0])
     setImageURLs(URL.createObjectURL(e.target.files[0]));
+    console.log(e.target.files)
+    console.log(imageURLs)
   }
+
+  
+  // sweetalert button
+
+  const MySwalDeleteDepart = withReactContent(Swal);
+
+
   return (
     <div
       className="myModal-up-em"
@@ -260,7 +288,12 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
                 type="tel"
                 value={emp_tel}
                 onChange={(e) => setETel(e.target.value)}
-                pattern="[0-9]*{8}"
+                // pattern="[0-9]*{8}"
+                onKeyPress={(e)=>{
+                  if(!/[0-9]/.test(e.key))
+                  e.preventDefault();
+                }}
+                maxLength={8}
                 placeholder="ປ້ອນເບີໂທ*"
               ></input>
             </p>
@@ -269,7 +302,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
               <select
                 className="sel-up-em"
                 value={selectSession}
-                onChange={(e) => setSelectSession(e.target.value)}
+                // onChange={(e) => setSelectSession(e.target.value)}
               >
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
@@ -287,7 +320,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
               <select
                 className="sel-up-em"
                 value={selectPosition}
-                onChange={(e) => setselectPosition(e.target.value)}
+                // onChange={(e) => setselectPosition(e.target.value)}
               >
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
@@ -305,7 +338,7 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
               <select
                 className="sel-up-em"
                 value={selectDepartment}
-                onChange={(e) => setselectDepartment(e.target.value)}
+                // onChange={(e) => setselectDepartment(e.target.value)}
               >
                 <option selected disabled>
                   ກະລຸນາເລືອກ*
@@ -358,12 +391,45 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
             </p>
             <p className="p-btn-save-cancle-up-em">
               <button
-                onClick={() => closeModalUp(false)}
+                onClick={() => 
+                  MySwalDeleteDepart.fire({
+                    title: "ຢືນຢັນການຍົກເລີກ",
+                    icon: "warning",
+                    iconColor: "red",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "ຢືນຢັນ",
+                    cancelButtonText: "ຍົກເລີກ",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      closeModalUp(false)
+                    }
+                  })
+                  }
                 className="btn-cancle-up-em"
               >
                 ຍົກເລີກ
               </button>
-              <button onClick={handleSubmitUpdate} className="btn-save-up-em">
+              <button 
+                onClick={()=>
+                  MySwalDeleteDepart.fire({
+                      title: "ຢືນຢັນການແກ້ໄຂຂໍ້ມູນ",
+                      icon: "warning",
+                      iconColor: "#3085d6",
+                      showCancelButton: true,
+                      confirmButtonColor: "#3085d6",
+                      cancelButtonColor: "#d33",
+                      confirmButtonText: "ຢືນຢັນ",
+                      cancelButtonText: "ຍົກເລີກ",
+                    }).then((result) => {
+                      if (result.isConfirmed){
+                        Swal.fire(`ແກ້ໄຂຂໍ້ມູນພະນັກງານສຳເລັດ!`, ``, `success`)
+                        handleSubmitUpdate();
+                        closeModalUp(false);
+                      }
+                    })}
+                className="btn-save-up-em">
                 ບັນທຶກ
               </button>
             </p>

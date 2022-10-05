@@ -1,16 +1,50 @@
 import "../css/ManageAssessment.css";
 import Menubar from "../components/Menubar.js";
-import { FaSearch, FaPlusCircle } from "react-icons/fa";
+import { FaSearch, FaPlusCircle, FaPencilAlt } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Swal from 'sweetalert2';
-import  { useState, useEffect } from "react";
 import withReactContent from 'sweetalert2-react-content';
+
+// Mui test
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
+
+
+const theme = createTheme({
+  typography: {
+    allVariants: {
+      fontFamily: 'Noto Serif Lao',
+      textTransform: 'none',
+      fontSize: 'clamp(14px, 2.5vw, 16px)',
+      fontWeight: '400',
+    },
+  },
+});
+
+
+
 
 function ManageAssessment() {
 
-    const [items, setItems] = useState([]);
+  const navigate=useNavigate();
+  function UpdateAss(data){
+    navigate(
+      '/assessment/update',
+       { state: data} // your data array of objects
+    )
+  }
 
+<<<<<<< HEAD
     useEffect(() => {
         AssessmentGet();
         //DepartmentUpdate();
@@ -31,7 +65,81 @@ function ManageAssessment() {
             setItems(result);
           });
       };
+=======
+  // Mui test
+>>>>>>> face-detection
 
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  
+
+
+// ໂຊຂໍ້ມູນ
+
+const [searchTerm, setSearchTerm] = useState("");
+const [items, setItems] = useState([]);
+
+const ManageAssGet = () => {
+  axios
+    .get("https://www.tookcomsci.live/myproject1/header_form", {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem("token"),
+      },
+    })
+    .then((res) => {
+      setItems(res?.data?.form);
+    });
+}
+
+
+useEffect(() => {
+  ManageAssGet()
+}, [])
+
+
+//ລົບຂໍ້ມູນແບບປະເມີນ
+
+const DelAssessment = (id) => {
+
+  var axios = require('axios');
+  var data = JSON.stringify({
+    head_ID: id
+  });
+
+  var config = {
+    method: 'delete',
+    url: 'https://www.tookcomsci.live/myproject1/header_form',
+    headers: { 
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+
+  axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+    if (response.data["status"] === "ok") {
+      window.location.href = "/assessment/manage";
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+};
+
+
+//ແກ້ໄຂ້ແບບປະເມີນ
 
   const MySwalDeletePosition = withReactContent(Swal);
     
@@ -74,23 +182,56 @@ function ManageAssessment() {
                     </button>
                     </a>
                 </p>
-                <div className='box-tbl-manage-ass'>
-                    <table className="tbl-manage-ass">
-                    <thead>
-                        <tr>
-                            <th>ລໍາດັບ</th>
-                            <th>ຊື່ແບບປະເມີນ</th>
-                            <th>ວັນທີສ້າງ</th>
-                            <th>ລົບ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td className="tbl-row-no-manage-ass"></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                            <button
+                <div>
+                <ThemeProvider theme={theme}>
+                <Paper sx={{ width: '100%', }}>
+                  <TableContainer sx={{ maxHeight: 440 }}>
+                    <Table stickyHeader aria-label="sticky table">
+                      <TableHead sx={{backgroundColor: "#51b3f0"}}>
+                        <TableRow sx={{backgroundColor: "#51b3f0"}}>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລໍາດັບ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ຊື່ແບບປະເມີນ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ວັນທີສ້າງ</TableCell>
+                            <TableCell
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ແກ້ໄຂ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ລົບ</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {items
+                          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                          .map((row, i) => {
+                            return (
+                              <TableRow hover role="checkbox" tabIndex={-1} key={row.head_ID}>
+                                 <TableCell>{(rowsPerPage*page)+1+i}</TableCell>
+                                <TableCell>{row.head_name}</TableCell>
+                                <TableCell>{row.create_date}</TableCell>
+                                <TableCell >
+                                  <button
+                                    onClick={() => {
+                                      // setSelectDepartment(row)
+                                      // SwalUpdateSession(row)
+                                      // console.log(row)
+                                      UpdateAss(row);
+                                    }}
+                                    className="btnnn-Session"
+                                  >
+                                    <label>
+                                      <FaPencilAlt className="up-Session" />
+                                    </label>
+                                  </button>
+                                </TableCell>
+                                <TableCell >
+                                <button
                                 className="btnnn-manage-ass"
                                 onClick={() => 
                                   MySwalDeletePosition.fire({
@@ -109,12 +250,12 @@ function ManageAssessment() {
                                         'ລົບຂໍ້ມູນສຳເລັດ!',
                                         'ທ່ານໄດ້ລົບຂໍ້ມູນແບບປະເມີນສຳເລັດແລ້ວ.',
                                         'success'
-                                      ) //.then(() => { DelDepartment(row.dep_name) })
+                                      ) .then(() => { DelAssessment(row.head_ID) })
                                     }
                                     else {
                                       Swal.fire(
                                         'ລົບຂໍ້ມູນບໍ່ສຳເລັດ!',
-                                        'ທ່ານໄດ້ລົບຂໍ້ມູນແບບປະເມີນບໍ່ສຳເລັດແລ້ວ.',
+                                        'ທ່ານໄດ້ລົບຂໍ້ມູນແບບປະເມີນບໍ່ສຳເລັດ.',
                                         'error'
                                       )
                                     }
@@ -125,11 +266,26 @@ function ManageAssessment() {
                                 <RiDeleteBin6Line className="del-position" />
                                 </label>
                             </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>
+                                </TableCell>
+                              </TableRow>
+                             );
+                           })
+                          } 
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                  <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={items.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                  />
+                </Paper>
+                </ThemeProvider>
+              </div>
                 </div>
             </div>
             </div>
