@@ -40,9 +40,9 @@ function Mybar() {
                         <div className="dropdown-content">
                         <a href="/employee">ຈັດການຂໍ້ມູນພະນັກງານ</a>
                         <hr className='menu-hr'/>
-                        <a href="/session">ຈັດການຂໍ້ມູນພາກສ່ວນ</a>
-                        <hr className='menu-hr'/>
                         <a href="/department">ຈັດການຂໍ້ມູນພະແນກ</a>
+                        <hr className='menu-hr'/>
+                        <a href="/session">ຈັດການຂໍ້ມູນພາກສ່ວນ</a>
                         <hr className='menu-hr'/>
                         <a href="/Position">ຈັດການຂໍ້ມູນຕຳແໜ່ງ</a>
                         <hr className='menu-hr'/>

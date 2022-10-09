@@ -57,15 +57,6 @@ function Employee() {
   const handleChangeSerial = (event, newserial) => {
     setSerial(newserial);
   };
-
-
-
-  
-
-
-
-
-
   const [searchTerm, setSearchTerm] = useState("");
   const [items, setItems] = useState([]);
 
@@ -195,34 +186,25 @@ function Employee() {
                             >ຮູບພະນັກງານ</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
-                            >ເພດ</TableCell>
-                            <TableCell 
-                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ຊື່</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ນາມສະກຸນ</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ເພດ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ເບີໂທ</TableCell>
+                            <TableCell 
+                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
+                            >ພະແນກ</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ພາກສ່ວນ</TableCell>
                             <TableCell 
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ຕໍາແໜ່ງ</TableCell>
-                            <TableCell 
-                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
-                            >ພະແນກ</TableCell>
-                            <TableCell 
-                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
-                            >ບ້ານ</TableCell>
-                            <TableCell 
-                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
-                            >ເມືອງ</TableCell>
-                            <TableCell 
-                              sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
-                            >ແຂວງ</TableCell>
                             <TableCell
                               sx={{backgroundColor: "#51b3f0",fontWeight: 'bold'}}
                             >ແກ້ໄຂ</TableCell>
@@ -261,15 +243,6 @@ function Employee() {
                               .includes(searchTerm.toLowerCase()) ||
                             val.dep_name
                               .toLowerCase()
-                              .includes(searchTerm.toLowerCase()) ||
-                            val.village
-                              .toLowerCase()
-                              .includes(searchTerm.toLowerCase()) ||
-                            val.district
-                              .toLowerCase()
-                              .includes(searchTerm.toLowerCase()) ||
-                            val.province
-                              .toLowerCase()
                               .includes(searchTerm.toLowerCase())
                               
                           ) {
@@ -285,16 +258,13 @@ function Employee() {
                                 <TableCell>
                                   <Avatar src={row.profilepic} />
                                 </TableCell>
-                                <TableCell>{row.gender}</TableCell>
                                 <TableCell>{row.emp_name}</TableCell>
                                 <TableCell>{row.emp_surname}</TableCell>
+                                <TableCell>{row.gender}</TableCell>
                                 <TableCell>{row.emp_tel}</TableCell>
+                                <TableCell>{row.dep_name}</TableCell>
                                 <TableCell>{row.session_name}</TableCell>
                                 <TableCell>{row.pos_name}</TableCell>
-                                <TableCell>{row.dep_name}</TableCell>
-                                <TableCell>{row.village} </TableCell>
-                                <TableCell>{row.district} </TableCell>
-                                <TableCell>{row.province} </TableCell>
                                 <TableCell >
                                   <button
                                     onClick={

@@ -250,6 +250,7 @@ function Session() {
     })
     .catch(function (error) {
       console.log(error);
+      Swal.fire(`ຂໍ້ມູນທີ່ທ່ານເລືອກຖືກໃຊ້ງານຢູ່!`, `ບໍ່ສາມາດລົບໄດ້!`, `error`)
     });
   };
 

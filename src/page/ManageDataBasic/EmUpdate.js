@@ -27,7 +27,6 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
   const [selectGender, setselectGender] = useState("ຍິງ");
 
   const imageRef = useRef();
-  
 
   const handleSubmitUpdate = async (e) => {
     // console.log(emp_ID);
@@ -59,11 +58,10 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
     formdata.append("gender", selectGender);
     formdata.append("prov_name", selectProvince);
     formdata.append("sessions_name", selectSession);
-    if(profilepic){
+    if (profilepic) {
       formdata.append("files", profilepic, profilepic?.name);
     }
-    console.log({formdata})
-    
+    console.log({ formdata });
 
     var requestOptions = {
       method: "PUT",
@@ -156,18 +154,15 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
   // }, [profilepic]);
 
   function onImageChangeUp(e) {
-    
-    setProfilepic(e.target.files[0])
+    setProfilepic(e.target.files[0]);
     setImageURLs(URL.createObjectURL(e.target.files[0]));
-    console.log(e.target.files)
-    console.log(imageURLs)
+    console.log(e.target.files);
+    console.log(imageURLs);
   }
 
-  
   // sweetalert button
 
   const MySwalDeleteDepart = withReactContent(Swal);
-
 
   return (
     <div
@@ -289,9 +284,8 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
                 value={emp_tel}
                 onChange={(e) => setETel(e.target.value)}
                 // pattern="[0-9]*{8}"
-                onKeyPress={(e)=>{
-                  if(!/[0-9]/.test(e.key))
-                  e.preventDefault();
+                onKeyPress={(e) => {
+                  if (!/[0-9]/.test(e.key)) e.preventDefault();
                 }}
                 maxLength={8}
                 placeholder="ປ້ອນເບີໂທ*"
@@ -391,7 +385,30 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
             </p>
             <p className="p-btn-save-cancle-up-em">
               <button
-                onClick={() => 
+                onClick={() =>
+                  MySwalDeleteDepart.fire({
+                    title: "ຢືນຢັນການແກ້ໄຂຂໍ້ມູນ",
+                    icon: "warning",
+                    iconColor: "#3085d6",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "ຢືນຢັນ",
+                    cancelButtonText: "ຍົກເລີກ",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      Swal.fire(`ແກ້ໄຂຂໍ້ມູນພະນັກງານສຳເລັດ!`, ``, `success`);
+                      handleSubmitUpdate();
+                      closeModalUp(false);
+                    }
+                  })
+                }
+                className="btn-cancle-up-em"
+              >
+                ບັນທຶກ
+              </button>
+              <button
+                onClick={() =>
                   MySwalDeleteDepart.fire({
                     title: "ຢືນຢັນການຍົກເລີກ",
                     icon: "warning",
@@ -403,34 +420,13 @@ export default function EmUpdate({ closeModalUp, data, isOpen }) {
                     cancelButtonText: "ຍົກເລີກ",
                   }).then((result) => {
                     if (result.isConfirmed) {
-                      closeModalUp(false)
+                      closeModalUp(false);
                     }
                   })
-                  }
-                className="btn-cancle-up-em"
+                }
+                className="btn-save-up-em"
               >
                 ຍົກເລີກ
-              </button>
-              <button 
-                onClick={()=>
-                  MySwalDeleteDepart.fire({
-                      title: "ຢືນຢັນການແກ້ໄຂຂໍ້ມູນ",
-                      icon: "warning",
-                      iconColor: "#3085d6",
-                      showCancelButton: true,
-                      confirmButtonColor: "#3085d6",
-                      cancelButtonColor: "#d33",
-                      confirmButtonText: "ຢືນຢັນ",
-                      cancelButtonText: "ຍົກເລີກ",
-                    }).then((result) => {
-                      if (result.isConfirmed){
-                        Swal.fire(`ແກ້ໄຂຂໍ້ມູນພະນັກງານສຳເລັດ!`, ``, `success`)
-                        handleSubmitUpdate();
-                        closeModalUp(false);
-                      }
-                    })}
-                className="btn-save-up-em">
-                ບັນທຶກ
               </button>
             </p>
           </div>

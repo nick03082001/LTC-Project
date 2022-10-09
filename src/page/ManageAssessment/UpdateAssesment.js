@@ -1,30 +1,60 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Menubar from "../components/Menubar.js";
 import "../css/CreateAssessment.css";
 import { FaPlusCircle } from "react-icons/fa";
 import { IoDocumentText } from "react-icons/io5";
 import { IoIosSave } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import {useLocation} from "react-router-dom"
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 function UpdateAssesment() {
+  const { state } = useLocation();
+  // console.log("state", state);
 
-  const {state} = useLocation();
-  console.log("state",state);
+  const [nameAss, setNameAss] = useState([]);
+  const [val, setVal] = useState([]);
+  const [val2, setVal2] = useState([]);
+  const [title1, setTitle1] = useState([]);
+  const [title2, setTitle2] = useState([]);
+  
+  // console.log("nameAss",nameAss);
+  // console.log("title",title2);
 
+  const HeaderAssGet = () => {
+    axios
+      .get(
+        `https://www.tookcomsci.live/myproject1/header_form_detail?header_name=${state?.head_name}`,
+        {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem("token"),
+          },
+        }
+      )
+      .then((res) => {
+        // console.log({ res });
+        setNameAss(res?.data?.form?.head_name);
+        setVal(res?.data?.form?.title[0]?.title2);
+        setVal2(res?.data?.form?.title[1]?.title2);
+        setTitle1(res?.data?.form?.title[0]?.title1_name);
+        setTitle2(res?.data?.form?.title[1]?.title1_name);
+      });
+  };
+
+  useEffect(() => {
+    HeaderAssGet();
+  }, [state]);
 
   // ສ້າງຫົວຂໍ້ໃຫຍ່ທີ 1
 
-  const [val, setVal] = useState([]);
   const handleAddInp = () => {
     const addInput = [...val, []];
     setVal(addInput);
   };
 
   const btnHandleChange = (onChangeValueTitleOne, i) => {
-    const inputDataTitleOne = val;
-    inputDataTitleOne[i] = {title2_name:onChangeValueTitleOne.target.value}
+    const inputDataTitleOne = [...val];
+    inputDataTitleOne[i] = { title2_name: onChangeValueTitleOne.target.value };
     setVal(inputDataTitleOne);
   };
 
@@ -36,7 +66,6 @@ function UpdateAssesment() {
 
   // ສ້າງຫົວຂໍ້ໃຫຍ່ທີ 2
 
-  const [val2, setVal2] = useState([]);
   const handleAddInp2 = () => {
     const addInput2 = [...val2, []];
     setVal2(addInput2);
@@ -44,7 +73,7 @@ function UpdateAssesment() {
 
   const btnHandleChange2 = (onChangeValueTitleTwo, j) => {
     const inputDataTitleTwo = [...val2];
-    inputDataTitleTwo[j] = {title2_name:onChangeValueTitleTwo.target.value}
+    inputDataTitleTwo[j] = { title2_name: onChangeValueTitleTwo.target.value };
     setVal2(inputDataTitleTwo);
   };
 
@@ -54,43 +83,47 @@ function UpdateAssesment() {
     setVal2(deleteInput2);
   };
 
-  // ເບີີ່ງຂໍ້ມູນໃນ console
-  console.log(val, "data-");
+
+
+
 
   //api ບັນທຶກຫົວຂໍ້1
 
-  const [head_name, setHead_name] = useState("");
-  const [title1_name1, setTitle1_name1] = useState("");
-  const [title2_name2, setTitle2_name2] = useState("");
-  const em = "E01";
-
   const addAssessment = (e) => {
+    // console.log(nameAss)
+    // console.log(title1)
+    // console.log(val)
+    // console.log(title2)
+    // console.log(val2)
+    console.log(state?.head_ID)
 
     var axios = require("axios");
     var data = {
-      head_name: head_name,
+      head_ID: state?.head_ID,
+      head_name: nameAss,
       emp_ID: "E01",
       title1: [
         {
-          title1_name: title1_name1,
+          title1_name: title1,
+          title1_score: 60,
           title2: val
         },
         {
-          title1_name: title2_name2,
+          title1_name: title2,
+          title1_score: 40,
           title2: val2
-        }
+        },
       ],
     };
 
-
-    console.log({data})
+    // console.log({ data });
 
     var config = {
       method: "PUT",
       url: "https://www.tookcomsci.live/myproject1/header_form",
-      headers: { 
+      headers: {
         Authorization: "Bearer " + sessionStorage.getItem("token"),
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
       data: data,
     };
@@ -105,43 +138,7 @@ function UpdateAssesment() {
       .catch(function (error) {
         console.log(error);
       });
-
   };
-
-
-
-
-
-  const [val1,setVal1]=useState([]);
-    // console.log("yai",val?.title[0]?.title1_name)
-    // console.log("title",val)
-    const [title1, setTitle1]=useState([]);
-    const [title2, setTitle2]=useState([]);
-    console.log("title",title1);
-    console.log("title",title2);
-
-
-  const HeaderAssGet = () => {
-    axios.get(`https://www.tookcomsci.live/myproject1/header_form_detail?header_name=${state?.head_name}`, {
-    headers: {
-      Authorization: "Bearer " + sessionStorage.getItem("token"),
-    },
-  })
-  .then((res) => {
-    
-    console.log({res})
-    setVal1(res?.data?.form);
-    setTitle1(res?.data?.form?.title[0]?.title1_name);
-    setTitle2(res?.data?.form?.title[1]?.title1_name);
-  });
-  };
-
-useEffect(() => {
-
-  HeaderAssGet()
-}, [state]);
-
-  
 
   return (
     <div className="box-modal-create-ass">
@@ -158,8 +155,8 @@ useEffect(() => {
                     className="title-inp-create-ass"
                     type="text"
                     placeholder="ປ້ອນຊື່ແບບປະເມີນ..."
-                    value={state?.head_name}
-                    // onChange={(e) => setHead_name(e.target.value)}
+                    value={nameAss}
+                    onChange={(e) => setNameAss(e.target.value)}
                   ></input>
                 </div>
                 <div className="box-btn-save-create-ass">
@@ -185,38 +182,39 @@ useEffect(() => {
                       type="text"
                       placeholder="ປ້ອນຊື່ຫົວຂໍ້ໃຫຍ່ແບບປະເມີນ..."
                       value={title1}
-                      // onChange={(e) => setTitle1_name1(e.target.value)}
+                      onChange={(e) => setTitle1(e.target.value)}
                     ></input>
                   </div>
                   <div className="title-1_1-create-ass">
-                  {val1?.title?.length >0 && val1?.title[0]?.title2?.map((data,i)=>{
-                      return (
-                        <div className="box-inp-title-1_1-create-ass" key={i}>
-                          <span className="num-title-2_1-create-ass">
-                            1.{i + 1}{" "}
-                          </span>
-                          <input
-                            className="inp-title-1_1-create-ass"
-                            type="text"
-                            value={data.title2_name}
-                            placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
-                            // onChange={(e) => btnHandleChange(e, i)}
-                            // onKeyPress={(event) => {
-                            //   if (event.key === "Enter") {
-                            //     handleAddInp();
-                            //     // console.log(event)
-                            //   }
-                            // }}
-                          ></input>
-                          <button
-                            className="btn-delete-title-1_1-create-ass"
-                            onClick={() => handleDeleteInp(i)}
-                          >
-                            <RiDeleteBin6Line className="icon-delete-title-1_1-create-ass" />
-                          </button>
-                        </div>
-                      );
-                    })}
+                    {val &&
+                      val.map((data, i) => {
+                        return (
+                          <div className="box-inp-title-1_1-create-ass" key={i}>
+                            <span className="num-title-2_1-create-ass">
+                              1.{i + 1}{" "}
+                            </span>
+                            <input
+                              className="inp-title-1_1-create-ass"
+                              type="text"
+                              value={data.title2_name}
+                              placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
+                              onChange={(e) => btnHandleChange(e, i)}
+                              onKeyPress={(event) => {
+                                if (event.key === "Enter") {
+                                  handleAddInp();
+                                  // console.log(event)
+                                }
+                              }}
+                            ></input>
+                            <button
+                              className="btn-delete-title-1_1-create-ass"
+                              onClick={() => handleDeleteInp(i)}
+                            >
+                              <RiDeleteBin6Line className="icon-delete-title-1_1-create-ass" />
+                            </button>
+                          </div>
+                        );
+                      })}
                     <div className="box-btn-plus-title-create-ass">
                       <button
                         className="btn-plus-title-create-ass"
@@ -240,38 +238,39 @@ useEffect(() => {
                       type="text"
                       placeholder="ປ້ອນຊື່ຫົວຂໍ້ໃຫຍ່ແບບປະເມີນ..."
                       value={title2}
-                      // onChange={(e) => setTitle2_name2(e.target.value)}
+                      onChange={(e) => setTitle2(e.target.value)}
                     ></input>
                   </div>
                   <div className="title-2_1-create-ass">
-                  {val1?.title?.length >1 && val1?.title[1]?.title2?.map((data,j)=>{
-                      return (
-                        <div className="box-inp-title-2_1-create-ass" key={j}>
-                          <span className="num-title-2_1-create-ass">
-                            2.{j + 1}{" "}
-                          </span>
-                          <input
-                            className="inp-title-2_1-create-ass"
-                            type="text"
-                            value={data.title2_name}
-                            placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
-                            // onChange={(s) => btnHandleChange2(s, j)}
-                            // onKeyPress={(event) => {
-                            //   if (event.key === "Enter") {
-                            //     handleAddInp2();
-                            //     // console.log(event)
-                            //   }
-                            // }}
-                          ></input>
-                          <button
-                            className="btn-delete-title-2_1-create-ass"
-                            onClick={() => handleDeleteInp2(j)}
-                          >
-                            <RiDeleteBin6Line className="icon-delete-title-2_1-create-ass" />
-                          </button>
-                        </div>
-                      );
-                    })}
+                    {val2 &&
+                      val2.map((data, j) => {
+                        return (
+                          <div className="box-inp-title-2_1-create-ass" key={j}>
+                            <span className="num-title-2_1-create-ass">
+                              2.{j + 1}{" "}
+                            </span>
+                            <input
+                              className="inp-title-2_1-create-ass"
+                              type="text"
+                              value={data.title2_name}
+                              placeholder="ປ້ອນຊື່ຫົວຂໍ້ຍ່ອຍແບບປະເມີນ"
+                              onChange={(s) => btnHandleChange2(s, j)}
+                              onKeyPress={(event) => {
+                                if (event.key === "Enter") {
+                                  handleAddInp2();
+                                  // console.log(event)
+                                }
+                              }}
+                            ></input>
+                            <button
+                              className="btn-delete-title-2_1-create-ass"
+                              onClick={() => handleDeleteInp2(j)}
+                            >
+                              <RiDeleteBin6Line className="icon-delete-title-2_1-create-ass" />
+                            </button>
+                          </div>
+                        );
+                      })}
                     <div className="box-btn-plus-title-create-ass">
                       <button
                         className="btn-plus-title-create-ass"

@@ -57,7 +57,6 @@ export default function CreateEmployee({ closeModal }) {
     console.log(selectProvince);
     console.log(selectSession);
     console.log(profilepic);
-    
 
     var requestOptions = {
       method: "POST",
@@ -127,20 +126,15 @@ export default function CreateEmployee({ closeModal }) {
     );
     setImageURLs(newImageUrls);
   }, [profilepic]);
-  
 
   function onImageChange(e) {
     setProfilepic([e.target.files[0]]);
     // console.log("gg",e.target.files[0]);
   }
 
-
-
-
   // sweetalert button
 
   const MySwalDeleteDepart = withReactContent(Swal);
-
 
   return (
     <div className="myModal-cre-em">
@@ -157,9 +151,7 @@ export default function CreateEmployee({ closeModal }) {
               className="lbl-img-click-cre-em"
               htmlFor="id-img-click-cre-em"
             >
-              <FaUserCircle
-                className="img-click-cre-em"
-              />
+              <FaUserCircle className="img-click-cre-em" />
             </label>
           </p>
           <p className="p-con-picture-cre-em">
@@ -172,13 +164,15 @@ export default function CreateEmployee({ closeModal }) {
               onChange={onImageChange}
             />
             {imageURLs.map((imageSrc, idx) => (
-              <img className="img-cre-em" key={idx} src={imageSrc} alt=""/>
+              <img className="img-cre-em" key={idx} src={imageSrc} alt="" />
             ))}
-            <label className="p-click-picture-cre-em" htmlFor="id-img-click-cre-em"> 
-            {/* <label className="label-click-picture-cre-em" htmlFor="id-img-click-cre-em">O</label> */}
-          </label>
+            <label
+              className="p-click-picture-cre-em"
+              htmlFor="id-img-click-cre-em"
+            >
+              {/* <label className="label-click-picture-cre-em" htmlFor="id-img-click-cre-em">O</label> */}
+            </label>
           </p>
-          
         </div>
         <div className="box-con-box-inp-cre-em">
           <div className="box-input-cre-em">
@@ -248,13 +242,29 @@ export default function CreateEmployee({ closeModal }) {
                 className="inp-cre-em"
                 onChange={(e) => setETel(e.target.value)}
                 type="tel"
-                onKeyPress={(e)=>{
-                  if(!/[0-9]/.test(e.key))
-                  e.preventDefault();
+                onKeyPress={(e) => {
+                  if (!/[0-9]/.test(e.key)) e.preventDefault();
                 }}
                 maxLength={8}
                 placeholder="ປ້ອນເບີໂທ*"
               ></input>
+            </p>
+            <p className="pppp-cre-em">
+              <label className="lbl-head-cre-em">ພະແນກ:</label>
+              <select
+                className="sel-cre-em"
+                onChange={(e) => setselectDepartment(e.target.value)}
+              >
+                <option selected disabled>
+                  ກະລຸນາເລືອກ*
+                </option>
+                {dep_name &&
+                  dep_name?.map((val) => (
+                    <option key={val.dep_name} value={val.dep_name}>
+                      {val.dep_name}
+                    </option>
+                  ))}
+              </select>
             </p>
             <p className="pppp-cre-em">
               {/* {session_name} */}
@@ -288,23 +298,6 @@ export default function CreateEmployee({ closeModal }) {
                   pos_name?.map((val) => (
                     <option key={val.pos_name} value={val.pos_name}>
                       {val.pos_name}
-                    </option>
-                  ))}
-              </select>
-            </p>
-            <p className="pppp-cre-em">
-              <label className="lbl-head-cre-em">ພະແນກ:</label>
-              <select
-                className="sel-cre-em"
-                onChange={(e) => setselectDepartment(e.target.value)}
-              >
-                <option selected disabled>
-                  ກະລຸນາເລືອກ*
-                </option>
-                {dep_name &&
-                  dep_name?.map((val) => (
-                    <option key={val.dep_name} value={val.dep_name}>
-                      {val.dep_name}
                     </option>
                   ))}
               </select>
@@ -346,7 +339,30 @@ export default function CreateEmployee({ closeModal }) {
             </p>
             <p className="p-btn-save-cancle-cre-em">
               <button
-                onClick={() => 
+                onClick={() =>
+                  MySwalDeleteDepart.fire({
+                    title: "ຢືນຢັນການເພີ່ມຂໍ້ມູນ",
+                    icon: "warning",
+                    iconColor: "#3085d6",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "ຢືນຢັນ",
+                    cancelButtonText: "ຍົກເລີກ",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      Swal.fire(`ເພີ່ມຂໍ້ມູນພະນັກງານສຳເລັດ!`, ``, `success`);
+                      handleSubmit();
+                      closeModal(false);
+                    }
+                  })
+                }
+                className="btn-cancle-cre-em"
+              >
+                ບັນທຶກ
+              </button>
+              <button
+                onClick={() =>
                   MySwalDeleteDepart.fire({
                     title: "ຢືນຢັນການຍົກເລີກ",
                     icon: "warning",
@@ -358,34 +374,13 @@ export default function CreateEmployee({ closeModal }) {
                     cancelButtonText: "ຍົກເລີກ",
                   }).then((result) => {
                     if (result.isConfirmed) {
-                      closeModal(false)
+                      closeModal(false);
                     }
                   })
-                  }
-                className="btn-cancle-cre-em"
+                }
+                className="btn-save-cre-em"
               >
                 ຍົກເລີກ
-              </button>
-              <button 
-                onClick={()=>
-                  MySwalDeleteDepart.fire({
-                      title: "ຢືນຢັນການເພີ່ມຂໍ້ມູນ",
-                      icon: "warning",
-                      iconColor: "#3085d6",
-                      showCancelButton: true,
-                      confirmButtonColor: "#3085d6",
-                      cancelButtonColor: "#d33",
-                      confirmButtonText: "ຢືນຢັນ",
-                      cancelButtonText: "ຍົກເລີກ",
-                    }).then((result) => {
-                      if (result.isConfirmed){
-                        Swal.fire(`ເພີ່ມຂໍ້ມູນພະນັກງານສຳເລັດ!`, ``, `success`)
-                        handleSubmit();
-                        closeModal(false);
-                      }
-                    })} 
-                    className="btn-save-cre-em">
-                ບັນທຶກ
               </button>
             </p>
           </div>

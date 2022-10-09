@@ -114,6 +114,13 @@
     /* width: 100%; */
 }
 
+
+/* .title-1-save-ass{
+    background-color: #FF3333;
+    display: flex;
+    justify-content: space-between;
+} */
+
 .lbl-big-title-save-ass{
     /* background-color: #cca0a9; */
     padding: 5px 0px 0px 5px;
@@ -139,11 +146,7 @@
     justify-content: space-around;
 }
 
-.title-1-save-ass{
-    /* background-color: #FF3333; */
-    display: flex;
-    justify-content: space-between;
-}
+
 
 
 

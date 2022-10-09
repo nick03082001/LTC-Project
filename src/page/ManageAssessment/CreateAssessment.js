@@ -67,10 +67,12 @@ function CreateAssessment() {
       title1: [
         {
           title1_name: title1_name1,
+          title1_score: 60,
           title2: val
         },
         {
           title1_name: title2_name2,
+          title1_score: 40,
           title2: val2
         }
       ],
@@ -97,7 +99,7 @@ function CreateAssessment() {
         }
       })
       .catch(function (error) {
-        console.log(error);
+        //console.log(error);
       });
 
   };
