@@ -6,6 +6,7 @@ import { IoDocumentText } from "react-icons/io5";
 import { IoIosSave } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 function CreateAssessment() {
   // ສ້າງຫົວຂໍ້ໃຫຍ່ທີ 1
@@ -94,9 +95,11 @@ function CreateAssessment() {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        if (response.data["status"] === "ok") {
-          window.location.href = "/assessment/manage";
-        }
+        Swal.fire(`ເພີ່ມຂໍ້ມູນແບບປະເມີນສຳເລັດ`, ``, `success`).then(()=>{
+          if (response.data["status"] === "ok") {
+            window.location.href = "/assessment/manage";
+          }
+      })
       })
       .catch(function (error) {
         //console.log(error);

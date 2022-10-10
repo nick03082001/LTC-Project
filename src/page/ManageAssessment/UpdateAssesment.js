@@ -7,6 +7,7 @@ import { IoIosSave } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 function UpdateAssesment() {
   const { state } = useLocation();
@@ -116,7 +117,7 @@ function UpdateAssesment() {
       ],
     };
 
-    // console.log({ data });
+    console.log({ data });
 
     var config = {
       method: "PUT",
@@ -131,9 +132,12 @@ function UpdateAssesment() {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
-        if (response.data["status"] === "ok") {
-          window.location.href = "/assessment/manage";
-        }
+        Swal.fire(`ແກ້ໄຂຂໍ້ມູນແບບປະເມີນສຳເລັດ`, ``, `success`).then(()=>{
+          if (response.data["status"] === "ok") {
+            window.location.href = "/assessment/manage";
+          }
+      })
+        
       })
       .catch(function (error) {
         console.log(error);
