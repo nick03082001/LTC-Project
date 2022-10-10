@@ -354,8 +354,9 @@ export default function CreateEmployee({ closeModal }) {
                     showCancelButton: true,
                     confirmButtonColor: "#3085d6",
                     cancelButtonColor: "#d33",
-                    confirmButtonText: "ຢືນຢັນ",
                     cancelButtonText: "ຍົກເລີກ",
+                    confirmButtonText: "ຢືນຢັນ",
+                   
                   }).then((result) => {
                     if (result.isConfirmed) {
                       closeModal(false)
@@ -375,8 +376,9 @@ export default function CreateEmployee({ closeModal }) {
                       showCancelButton: true,
                       confirmButtonColor: "#3085d6",
                       cancelButtonColor: "#d33",
-                      confirmButtonText: "ຢືນຢັນ",
                       cancelButtonText: "ຍົກເລີກ",
+                      confirmButtonText: "ຢືນຢັນ",
+                     
                     }).then((result) => {
                       if (result.isConfirmed){
                         Swal.fire(`ເພີ່ມຂໍ້ມູນພະນັກງານສຳເລັດ!`, ``, `success`)
